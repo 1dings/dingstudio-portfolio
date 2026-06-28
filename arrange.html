@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DINGSTUDIO — 排序</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Schibsted+Grotesk:wght@0,400;0,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f5f3ee; --panel:#fff; --line:#ddd8cd; --ink:#16140f; --dim:#6c665d;
+      --mono:"IBM Plex Mono",monospace; --body:"Schibsted Grotesk",system-ui,sans-serif; --disp:"Bricolage Grotesque",serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--ink);font-family:var(--body);padding:0 0 120px}
+    .bar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px clamp(16px,4vw,40px)}
+    .bar h1{font-family:var(--disp);font-weight:800;font-size:1.1rem;margin-right:auto}
+    a.link{font-size:.85rem;color:var(--dim);text-decoration:underline}
+    button{font-family:var(--body);font-weight:500;font-size:.9rem;border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;cursor:pointer}
+    button.ghost{background:transparent;color:var(--ink)}
+    button.save{background:#1f7a4d;border-color:#1f7a4d}
+    .wrap{max-width:1500px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+    .tip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:20px 0;font-size:.9rem;color:var(--dim)}
+    h2.sec{font-family:var(--disp);font-weight:800;font-size:1.4rem;margin:34px 0 4px}
+    .sub{font-size:.8rem;color:var(--dim);font-family:var(--mono);letter-spacing:.1em;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
+    .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:grab;transition:transform .12s,box-shadow .12s}
+    .tile:active{cursor:grabbing}
+    .tile.dragging{opacity:.35}
+    .tile.over{outline:3px solid #1f7a4d;outline-offset:-1px}
+    .tile .frame{aspect-ratio:16/9;background:#0001;position:relative}
+    .tile .frame img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+    .tile .pos{position:absolute;top:6px;left:6px;background:#000a;color:#fff;font-family:var(--mono);font-size:.66rem;
+      padding:2px 7px;border-radius:20px}
+    .tile .info{padding:9px 10px 11px}
+    .tile .name{font-size:.82rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.1em}
+    .tile .rc{margin-top:5px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+    .empty{padding:40px;color:var(--dim);text-align:center}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:13px 22px;border-radius:10px;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:90vw}
+    .toast.show{opacity:1}
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <h1>排序</h1>
+    <a class="link" href="admin.html">✏️ 去編輯版（改字/credit）</a>
+    <input type="file" id="fileIn" accept="application/json" style="display:none">
+    <button class="ghost" id="loadBtn">載入 films.json</button>
+    <button class="save" id="saveBtn">⬇ 儲存排序（下載 films.json）</button>
+  </div>
+
+  <div class="wrap">
+    <div class="tip">用滑鼠<b>拖一格放去另一格上面</b>就會換位。一個 screen 睇晒成版，排好撳右上角綠色掣下載。FILMOGRAPHY 同 EVENT 各自排。</div>
+    <div id="board"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="arrange.js"></script>
+</body>
+</html>

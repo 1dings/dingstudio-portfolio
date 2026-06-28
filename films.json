@@ -3,56 +3,105 @@
     "slug": "wellcome-victoria-road",
     "title": "Wellcome惠康 Victoria Road",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "ySOKjUEf6p4",
-    "credits": []
+    "role": "Editor / Assistant Director",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor / Assistant Director",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "wellcome-victoria-road-cutdown1",
-    "title": "Wellcome Victoria Road -Cutdown1",
+    "title": "Wellcome Victoria Road -Cutdown",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "tS__RA6Ulis",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor / Assistant Director",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "jollibee-brand-reels",
     "title": "Jollibee — Brand Reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "4TJCABHBP6c",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "DP",
+        "name": "Sam Tam"
+      },
+      {
+        "role": "Editor",
+        "name": "Lau Kit, Christina"
+      }
+    ]
   },
   {
     "slug": "glycel-yoga-reels",
     "title": "Glycel yoga - reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "BLbHFCLcx6E",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "cx-vintage-snapshot",
     "title": "CX vintage snapshot",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "PZfq6zudKLY",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "cathay-pacific-why-business-class",
-    "title": "Cathay Pacific — Why Business Class?",
+    "title": "CX Why Business Class?",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "8q6FwY-qFh4",
+    "role": "Editor",
     "credits": [
       {
-        "role": "Client",
-        "name": "Cathay Pacific"
+        "role": "Director",
+        "name": "Lau Kit"
       },
       {
-        "role": "Production",
-        "name": "DINGSTUDIO"
+        "role": "Editor",
+        "name": "Christina"
       }
     ]
   },
@@ -60,64 +109,189 @@
     "slug": "cx-business-class-so-sleek",
     "title": "CX Business class so sleek",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "qpqgZmRF5Vo",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "cx-icymi",
     "title": "CX ICYMI",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "OGqLaQbeaP4",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "glycel-x-coffee-reels",
     "title": "Glycel X Coffee - reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "29MrhWEHio4",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "proven-women-reels",
     "title": "Proven women - reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "fhFTxgHcyIY",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "return-x-brian-reels",
     "title": "Return X Brian - reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "3n0xUzpL548",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Dir / DP",
+        "name": "Chris Leung@lsn_1012 @actacreation"
+      },
+      {
+        "role": "Cam Assist",
+        "name": "Ramsey @ramsey.akh"
+      },
+      {
+        "role": "Gaffer",
+        "name": "Chris Lam@chrislam_foto"
+      },
+      {
+        "role": "Sound Recordist",
+        "name": "Amy Chan @chanamytk"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dings424 @dingsfafa"
+      }
+    ]
   },
   {
     "slug": "bosch-online-film",
-    "title": "Bosch — Online Film",
+    "title": "Bosch 洗衣機 — Online Video",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "7EYgUfE0Ens",
-    "credits": []
-  },
-  {
-    "slug": "serrini-x-kotex-reels",
-    "title": "Serrini x Kotex - reels",
-    "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "wXR7srPiIks",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Laukit @find.laukit"
+      },
+      {
+        "role": "Producer",
+        "name": "Vivian Wong @vivianwongwwh"
+      },
+      {
+        "role": "AD & Edit",
+        "name": "Christina @dings424 @dingsfafa"
+      },
+      {
+        "role": "DP",
+        "name": "Sam Tam@sam.t_fotoncine"
+      },
+      {
+        "role": "Gaffer",
+        "name": "llc @llllllllll_c"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Roy Wong"
+      },
+      {
+        "role": "",
+        "name": "@roywong95"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "Jason Ho@jasonhch"
+      },
+      {
+        "role": "Best Boy",
+        "name": "Eric Wong@thewonggrip"
+      },
+      {
+        "role": "Sound",
+        "name": "Louis Lui@Lou_is_lui"
+      },
+      {
+        "role": "Production team",
+        "name": ""
+      },
+      {
+        "role": "",
+        "name": "Anson Ng @madudeanson"
+      },
+      {
+        "role": "",
+        "name": "Gomeh @gomehmeh"
+      },
+      {
+        "role": "Art director",
+        "name": "mossmoshi @mossmoshiii"
+      },
+      {
+        "role": "Art team",
+        "name": "taooo"
+      },
+      {
+        "role": "",
+        "name": "Connie Chow @thisishongnai"
+      },
+      {
+        "role": "",
+        "name": "Blue Lam @blu_am_graphy_"
+      },
+      {
+        "role": "Styling",
+        "name": "mossmoshi @mossmoshiii"
+      },
+      {
+        "role": "Styling assistant",
+        "name": "Chan Wing Shuen @bread_shuen"
+      },
+      {
+        "role": "Makeup & hair",
+        "name": "tsz sin @tszsin__"
+      },
+      {
+        "role": "Talent",
+        "name": "Traya @atti_and_traya"
+      }
+    ]
   },
   {
     "slug": "wellcome-g-o-d-cny-campaign",
     "title": "Wellcome × G.O.D — CNY Campaign",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "co8mu2YaCfY",
+    "role": "Editor",
     "credits": [
       {
         "role": "Client",
@@ -133,144 +307,314 @@
     "slug": "x-g-o-d-cny-campaign-b",
     "title": "惠康x G.O.D CNY campaign B (麻雀)",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "5em-XwFkKL4",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "mcdonalds",
     "title": "McDonald's — 人氣著數套餐",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "9ocfjYIGPE4",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "christies-century-sale",
     "title": "Christie's — Century Sale",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "BN5k2Y7l-3A",
-    "credits": []
-  },
-  {
-    "slug": "xwallet-video-3-online-reels",
-    "title": "Xwallet video 3 - online reels",
-    "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "3rHd_Xamg0I",
-    "credits": []
-  },
-  {
-    "slug": "xwallet-video-2-online-reels",
-    "title": "Xwallet video 2 - online reels",
-    "category": "COMMERCIAL",
-    "role": "Editor",
-    "youtube": "puYV9uMm_9o",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Producer",
+        "name": "Vivian"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      },
+      {
+        "role": "Online/CG ",
+        "name": "Nicolas, 海川"
+      }
+    ]
   },
   {
     "slug": "xwallet-video-1-online-reels",
     "title": "Xwallet video 1 - online reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "qO_lo09t80k",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "hsbc-cny-reels",
     "title": "HSBC CNY 麻雀 - reels",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "2gMprEjuWsY",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "cx-aria-suite",
     "title": "CX aria suite",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "QcF1iOx7tjc",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "lee-kum-kee-hotpot",
     "title": "Lee Kum Kee — Hotpot",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "q0478QtA488",
-    "credits": []
-  },
-  {
-    "slug": "stanley-mirror-reels",
-    "title": "Stanley (Mirror) - reels",
-    "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "GXVpL37QIQQ",
-    "credits": []
+    "credits": [
+      {
+        "role": "Agency",
+        "name": "@grandmother_digital"
+      },
+      {
+        "role": "Production",
+        "name": "@thepropsdepthk"
+      },
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find"
+      },
+      {
+        "role": "Producer",
+        "name": "Imen"
+      },
+      {
+        "role": "Director of Photography",
+        "name": "Ho Shun @hoshun.dariuz"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Kuen Chung @fy0741"
+      },
+      {
+        "role": "Assistant Camera",
+        "name": "Kaiyo Cheng @kaiyocheng Season Chan @cseasun"
+      },
+      {
+        "role": "Gaffer",
+        "name": "llc @llllllllll_c"
+      },
+      {
+        "role": "Spark",
+        "name": "Roy @roywong95"
+      },
+      {
+        "role": "PA",
+        "name": "Kenny"
+      },
+      {
+        "role": "Food Stylist",
+        "name": "@thepropsdepthk"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dingsfafa"
+      },
+      {
+        "role": "VFX",
+        "name": "Roy @roydominiccheung"
+      },
+      {
+        "role": "Colourist",
+        "name": "Chung Chow @chungchow1945"
+      },
+      {
+        "role": "Photographer",
+        "name": "@_wonghocheung"
+      },
+      {
+        "role": "Assistant",
+        "name": "@jasonckli"
+      }
+    ]
   },
   {
     "slug": "hsbc-hkfc",
     "title": "HSBC × HKFC",
-    "category": "COMMERCIAL",
-    "role": "Editor",
+    "category": "EVENT",
     "youtube": "UcyXPtXjobk",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "disney-hk-tourism-board",
     "title": "Disney × HK Tourism Board",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "vqe-ZKi6eGY",
+    "role": "Editor",
     "credits": []
   },
   {
     "slug": "hsbc-x-kingsman-bar-event-reels",
     "title": "HSBC x Kingsman bar - event reels",
-    "category": "COMMERCIAL",
-    "role": "Editor",
+    "category": "EVENT",
     "youtube": "xWCehZT7e4s",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Dir",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dingsfafa"
+      },
+      {
+        "role": "online editor",
+        "name": "海川 @roydominiccheung"
+      }
+    ]
   },
   {
     "slug": "hsbceasyinvest-250702-video01-long-ver",
     "title": "HSBCEasyInvest 250702 video01 long ver",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "XPNhLVDh90Q",
-    "credits": []
+    "role": "Offline Editor",
+    "credits": [
+      {
+        "role": "Post Production House ",
+        "name": "Module Studio"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbceasyinvest-ep2",
     "title": "HSBCEasyInvest EP2",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "slw9nRUZblk",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Post Production House ",
+        "name": "Module Studio"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "bank-of-china-branding-film",
     "title": "Bank of China — Branding Film",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "f6F8OzCvlL4",
-    "credits": []
-  },
-  {
-    "slug": "hkrc-dina-official-mv",
-    "title": "HKRC — 'Dina' (Official MV)",
-    "category": "MUSIC VIDEO",
-    "role": "Editor",
-    "youtube": "hm9NfjVhLoE",
+    "role": "Assistant Director",
     "credits": [
       {
         "role": "Director",
+        "name": "Yu Kwan"
+      },
+      {
+        "role": "Producer",
+        "name": "Ng Yan Ki"
+      },
+      {
+        "role": "DOP",
+        "name": "Sam Chan"
+      },
+      {
+        "role": "Assistant Director",
+        "name": "Christina Tsang"
+      }
+    ]
+  },
+  {
+    "slug": "hkrc-dina-official-mv",
+    "title": "Hong Kong Red Cross Hospital School 《沿途有你》 MV",
+    "category": "MUSIC VIDEO",
+    "youtube": "hm9NfjVhLoE",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Yu Kwan, Christina Tsang"
+      },
+      {
+        "role": "Starring",
+        "name": "Sean Wong, Alice Yu"
+      },
+      {
+        "role": "Cast",
+        "name": "Eianna Leung, Xu Kei Fung Oscar, Philbert Lee, Lam Hazel Shangyan"
+      },
+      {
+        "role": "Producer",
+        "name": "Ricky Chan"
+      },
+      {
+        "role": "Director of Photography",
+        "name": "Chris Leung"
+      },
+      {
+        "role": "Focus Puller ",
+        "name": "Tony Tsang"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "Gavin Lee"
+      },
+      {
+        "role": "Gaffer ",
+        "name": "Ken Mok"
+      },
+      {
+        "role": "Best Boy ",
+        "name": "Dicky"
+      },
+      {
+        "role": "Art Director ",
+        "name": "Freya Cheung"
+      },
+      {
+        "role": "Art Assistant ",
+        "name": "Isabella Leung ,Ng Tin Lok, Takako Chan,Sing Sing, Eric Chan, Jana Pang"
+      },
+      {
+        "role": "Makeup & Hair",
+        "name": "Tiffany Ting"
+      },
+      {
+        "role": "Production Assistant ",
+        "name": "Yvonne Han, Karsten Chan, Rain Cheng"
+      },
+      {
+        "role": "Editor",
         "name": "Christina Tsang"
       },
       {
-        "role": "Production",
-        "name": "DINGSTUDIO"
+        "role": "Colourist",
+        "name": "Sam Tam"
+      },
+      {
+        "role": "Sound Designer ",
+        "name": "To Kwan Ho"
+      },
+      {
+        "role": "Still Photographer",
+        "name": "Leo Yuen"
+      },
+      {
+        "role": "Title Designer",
+        "name": "Sharon Chow"
       }
     ]
   },
@@ -278,168 +622,279 @@
     "slug": "regent-hotel-x-rey",
     "title": "Regent Hotel x Rey",
     "category": "COMMERCIAL",
-    "role": "Editor",
     "youtube": "uNex0NUyIzk",
-    "credits": []
-  },
-  {
-    "slug": "world-class-2026-top-4-reveal",
-    "title": "World Class 2026 — Top 4 Reveal",
-    "category": "EVENT",
     "role": "Editor",
-    "youtube": "GkkTRO3Fp9c",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "world-class-2026-challenge-2-same-day-edit",
     "title": "World Class 2026 -Challenge 2 -same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "ko5Q9aYhmEs",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "DP",
+        "name": "HoShun"
+      },
+      {
+        "role": "Cam Assistant",
+        "name": "Carlos"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "world-class-2026-challenge-1-same-day-edit",
     "title": "World Class 2026 -Challenge 1 -same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "HtGzs497JKQ",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "DP",
+        "name": "HoShun"
+      },
+      {
+        "role": "Cam Assistant ",
+        "name": "Carlos"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "standard-chartered-liverpool-fc-event-highlight",
     "title": "Standard Chartered × Liverpool FC — Event Highlight",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "oFv8OOTWt24",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "promise-event",
     "title": "邦民 Promise event",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "Xh1NZUqUt74",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbc-ifc-branch-same-day-edit",
     "title": "HSBC ifc branch- same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "ZSJRYmSNTWk",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbc-wealth-series-howard-online-video",
     "title": "HSBC wealth series: Howard - online video",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "sDv1JK7WYv4",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hkfa-x-lofficiel",
     "title": "HKFA x L'Officiel",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "oZx5xWCCeAM",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Producer",
+        "name": "Kiu @kiuqqq"
+      },
+      {
+        "role": "Photographer",
+        "name": "@lavonnli @cathyc._.c"
+      },
+      {
+        "role": "Videographer",
+        "name": "Faith @faith.ma, HoShun @hoshun.dariuz"
+      },
+      {
+        "role": "Video Editor",
+        "name": "Christina @dings424 @dingsfafa"
+      }
+    ]
   },
   {
     "slug": "hsbc-gis-same-day-edit",
     "title": "HSBC GIS-same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "3KcfX0CH6xQ",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbc-hmb40-same-day-edit",
     "title": "HSBC HMB40-same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "nvJmUDDebiU",
-    "credits": []
-  },
-  {
-    "slug": "gerald-charles-event",
-    "title": "gerald charles -event",
-    "category": "EVENT",
     "role": "Editor",
-    "youtube": "4LDind_X0pQ",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbc-liv-golf-event-film",
     "title": "HSBC × LIV Golf — Event Film",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "dTr58j6z1DY",
-    "credits": []
-  },
-  {
-    "slug": "hsbc-x-liv-golf-916-reels",
-    "title": "HSBC x liv golf 916 - reels",
-    "category": "EVENT",
     "role": "Editor",
-    "youtube": "1hWnCB9oYNY",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "ap-fam-day-event",
     "title": "AP fam day event",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "FNLePkaLLTg",
-    "credits": []
-  },
-  {
-    "slug": "scb-firework-3-branch-event",
-    "title": "SCB firework 3 branch event",
-    "category": "EVENT",
     "role": "Editor",
-    "youtube": "U1GIdnoJGI8",
-    "credits": []
-  },
-  {
-    "slug": "hsbc-hkex-event",
-    "title": "HSBC × HKEX — Event",
-    "category": "EVENT",
-    "role": "Editor",
-    "youtube": "ZrnJrQGi7Zs",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "cathay-pacific-m",
     "title": "Cathay Pacific × M+",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "YEU_zhMlwhg",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "scb-gmo-event-same-day-edit",
     "title": "SCB GMO event -same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "j7ej-1oZYMk",
-    "credits": []
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "hsbc-x-2-event-same-day-edit",
     "title": "HSBC x 新聞女王2 event - same day edit",
     "category": "EVENT",
-    "role": "Editor",
     "youtube": "5iuAwE1RN3s",
-    "credits": []
-  },
-  {
-    "slug": "na",
-    "title": "NA",
-    "category": "EVENT",
     "role": "Editor",
-    "youtube": "4yBSaPbBWd0",
-    "credits": []
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
   }
 ]

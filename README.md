@@ -3,6 +3,14 @@
 A clean, static film portfolio: filmography (grouped by category) + contact.
 No build step, no framework. You maintain it by editing **one file: `films.json`**.
 
+## Reorder films visually (arrange.html)
+
+Open **`arrange.html`** — it shows all films as a thumbnail grid (like the site),
+split into FILMOGRAPHY and EVENT. Drag a tile onto another to swap positions, so you
+can arrange the whole set at a glance. Click **儲存排序（下載 films.json）** and replace
+the file. The order on the site follows this order. (Editing text/credits stays in
+`admin.html`; the two link to each other.)
+
 ## Easiest way to edit: the visual editor (admin.html)
 
 Open **`admin.html`** through the local server (`http://localhost:8000/admin.html`).
