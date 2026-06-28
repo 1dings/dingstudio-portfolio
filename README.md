@@ -3,7 +3,23 @@
 A clean, static film portfolio: filmography (grouped by category) + contact.
 No build step, no framework. You maintain it by editing **one file: `films.json`**.
 
-## How to add / edit a film
+## Easiest way to edit: the visual editor (admin.html)
+
+Open **`admin.html`** through the local server (`http://localhost:8000/admin.html`).
+It loads your current films, gives you a form for every field — title, category,
+YouTube ID, thumbnail, credits (add/remove rows), reorder, delete — then click
+**Download films.json** and replace the file in this folder. No JSON editing by hand.
+
+(If you opened it without the server and it didn't auto-load, click **Load films.json**
+and pick the file.)
+
+## Custom thumbnail (replace an ugly auto thumbnail)
+
+Drop an image (jpg/png, ideally 1280×720 / 16:9) into **`assets/thumbs/`**, then set the
+film's `thumb` to its path, e.g. `assets/thumbs/my-film.jpg` (the editor has a box for
+this). Leave it blank to use the automatic YouTube thumbnail.
+
+## How to add / edit a film (by hand)
 
 Open `films.json` and add an object to the list:
 
@@ -29,6 +45,8 @@ Rules:
   - `"EVENT"` → the **EVENT** tab (`event.html`)
   - Each tab is one continuous wall of 16:9 thumbnails, in the order they appear
     in `films.json`. The tab mapping lives in `app.js` (`FILMO_CATEGORIES` / `TABS`).
+- **`thumb`** = optional custom thumbnail path (e.g. `assets/thumbs/my-film.jpg`).
+  Overrides the auto YouTube thumbnail. Omit to use the YouTube one.
 - **`credits`** = optional. Leave it `[]` (or remove it) and the credits section
   just won't show. Add as many `{ role, name }` rows as you have.
 - **`slug`** = a unique id used in the URL (`work.html?v=slug`). Keep it simple.

@@ -67,13 +67,18 @@ async function renderWall(root, tabKey) {
 
   let cards = "";
   items.forEach((f, i) => {
+    // Custom thumbnail (assets/thumbs/...) wins; otherwise pull from YouTube.
+    const custom = f.thumb && String(f.thumb).trim();
+    const img = custom
+      ? `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`
+      : `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
+             onload="thumbCheck(this,'${esc(f.youtube)}')"
+             onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
     cards += `<a class="card reveal" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
-        <img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
-             onload="thumbCheck(this,'${esc(f.youtube)}')"
-             onerror="thumbFallback(this,'${esc(f.youtube)}')">
+        ${img}
       </span>
       <span class="meta">
         <span class="title">${esc(f.title)}</span>
