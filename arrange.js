@@ -39,6 +39,7 @@ function section(label, key) {
     <div class="tile" draggable="true" data-group="${key}" data-i="${i}">
       <div class="frame">
         <span class="pos">${i + 1}</span>
+        <button class="del" draggable="false" title="刪除呢條">✕</button>
         <img src="${esc(thumbSrc(f))}" alt="" loading="lazy">
       </div>
       <div class="info">
@@ -73,6 +74,17 @@ function wire(key) {
       const to = +tile.dataset.i;
       move(key, drag.index, to);
     });
+    const del = tile.querySelector(".del");
+    if (del) del.onclick = (e) => {
+      e.stopPropagation();
+      const i = +tile.dataset.i;
+      const f = groups[key][i];
+      if (confirm("刪除「" + (f.title || "呢條") + "」？\n（淨係喺呢度移走，YouTube 條片唔受影響）")) {
+        groups[key].splice(i, 1);
+        render();
+        toast("已刪除");
+      }
+    };
   });
 }
 

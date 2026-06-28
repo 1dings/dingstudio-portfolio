@@ -35,6 +35,11 @@
     .tile .frame img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
     .tile .pos{position:absolute;top:6px;left:6px;background:#000a;color:#fff;font-family:var(--mono);font-size:.66rem;
       padding:2px 7px;border-radius:20px}
+    .tile .del{position:absolute;top:5px;right:5px;width:26px;height:26px;border-radius:50%;border:none;
+      background:#000a;color:#fff;font-size:.85rem;line-height:1;cursor:pointer;padding:0;
+      display:none;align-items:center;justify-content:center}
+    .tile:hover .del{display:flex}
+    .tile .del:hover{background:#b23b2e}
     .tile .info{padding:9px 10px 11px}
     .tile .name{font-size:.82rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.1em}
     .tile .rc{margin-top:5px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
@@ -53,7 +58,7 @@
   </div>
 
   <div class="wrap">
-    <div class="tip">用滑鼠<b>拖一格放去另一格上面</b>就會換位。一個 screen 睇晒成版，排好撳右上角綠色掣下載。FILMOGRAPHY 同 EVENT 各自排。</div>
+    <div class="tip">用滑鼠<b>拖一格放去另一格上面</b>就會換位；<b>滑上格仔右上角會出現 ✕ 可以刪除</b>。一個 screen 睇晒成版，排好／刪好撳右上角綠色掣下載。FILMOGRAPHY 同 EVENT 各自排。</div>
     <div id="board"></div>
   </div>
 
