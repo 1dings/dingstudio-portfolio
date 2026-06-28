@@ -1,0 +1,61 @@
+[
+  {
+    "slug": "sample-neon-tides",
+    "title": "Sample Artist — Neon Tides (Official MV)",
+    "category": "MUSIC VIDEO",
+    "youtube": "9bZkp7q19f0",
+    "credits": [
+      { "role": "Director", "name": "Christina Tsang" },
+      { "role": "DP", "name": "—" },
+      { "role": "Production", "name": "DINGSTUDIO" }
+    ]
+  },
+  {
+    "slug": "sample-afterglow",
+    "title": "Sample Artist — Afterglow (Official MV)",
+    "category": "MUSIC VIDEO",
+    "youtube": "kJQP7kiw5Fk",
+    "credits": [
+      { "role": "Director", "name": "Christina Tsang" },
+      { "role": "Production", "name": "DINGSTUDIO" }
+    ]
+  },
+  {
+    "slug": "sample-night-bloom",
+    "title": "Sample Artist — Night Bloom (Official MV)",
+    "category": "MUSIC VIDEO",
+    "youtube": "60ItHLz5WEA",
+    "credits": []
+  },
+  {
+    "slug": "sample-spring-campaign",
+    "title": "Sample Brand — Spring Campaign Film",
+    "category": "COMMERCIAL",
+    "youtube": "OPf0YbXqDm0",
+    "credits": [
+      { "role": "Director", "name": "Christina Tsang" },
+      { "role": "Client", "name": "Sample Brand" },
+      { "role": "Production", "name": "DINGSTUDIO" }
+    ]
+  },
+  {
+    "slug": "sample-flagship-launch",
+    "title": "Sample Brand — Flagship Launch",
+    "category": "COMMERCIAL",
+    "youtube": "JGwWNGJdvx8",
+    "credits": [
+      { "role": "Client", "name": "Sample Brand" },
+      { "role": "Production", "name": "DINGSTUDIO" }
+    ]
+  },
+  {
+    "slug": "sample-gala-aftermovie",
+    "title": "Sample — Brand Gala 2025 Aftermovie",
+    "category": "EVENT",
+    "youtube": "fJ9rUzIMcZQ",
+    "credits": [
+      { "role": "Event", "name": "Brand Gala 2025" },
+      { "role": "Production", "name": "DINGSTUDIO" }
+    ]
+  }
+]
