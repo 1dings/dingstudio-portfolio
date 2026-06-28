@@ -3,6 +3,7 @@
     "slug": "cathay-business-class",
     "title": "Cathay Pacific — Why Business Class?",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "8q6FwY-qFh4",
     "credits": [
       { "role": "Client", "name": "Cathay Pacific" },
@@ -13,6 +14,7 @@
     "slug": "wellcome-god-cny",
     "title": "Wellcome × G.O.D — CNY Campaign",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "co8mu2YaCfY",
     "credits": [
       { "role": "Client", "name": "Wellcome × G.O.D" },
@@ -23,6 +25,7 @@
     "slug": "jollibee",
     "title": "Jollibee — Brand Reels",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "4TJCABHBP6c",
     "credits": []
   },
@@ -30,6 +33,7 @@
     "slug": "mcdonalds-value-meal",
     "title": "McDonald's — 人氣著數套餐",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "9ocfjYIGPE4",
     "credits": []
   },
@@ -37,6 +41,7 @@
     "slug": "disney-tourism-board",
     "title": "Disney × HK Tourism Board",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "vqe-ZKi6eGY",
     "credits": []
   },
@@ -44,6 +49,7 @@
     "slug": "cx-mplus",
     "title": "Cathay Pacific × M+",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "YEU_zhMlwhg",
     "credits": []
   },
@@ -51,6 +57,7 @@
     "slug": "bosch",
     "title": "Bosch — Online Film",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "7EYgUfE0Ens",
     "credits": []
   },
@@ -58,6 +65,7 @@
     "slug": "hsbc-hkfc",
     "title": "HSBC × HKFC",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "UcyXPtXjobk",
     "credits": []
   },
@@ -65,6 +73,7 @@
     "slug": "christies-century-sale",
     "title": "Christie's — Century Sale",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "BN5k2Y7l-3A",
     "credits": []
   },
@@ -72,6 +81,7 @@
     "slug": "boc-branding",
     "title": "Bank of China — Branding Film",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "f6F8OzCvlL4",
     "credits": []
   },
@@ -79,6 +89,7 @@
     "slug": "lkk-hotpot",
     "title": "Lee Kum Kee — Hotpot",
     "category": "COMMERCIAL",
+    "role": "Editor",
     "youtube": "q0478QtA488",
     "credits": []
   },
@@ -86,6 +97,7 @@
     "slug": "hkrc-dina-mv",
     "title": "HKRC — 'Dina' (Official MV)",
     "category": "MUSIC VIDEO",
+    "role": "Editor",
     "youtube": "hm9NfjVhLoE",
     "credits": [
       { "role": "Director", "name": "Christina Tsang" },
@@ -96,6 +108,7 @@
     "slug": "scb-lfc-highlight",
     "title": "Standard Chartered × Liverpool FC — Event Highlight",
     "category": "EVENT",
+    "role": "Editor",
     "youtube": "oFv8OOTWt24",
     "credits": []
   },
@@ -103,6 +116,7 @@
     "slug": "hsbc-liv-golf",
     "title": "HSBC × LIV Golf — Event Film",
     "category": "EVENT",
+    "role": "Editor",
     "youtube": "dTr58j6z1DY",
     "credits": []
   },
@@ -110,6 +124,7 @@
     "slug": "hsbc-hkex",
     "title": "HSBC × HKEX — Event",
     "category": "EVENT",
+    "role": "Editor",
     "youtube": "ZrnJrQGi7Zs",
     "credits": []
   },
@@ -117,6 +132,7 @@
     "slug": "world-class-2026",
     "title": "World Class 2026 — Top 4 Reveal",
     "category": "EVENT",
+    "role": "Editor",
     "youtube": "GkkTRO3Fp9c",
     "credits": []
   }

@@ -126,10 +126,15 @@ function filmCard(f, i) {
             <select class="f-cat">${opts}</select>
           </div>
           <div>
-            <label>YouTube 片 ID</label>
-            <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
-            <div class="help">網址 watch?v= 後面嗰串字</div>
+            <label>你嘅崗位 <span class="en">Your Role（張卡會顯示）</span></label>
+            <input class="f-role" list="roleList" value="${esc(f.role || "")}" placeholder="例：Director / Editor / AD">
+            <div class="help">留空就淨係顯示類型</div>
           </div>
+        </div>
+        <div>
+          <label>YouTube 片 ID</label>
+          <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
+          <div class="help">網址 watch?v= 後面嗰串字</div>
         </div>
         <div class="credits">
           <label>Credit 名單 <span class="en">（選填，例：Director / DP / Client）</span></label>
@@ -146,6 +151,7 @@ function filmCard(f, i) {
   const titleIn = $(".f-title", el);
   const ytIn = $(".f-yt", el);
   const catIn = $(".f-cat", el);
+  const roleIn = $(".f-role", el);
   const prev = $(".thumbPrev", el);
   const coverFile = $(".coverFile", el);
 
@@ -158,6 +164,7 @@ function filmCard(f, i) {
     if (!f.thumb) prev.src = ytThumb(f.youtube);
   };
   catIn.onchange = () => { f.category = catIn.value; };
+  roleIn.oninput = () => { f.role = roleIn.value; };
 
   // cover upload (embed as resized data URL)
   $(".pickCover", el).onclick = () => coverFile.click();
@@ -202,6 +209,7 @@ function normalize(data) {
     slug: f.slug || slugify(f.title),
     title: f.title || "",
     category: (f.category || "COMMERCIAL").toUpperCase(),
+    role: f.role || "",
     youtube: f.youtube || "",
     thumb: f.thumb || "",
     credits: Array.isArray(f.credits) ? f.credits.map((c) => ({ role: c.role || "", name: c.name || "" })) : [],
@@ -242,6 +250,7 @@ function buildJson() {
       category: (f.category || "COMMERCIAL").toUpperCase(),
       youtube: f.youtube || "",
     };
+    if (f.role && f.role.trim()) o.role = f.role.trim();
     if (f.thumb && f.thumb.trim()) o.thumb = f.thumb.trim();
     o.credits = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
     return o;

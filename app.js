@@ -82,7 +82,7 @@ async function renderWall(root, tabKey) {
       </span>
       <span class="meta">
         <span class="title">${esc(f.title)}</span>
-        <span class="cat">${esc(f.category || "")}</span>
+        <span class="cat">${esc([f.role, f.category].filter(Boolean).join(" · "))}</span>
       </span>
     </a>`;
   });
@@ -140,7 +140,7 @@ async function renderWork(root) {
 
   root.innerHTML = `<div class="wrap work reveal">
     <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
-    <p class="mono tag">${esc(film.category || "")}</p>
+    <p class="mono tag">${esc([film.category, film.role].filter(Boolean).join(" · "))}</p>
     <h1>${esc(film.title)}</h1>
     <div class="player">
       <iframe src="${yt}" title="${esc(film.title)}"
