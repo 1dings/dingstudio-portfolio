@@ -1,11 +1,15 @@
 /* =========================================================================
-   DINGSTUDIO — Films Editor
-   A no-code editor for films.json. Loads the file, lets you edit every field
-   in a form, then downloads a clean films.json to drop back into the site.
-   Pure browser, no server, no build.
+   DINGSTUDIO — 作品編輯器 (Films Editor)
+   No-code editor for films.json. Cover images are uploaded and embedded
+   directly (resized data URLs), so there is no file-path or assets-folder
+   juggling. Outputs a clean films.json to download.
    ========================================================================= */
 
-const CATEGORIES = ["MUSIC VIDEO", "COMMERCIAL", "EVENT"];
+const CATEGORIES = [
+  { v: "MUSIC VIDEO", t: "Music Video（去 FILMOGRAPHY tab）" },
+  { v: "COMMERCIAL", t: "Commercial（去 FILMOGRAPHY tab）" },
+  { v: "EVENT", t: "Event（去 EVENT tab）" },
+];
 let films = [];
 
 const $ = (sel, el = document) => el.querySelector(sel);
@@ -15,7 +19,7 @@ const toastEl = $("#toast");
 function toast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add("show");
-  setTimeout(() => toastEl.classList.remove("show"), 1800);
+  setTimeout(() => toastEl.classList.remove("show"), 2400);
 }
 
 const esc = (s) =>
@@ -24,20 +28,51 @@ const esc = (s) =>
   );
 
 function slugify(s) {
-  return String(s || "")
-    .toLowerCase()
-    .replace(/['’"]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60) || "untitled";
+  return (
+    String(s || "")
+      .toLowerCase()
+      .replace(/['’"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "untitled"
+  );
 }
 
 function ytThumb(id) {
   return id ? `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : "";
 }
 
+// Resize an uploaded image to <=1280px wide JPEG data URL, so the embedded
+// cover stays small inside films.json.
+function resizeImage(file, maxW = 1280) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxW / img.naturalWidth);
+      const w = Math.max(1, Math.round(img.naturalWidth * scale));
+      const h = Math.max(1, Math.round(img.naturalHeight * scale));
+      const c = document.createElement("canvas");
+      c.width = w;
+      c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL("image/jpeg", 0.85));
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 /* ---------------- render ---------------- */
 function render() {
+  if (!films.length) {
+    list.innerHTML = `<div class="empty">
+      <p>仲未載入你嘅作品。</p>
+      <button class="big" id="emptyLoad">① 撳呢度載入 films.json</button>
+    </div>`;
+    $("#emptyLoad").onclick = () => $("#fileIn").click();
+    return;
+  }
   list.innerHTML = "";
   films.forEach((f, i) => list.appendChild(filmCard(f, i)));
 }
@@ -47,87 +82,103 @@ function filmCard(f, i) {
   el.className = "film";
 
   const opts = CATEGORIES.map(
-    (c) => `<option value="${c}" ${f.category === c ? "selected" : ""}>${c}</option>`
+    (c) => `<option value="${c.v}" ${f.category === c.v ? "selected" : ""}>${c.t}</option>`
   ).join("");
 
   const creditsHtml = (f.credits || [])
     .map(
       (c, ci) => `
     <div class="credit" data-ci="${ci}">
-      <input class="c-role" placeholder="Role e.g. Director" value="${esc(c.role)}">
-      <input class="c-name" placeholder="Name" value="${esc(c.name)}">
-      <button class="ghost tiny c-del" title="Remove credit">✕</button>
+      <input class="c-role" placeholder="職位 e.g. Director" value="${esc(c.role)}">
+      <input class="c-name" placeholder="名字" value="${esc(c.name)}">
+      <button class="ghost tiny c-del" title="刪除呢行">✕</button>
     </div>`
     )
     .join("");
 
   const previewSrc = (f.thumb && f.thumb.trim()) || ytThumb(f.youtube);
+  const usingCustom = !!(f.thumb && f.thumb.trim());
 
   el.innerHTML = `
-    <div class="preview">
-      <span class="idx">#${i + 1}</span>
-      <div class="frame"><img class="thumbPrev" src="${esc(previewSrc)}" alt=""></div>
-      <div style="display:flex;gap:6px">
-        <button class="ghost tiny up" title="Move up">↑</button>
-        <button class="ghost tiny down" title="Move down">↓</button>
-      </div>
+    <div class="film-top">
+      <span class="no">#${i + 1}</span>
+      <span class="arrows">
+        <button class="ghost tiny up" title="上移">↑ 上移</button>
+        <button class="ghost tiny down" title="下移">↓ 下移</button>
+      </span>
     </div>
-    <div class="fields">
-      <div>
-        <label>Title</label>
-        <input class="f-title" value="${esc(f.title)}" placeholder="Client — Project Name">
+    <div class="grid">
+      <div class="cover">
+        <div class="frame"><img class="thumbPrev" src="${esc(previewSrc)}" alt=""></div>
+        <input type="file" class="coverFile" accept="image/*" style="display:none">
+        <button class="ghost tiny pickCover">📷 上載封面相</button>
+        ${usingCustom ? `<button class="ghost tiny clearCover" style="margin-left:6px">用返 YouTube 封面</button>` : ``}
+        <div class="small">唔上載就用 YouTube 自動封面。<br>建議橫向 16:9 相片。</div>
       </div>
-      <div class="row2">
+      <div class="fields">
         <div>
-          <label>Category (decides the tab)</label>
-          <select class="f-cat">${opts}</select>
+          <label>標題 <span class="en">Title（出街顯示嘅名）</span></label>
+          <input class="f-title" value="${esc(f.title)}" placeholder="例：Jollibee — Brand Film">
         </div>
-        <div>
-          <label>YouTube ID</label>
-          <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
+        <div class="row2">
+          <div>
+            <label>類型 <span class="en">Category</span></label>
+            <select class="f-cat">${opts}</select>
+          </div>
+          <div>
+            <label>YouTube 片 ID</label>
+            <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
+            <div class="help">網址 watch?v= 後面嗰串字</div>
+          </div>
         </div>
-      </div>
-      <div class="row2">
-        <div>
-          <label>Custom thumbnail (optional)</label>
-          <input class="f-thumb" value="${esc(f.thumb || "")}" placeholder="assets/thumbs/my-film.jpg">
+        <div class="credits">
+          <label>Credit 名單 <span class="en">（選填，例：Director / DP / Client）</span></label>
+          <div class="creditList">${creditsHtml}</div>
+          <button class="ghost tiny addCredit">＋ 加一個 credit</button>
         </div>
-        <div>
-          <label>Slug (URL id)</label>
-          <input class="f-slug" value="${esc(f.slug)}" placeholder="auto from title">
+        <div class="film-actions">
+          <button class="danger tiny delFilm">刪除呢個作品</button>
         </div>
-      </div>
-      <div class="credits">
-        <label>Credits (optional)</label>
-        <div class="creditList">${creditsHtml}</div>
-        <button class="ghost tiny addCredit">+ Add credit</button>
-      </div>
-      <div class="film-actions">
-        <button class="ghost tiny autoSlug">Auto slug from title</button>
-        <button class="danger tiny delFilm">Delete film</button>
       </div>
     </div>`;
 
   /* ---- wire up ---- */
   const titleIn = $(".f-title", el);
   const ytIn = $(".f-yt", el);
-  const thumbIn = $(".f-thumb", el);
-  const slugIn = $(".f-slug", el);
   const catIn = $(".f-cat", el);
   const prev = $(".thumbPrev", el);
+  const coverFile = $(".coverFile", el);
 
-  const refreshPrev = () => {
-    prev.src = (thumbIn.value.trim()) || ytThumb(ytIn.value.trim());
+  titleIn.oninput = () => {
+    f.title = titleIn.value;
+    if (!f.slug) f.slug = slugify(titleIn.value);
   };
-
-  titleIn.oninput = () => { f.title = titleIn.value; if (!slugIn.value.trim()) { slugIn.value = slugify(titleIn.value); f.slug = slugIn.value; } };
-  ytIn.oninput = () => { f.youtube = ytIn.value.trim(); refreshPrev(); };
-  thumbIn.oninput = () => { f.thumb = thumbIn.value.trim(); refreshPrev(); };
-  slugIn.oninput = () => { f.slug = slugIn.value.trim(); };
+  ytIn.oninput = () => {
+    f.youtube = ytIn.value.trim();
+    if (!f.thumb) prev.src = ytThumb(f.youtube);
+  };
   catIn.onchange = () => { f.category = catIn.value; };
 
-  $(".autoSlug", el).onclick = () => { slugIn.value = slugify(titleIn.value); f.slug = slugIn.value; };
-  $(".delFilm", el).onclick = () => { if (confirm("Delete this film?")) { films.splice(i, 1); render(); } };
+  // cover upload (embed as resized data URL)
+  $(".pickCover", el).onclick = () => coverFile.click();
+  coverFile.onchange = async () => {
+    const file = coverFile.files[0];
+    if (!file) return;
+    try {
+      toast("處理緊張相…");
+      f.thumb = await resizeImage(file);
+      render();
+      toast("封面相已更新 ✓");
+    } catch {
+      alert("呢個檔案讀唔到，試吓另一張相（jpg / png）。");
+    }
+  };
+  const clearBtn = $(".clearCover", el);
+  if (clearBtn) clearBtn.onclick = () => { f.thumb = ""; render(); };
+
+  $(".delFilm", el).onclick = () => {
+    if (confirm("確定刪除「" + (f.title || "呢個作品") + "」？")) { films.splice(i, 1); render(); }
+  };
   $(".up", el).onclick = () => { if (i > 0) { [films[i - 1], films[i]] = [films[i], films[i - 1]]; render(); } };
   $(".down", el).onclick = () => { if (i < films.length - 1) { [films[i + 1], films[i]] = [films[i], films[i + 1]]; render(); } };
 
@@ -163,9 +214,9 @@ async function autoLoad() {
     if (!res.ok) throw new Error();
     films = normalize(await res.json());
     render();
-    toast(`Loaded ${films.length} films`);
+    toast(`已載入 ${films.length} 個作品`);
   } catch {
-    list.innerHTML = `<p class="hint" style="padding:20px 0">Couldn't auto-load films.json (you may have opened this file directly). Click <b>Load films.json</b> above to pick it.</p>`;
+    render(); // shows the big "load" button
   }
 }
 
@@ -175,16 +226,15 @@ function loadFromFile(file) {
     try {
       films = normalize(JSON.parse(reader.result));
       render();
-      toast(`Loaded ${films.length} films`);
+      toast(`已載入 ${films.length} 個作品`);
     } catch (e) {
-      alert("That doesn't look like a valid films.json: " + e.message);
+      alert("呢個唔似 films.json：" + e.message);
     }
   };
   reader.readAsText(file);
 }
 
 function buildJson() {
-  // emit clean objects; drop empty thumb / empty credits for tidiness
   const out = films.map((f) => {
     const o = {
       slug: f.slug || slugify(f.title),
@@ -193,15 +243,14 @@ function buildJson() {
       youtube: f.youtube || "",
     };
     if (f.thumb && f.thumb.trim()) o.thumb = f.thumb.trim();
-    const credits = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
-    o.credits = credits;
+    o.credits = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
     return o;
   });
   return JSON.stringify(out, null, 2) + "\n";
 }
 
 function download() {
-  if (!films.length) { alert("Nothing to save yet — load or add films first."); return; }
+  if (!films.length) { alert("仲未有作品。"); return; }
   const blob = new Blob([buildJson()], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -211,7 +260,7 @@ function download() {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
-  toast("Downloaded films.json — replace the file in your site folder");
+  toast("已下載 films.json，放返入你個網站資料夾蓋過舊嗰個");
 }
 
 /* ---------------- buttons ---------------- */
