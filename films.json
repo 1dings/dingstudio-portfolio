@@ -1,61 +1,81 @@
 [
   {
-    "slug": "sample-neon-tides",
-    "title": "Sample Artist — Neon Tides (Official MV)",
-    "category": "MUSIC VIDEO",
-    "youtube": "9bZkp7q19f0",
+    "slug": "cathay-business-class",
+    "title": "Cathay Pacific — Why Business Class?",
+    "category": "COMMERCIAL",
+    "youtube": "8q6FwY-qFh4",
     "credits": [
-      { "role": "Director", "name": "Christina Tsang" },
-      { "role": "DP", "name": "—" },
+      { "role": "Client", "name": "Cathay Pacific" },
       { "role": "Production", "name": "DINGSTUDIO" }
     ]
   },
   {
-    "slug": "sample-afterglow",
-    "title": "Sample Artist — Afterglow (Official MV)",
-    "category": "MUSIC VIDEO",
-    "youtube": "kJQP7kiw5Fk",
+    "slug": "wellcome-god-cny",
+    "title": "Wellcome × G.O.D — CNY Campaign",
+    "category": "COMMERCIAL",
+    "youtube": "co8mu2YaCfY",
     "credits": [
-      { "role": "Director", "name": "Christina Tsang" },
+      { "role": "Client", "name": "Wellcome × G.O.D" },
       { "role": "Production", "name": "DINGSTUDIO" }
     ]
   },
   {
-    "slug": "sample-night-bloom",
-    "title": "Sample Artist — Night Bloom (Official MV)",
-    "category": "MUSIC VIDEO",
-    "youtube": "60ItHLz5WEA",
+    "slug": "jollibee",
+    "title": "Jollibee — Brand Reels",
+    "category": "COMMERCIAL",
+    "youtube": "4TJCABHBP6c",
     "credits": []
   },
   {
-    "slug": "sample-spring-campaign",
-    "title": "Sample Brand — Spring Campaign Film",
+    "slug": "mcdonalds-value-meal",
+    "title": "McDonald's — 人氣著數套餐",
     "category": "COMMERCIAL",
-    "youtube": "OPf0YbXqDm0",
+    "youtube": "9ocfjYIGPE4",
+    "credits": []
+  },
+  {
+    "slug": "disney-tourism-board",
+    "title": "Disney × HK Tourism Board",
+    "category": "COMMERCIAL",
+    "youtube": "vqe-ZKi6eGY",
+    "credits": []
+  },
+  {
+    "slug": "hkrc-dina-mv",
+    "title": "HKRC — 'Dina' (Official MV)",
+    "category": "MUSIC VIDEO",
+    "youtube": "hm9NfjVhLoE",
     "credits": [
       { "role": "Director", "name": "Christina Tsang" },
-      { "role": "Client", "name": "Sample Brand" },
       { "role": "Production", "name": "DINGSTUDIO" }
     ]
   },
   {
-    "slug": "sample-flagship-launch",
-    "title": "Sample Brand — Flagship Launch",
-    "category": "COMMERCIAL",
-    "youtube": "JGwWNGJdvx8",
-    "credits": [
-      { "role": "Client", "name": "Sample Brand" },
-      { "role": "Production", "name": "DINGSTUDIO" }
-    ]
-  },
-  {
-    "slug": "sample-gala-aftermovie",
-    "title": "Sample — Brand Gala 2025 Aftermovie",
+    "slug": "scb-lfc-highlight",
+    "title": "Standard Chartered × Liverpool FC — Event Highlight",
     "category": "EVENT",
-    "youtube": "fJ9rUzIMcZQ",
-    "credits": [
-      { "role": "Event", "name": "Brand Gala 2025" },
-      { "role": "Production", "name": "DINGSTUDIO" }
-    ]
+    "youtube": "oFv8OOTWt24",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-liv-golf",
+    "title": "HSBC × LIV Golf — Event Film",
+    "category": "EVENT",
+    "youtube": "dTr58j6z1DY",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-hkex",
+    "title": "HSBC × HKEX — Event",
+    "category": "EVENT",
+    "youtube": "ZrnJrQGi7Zs",
+    "credits": []
+  },
+  {
+    "slug": "world-class-2026",
+    "title": "World Class 2026 — Top 4 Reveal",
+    "category": "EVENT",
+    "youtube": "GkkTRO3Fp9c",
+    "credits": []
   }
 ]

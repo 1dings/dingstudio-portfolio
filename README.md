@@ -24,14 +24,17 @@ Rules:
 - **`youtube`** = the 11-character video ID. From a URL like
   `https://www.youtube.com/watch?v=9bZkp7q19f0` the ID is `9bZkp7q19f0`.
   The thumbnail is pulled automatically — you do NOT need to upload images.
-- **`category`** = any label. Home page groups by category. The order is set in
-  `app.js` (`CATEGORY_ORDER`); unknown categories appear after, alphabetically.
+- **`category`** decides which TAB the film shows under:
+  - `"MUSIC VIDEO"` or `"COMMERCIAL"` → the **FILMOGRAPHY** tab (`index.html`)
+  - `"EVENT"` → the **EVENT** tab (`event.html`)
+  - Each tab is one continuous wall of 16:9 thumbnails, in the order they appear
+    in `films.json`. The tab mapping lives in `app.js` (`FILMO_CATEGORIES` / `TABS`).
 - **`credits`** = optional. Leave it `[]` (or remove it) and the credits section
   just won't show. Add as many `{ role, name }` rows as you have.
 - **`slug`** = a unique id used in the URL (`work.html?v=slug`). Keep it simple.
 
-The 6 entries currently in `films.json` are **SAMPLES** (titles start with
-"Sample"). Replace them with your real work.
+The entries currently in `films.json` are a **DEMO selection** pulled from your
+YouTube playlists, with titles tidied up. Swap in your final picks.
 
 ## Edit contact details
 
