@@ -1,28 +1,22 @@
 [
   {
-    "slug": "cathay-business-class",
-    "title": "Cathay Pacific — Why Business Class?",
+    "slug": "wellcome-victoria-road",
+    "title": "Wellcome惠康 Victoria Road",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "8q6FwY-qFh4",
-    "credits": [
-      { "role": "Client", "name": "Cathay Pacific" },
-      { "role": "Production", "name": "DINGSTUDIO" }
-    ]
+    "youtube": "ySOKjUEf6p4",
+    "credits": []
   },
   {
-    "slug": "wellcome-god-cny",
-    "title": "Wellcome × G.O.D — CNY Campaign",
+    "slug": "wellcome-victoria-road-cutdown1",
+    "title": "Wellcome Victoria Road -Cutdown1",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "co8mu2YaCfY",
-    "credits": [
-      { "role": "Client", "name": "Wellcome × G.O.D" },
-      { "role": "Production", "name": "DINGSTUDIO" }
-    ]
+    "youtube": "tS__RA6Ulis",
+    "credits": []
   },
   {
-    "slug": "jollibee",
+    "slug": "jollibee-brand-reels",
     "title": "Jollibee — Brand Reels",
     "category": "COMMERCIAL",
     "role": "Editor",
@@ -30,31 +24,80 @@
     "credits": []
   },
   {
-    "slug": "mcdonalds-value-meal",
-    "title": "McDonald's — 人氣著數套餐",
+    "slug": "glycel-yoga-reels",
+    "title": "Glycel yoga - reels",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "9ocfjYIGPE4",
+    "youtube": "BLbHFCLcx6E",
     "credits": []
   },
   {
-    "slug": "disney-tourism-board",
-    "title": "Disney × HK Tourism Board",
+    "slug": "cx-vintage-snapshot",
+    "title": "CX vintage snapshot",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "vqe-ZKi6eGY",
+    "youtube": "PZfq6zudKLY",
     "credits": []
   },
   {
-    "slug": "cx-mplus",
-    "title": "Cathay Pacific × M+",
+    "slug": "cathay-pacific-why-business-class",
+    "title": "Cathay Pacific — Why Business Class?",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "YEU_zhMlwhg",
+    "youtube": "8q6FwY-qFh4",
+    "credits": [
+      {
+        "role": "Client",
+        "name": "Cathay Pacific"
+      },
+      {
+        "role": "Production",
+        "name": "DINGSTUDIO"
+      }
+    ]
+  },
+  {
+    "slug": "cx-business-class-so-sleek",
+    "title": "CX Business class so sleek",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "qpqgZmRF5Vo",
     "credits": []
   },
   {
-    "slug": "bosch",
+    "slug": "cx-icymi",
+    "title": "CX ICYMI",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "OGqLaQbeaP4",
+    "credits": []
+  },
+  {
+    "slug": "glycel-x-coffee-reels",
+    "title": "Glycel X Coffee - reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "29MrhWEHio4",
+    "credits": []
+  },
+  {
+    "slug": "proven-women-reels",
+    "title": "Proven women - reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "fhFTxgHcyIY",
+    "credits": []
+  },
+  {
+    "slug": "return-x-brian-reels",
+    "title": "Return X Brian - reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "3n0xUzpL548",
+    "credits": []
+  },
+  {
+    "slug": "bosch-online-film",
     "title": "Bosch — Online Film",
     "category": "COMMERCIAL",
     "role": "Editor",
@@ -62,11 +105,44 @@
     "credits": []
   },
   {
-    "slug": "hsbc-hkfc",
-    "title": "HSBC × HKFC",
+    "slug": "serrini-x-kotex-reels",
+    "title": "Serrini x Kotex - reels",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "UcyXPtXjobk",
+    "youtube": "wXR7srPiIks",
+    "credits": []
+  },
+  {
+    "slug": "wellcome-g-o-d-cny-campaign",
+    "title": "Wellcome × G.O.D — CNY Campaign",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "co8mu2YaCfY",
+    "credits": [
+      {
+        "role": "Client",
+        "name": "Wellcome × G.O.D"
+      },
+      {
+        "role": "Production",
+        "name": "DINGSTUDIO"
+      }
+    ]
+  },
+  {
+    "slug": "x-g-o-d-cny-campaign-b",
+    "title": "惠康x G.O.D CNY campaign B (麻雀)",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "5em-XwFkKL4",
+    "credits": []
+  },
+  {
+    "slug": "mcdonalds",
+    "title": "McDonald's — 人氣著數套餐",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "9ocfjYIGPE4",
     "credits": []
   },
   {
@@ -78,15 +154,47 @@
     "credits": []
   },
   {
-    "slug": "boc-branding",
-    "title": "Bank of China — Branding Film",
+    "slug": "xwallet-video-3-online-reels",
+    "title": "Xwallet video 3 - online reels",
     "category": "COMMERCIAL",
     "role": "Editor",
-    "youtube": "f6F8OzCvlL4",
+    "youtube": "3rHd_Xamg0I",
     "credits": []
   },
   {
-    "slug": "lkk-hotpot",
+    "slug": "xwallet-video-2-online-reels",
+    "title": "Xwallet video 2 - online reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "puYV9uMm_9o",
+    "credits": []
+  },
+  {
+    "slug": "xwallet-video-1-online-reels",
+    "title": "Xwallet video 1 - online reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "qO_lo09t80k",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-cny-reels",
+    "title": "HSBC CNY 麻雀 - reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "2gMprEjuWsY",
+    "credits": []
+  },
+  {
+    "slug": "cx-aria-suite",
+    "title": "CX aria suite",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "QcF1iOx7tjc",
+    "credits": []
+  },
+  {
+    "slug": "lee-kum-kee-hotpot",
     "title": "Lee Kum Kee — Hotpot",
     "category": "COMMERCIAL",
     "role": "Editor",
@@ -94,18 +202,112 @@
     "credits": []
   },
   {
-    "slug": "hkrc-dina-mv",
+    "slug": "stanley-mirror-reels",
+    "title": "Stanley (Mirror) - reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "GXVpL37QIQQ",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-hkfc",
+    "title": "HSBC × HKFC",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "UcyXPtXjobk",
+    "credits": []
+  },
+  {
+    "slug": "disney-hk-tourism-board",
+    "title": "Disney × HK Tourism Board",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "vqe-ZKi6eGY",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-x-kingsman-bar-event-reels",
+    "title": "HSBC x Kingsman bar - event reels",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "xWCehZT7e4s",
+    "credits": []
+  },
+  {
+    "slug": "hsbceasyinvest-250702-video01-long-ver",
+    "title": "HSBCEasyInvest 250702 video01 long ver",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "XPNhLVDh90Q",
+    "credits": []
+  },
+  {
+    "slug": "hsbceasyinvest-ep2",
+    "title": "HSBCEasyInvest EP2",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "slw9nRUZblk",
+    "credits": []
+  },
+  {
+    "slug": "bank-of-china-branding-film",
+    "title": "Bank of China — Branding Film",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "f6F8OzCvlL4",
+    "credits": []
+  },
+  {
+    "slug": "hkrc-dina-official-mv",
     "title": "HKRC — 'Dina' (Official MV)",
     "category": "MUSIC VIDEO",
     "role": "Editor",
     "youtube": "hm9NfjVhLoE",
     "credits": [
-      { "role": "Director", "name": "Christina Tsang" },
-      { "role": "Production", "name": "DINGSTUDIO" }
+      {
+        "role": "Director",
+        "name": "Christina Tsang"
+      },
+      {
+        "role": "Production",
+        "name": "DINGSTUDIO"
+      }
     ]
   },
   {
-    "slug": "scb-lfc-highlight",
+    "slug": "regent-hotel-x-rey",
+    "title": "Regent Hotel x Rey",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "uNex0NUyIzk",
+    "credits": []
+  },
+  {
+    "slug": "world-class-2026-top-4-reveal",
+    "title": "World Class 2026 — Top 4 Reveal",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "GkkTRO3Fp9c",
+    "credits": []
+  },
+  {
+    "slug": "world-class-2026-challenge-2-same-day-edit",
+    "title": "World Class 2026 -Challenge 2 -same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "ko5Q9aYhmEs",
+    "credits": []
+  },
+  {
+    "slug": "world-class-2026-challenge-1-same-day-edit",
+    "title": "World Class 2026 -Challenge 1 -same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "HtGzs497JKQ",
+    "credits": []
+  },
+  {
+    "slug": "standard-chartered-liverpool-fc-event-highlight",
     "title": "Standard Chartered × Liverpool FC — Event Highlight",
     "category": "EVENT",
     "role": "Editor",
@@ -113,7 +315,63 @@
     "credits": []
   },
   {
-    "slug": "hsbc-liv-golf",
+    "slug": "promise-event",
+    "title": "邦民 Promise event",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "Xh1NZUqUt74",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-ifc-branch-same-day-edit",
+    "title": "HSBC ifc branch- same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "ZSJRYmSNTWk",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-wealth-series-howard-online-video",
+    "title": "HSBC wealth series: Howard - online video",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "sDv1JK7WYv4",
+    "credits": []
+  },
+  {
+    "slug": "hkfa-x-lofficiel",
+    "title": "HKFA x L'Officiel",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "oZx5xWCCeAM",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-gis-same-day-edit",
+    "title": "HSBC GIS-same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "3KcfX0CH6xQ",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-hmb40-same-day-edit",
+    "title": "HSBC HMB40-same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "nvJmUDDebiU",
+    "credits": []
+  },
+  {
+    "slug": "gerald-charles-event",
+    "title": "gerald charles -event",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "4LDind_X0pQ",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-liv-golf-event-film",
     "title": "HSBC × LIV Golf — Event Film",
     "category": "EVENT",
     "role": "Editor",
@@ -121,7 +379,31 @@
     "credits": []
   },
   {
-    "slug": "hsbc-hkex",
+    "slug": "hsbc-x-liv-golf-916-reels",
+    "title": "HSBC x liv golf 916 - reels",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "1hWnCB9oYNY",
+    "credits": []
+  },
+  {
+    "slug": "ap-fam-day-event",
+    "title": "AP fam day event",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "FNLePkaLLTg",
+    "credits": []
+  },
+  {
+    "slug": "scb-firework-3-branch-event",
+    "title": "SCB firework 3 branch event",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "U1GIdnoJGI8",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-hkex-event",
     "title": "HSBC × HKEX — Event",
     "category": "EVENT",
     "role": "Editor",
@@ -129,11 +411,35 @@
     "credits": []
   },
   {
-    "slug": "world-class-2026",
-    "title": "World Class 2026 — Top 4 Reveal",
+    "slug": "cathay-pacific-m",
+    "title": "Cathay Pacific × M+",
     "category": "EVENT",
     "role": "Editor",
-    "youtube": "GkkTRO3Fp9c",
+    "youtube": "YEU_zhMlwhg",
+    "credits": []
+  },
+  {
+    "slug": "scb-gmo-event-same-day-edit",
+    "title": "SCB GMO event -same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "j7ej-1oZYMk",
+    "credits": []
+  },
+  {
+    "slug": "hsbc-x-2-event-same-day-edit",
+    "title": "HSBC x 新聞女王2 event - same day edit",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "5iuAwE1RN3s",
+    "credits": []
+  },
+  {
+    "slug": "na",
+    "title": "NA",
+    "category": "EVENT",
+    "role": "Editor",
+    "youtube": "4yBSaPbBWd0",
     "credits": []
   }
 ]

@@ -36,7 +36,12 @@
     .film{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin:18px 0}
     .film-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
     .film-top .no{font-family:var(--disp);font-weight:800;font-size:1.15rem}
+    .film-top .left{display:flex;align-items:center;gap:12px}
     .film-top .arrows{display:flex;gap:6px}
+    .drag{cursor:grab;font-size:.78rem;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:5px 9px;user-select:none}
+    .drag:active{cursor:grabbing}
+    .film.dragging{opacity:.4}
+    .film.dragover{outline:2px dashed #1f7a4d;outline-offset:4px}
     .grid{display:grid;grid-template-columns:230px 1fr;gap:22px}
     .cover .frame{aspect-ratio:16/9;background:#0001;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:10px}
     .cover img{width:100%;height:100%;object-fit:cover;display:block}

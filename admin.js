@@ -11,6 +11,7 @@ const CATEGORIES = [
   { v: "EVENT", t: "Event（去 EVENT tab）" },
 ];
 let films = [];
+let dragFrom = null;
 
 const $ = (sel, el = document) => el.querySelector(sel);
 const list = $("#list");
@@ -145,7 +146,10 @@ function filmCard(f, i) {
 
   el.innerHTML = `
     <div class="film-top">
-      <span class="no">#${i + 1}</span>
+      <span class="left">
+        <span class="no">#${i + 1}</span>
+        <span class="drag" draggable="true" title="拖我嚟排序">⠿ 拖</span>
+      </span>
       <span class="arrows">
         <button class="ghost tiny up" title="上移">↑ 上移</button>
         <button class="ghost tiny down" title="下移">↓ 下移</button>
@@ -239,6 +243,26 @@ function filmCard(f, i) {
   };
   $(".up", el).onclick = () => { if (i > 0) { [films[i - 1], films[i]] = [films[i], films[i - 1]]; render(); } };
   $(".down", el).onclick = () => { if (i < films.length - 1) { [films[i + 1], films[i]] = [films[i], films[i + 1]]; render(); } };
+
+  // drag-and-drop reorder (grab the ⠿ handle)
+  const handle = $(".drag", el);
+  handle.addEventListener("dragstart", (e) => {
+    dragFrom = i;
+    e.dataTransfer.effectAllowed = "move";
+    el.classList.add("dragging");
+  });
+  handle.addEventListener("dragend", () => { el.classList.remove("dragging"); dragFrom = null; });
+  el.addEventListener("dragover", (e) => { if (dragFrom !== null) { e.preventDefault(); e.dataTransfer.dropEffect = "move"; el.classList.add("dragover"); } });
+  el.addEventListener("dragleave", () => el.classList.remove("dragover"));
+  el.addEventListener("drop", (e) => {
+    e.preventDefault();
+    el.classList.remove("dragover");
+    if (dragFrom === null || dragFrom === i) return;
+    const [moved] = films.splice(dragFrom, 1);
+    films.splice(i, 0, moved);
+    dragFrom = null;
+    render();
+  });
 
   // credits
   f.credits = f.credits || [];
