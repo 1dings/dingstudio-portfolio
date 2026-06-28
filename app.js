@@ -67,7 +67,7 @@ async function renderWall(root, tabKey) {
 
   let cards = "";
   items.forEach((f, i) => {
-    cards += `<a class="card reveal" style="animation-delay:${i * 55}ms"
+    cards += `<a class="card reveal" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
@@ -76,17 +76,13 @@ async function renderWall(root, tabKey) {
              onerror="thumbFallback(this,'${esc(f.youtube)}')">
       </span>
       <span class="meta">
-        <span class="idx">${pad(i + 1)}</span>
         <span class="title">${esc(f.title)}</span>
+        <span class="cat">${esc(f.category || "")}</span>
       </span>
     </a>`;
   });
 
   root.innerHTML = `<div class="wrap wall">
-    <div class="page-head">
-      <span class="mono label">${esc(tab.label)}</span>
-      <span class="mono count">${pad(items.length)} ${items.length === 1 ? "Film" : "Films"}</span>
-    </div>
     <div class="grid">${cards || `<p class="note">Nothing here yet.</p>`}</div>
   </div>`;
 }
