@@ -45,9 +45,13 @@
     label{display:block;font-size:.82rem;font-weight:500;margin-bottom:5px}
     label .en{color:var(--dim);font-weight:400;font-size:.92em}
     .help{font-size:.76rem;color:var(--dim);margin-top:4px}
-    input,select{width:100%;font-family:var(--body);font-size:1rem;color:var(--ink);background:#fff;
+    input,select,textarea{width:100%;font-family:var(--body);font-size:1rem;color:var(--ink);background:#fff;
       border:1px solid var(--line);border-radius:8px;padding:11px 12px}
-    input:focus,select:focus{outline:none;border-color:var(--ink)}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+    textarea{resize:vertical;line-height:1.5}
+    .autofill{background:#f3f6f3;border:1px solid #cfe0d4;border-radius:10px;padding:14px;margin-top:12px;display:flex;flex-direction:column;gap:9px}
+    .autofill label{margin:0;font-weight:600}
+    .autofill .doParse{align-self:flex-start;background:#1f7a4d;border-color:#1f7a4d;color:#fff}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     .credits{border-top:1px solid var(--line);padding-top:14px}
     .credit{display:grid;grid-template-columns:1fr 1.5fr auto;gap:8px;margin-bottom:8px}

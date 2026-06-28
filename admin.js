@@ -42,6 +42,50 @@ function ytThumb(id) {
   return id ? `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : "";
 }
 
+/* ---- credit auto-parsing ---- */
+// Map common Chinese/English role words to a clean English label for the card badge.
+const ROLE_MAP = {
+  "導演": "Director", "导演": "Director", director: "Director",
+  "剪接": "Editor", "剪輯": "Editor", "剪片": "Editor", "剪接師": "Editor", editor: "Editor", edit: "Editor",
+  "攝影": "DP", "攝影指導": "DP", "摄影": "DP", dp: "DP", dop: "DP", cinematographer: "DP",
+  "監製": "Producer", "制片": "Producer", "製片": "Producer", producer: "Producer",
+  "助理導演": "AD", "助導": "AD", "副導演": "AD", ad: "AD",
+  "調色": "Colourist", "調色師": "Colourist", colourist: "Colourist", colorist: "Colourist",
+};
+const ROLE_KEYS = Object.keys(ROLE_MAP);
+function cleanRole(r) {
+  const k = String(r || "").trim();
+  return ROLE_MAP[k.toLowerCase()] || ROLE_MAP[k] || k;
+}
+// Parse a pasted block of credits into [{role,name}].
+function parseCredits(text) {
+  const out = [];
+  String(text || "")
+    .split(/\r?\n/)
+    .forEach((raw) => {
+      const line = raw.trim().replace(/^[•\-\*·]\s*/, "");
+      if (!line) return;
+      // try delimiter: colon (en/zh), tab, or " - "
+      let parts = line.split(/\s*[:：]\s*|\t+|\s+[-–—]\s+/);
+      let role = "", name = "";
+      if (parts.length >= 2 && parts[0].trim()) {
+        role = parts[0].trim();
+        name = parts.slice(1).join(" ").trim();
+      } else {
+        // no delimiter: see if it starts with a known role word
+        const first = line.split(/\s+/)[0];
+        if (ROLE_MAP[first.toLowerCase()] || ROLE_MAP[first]) {
+          role = first;
+          name = line.slice(first.length).trim();
+        } else {
+          name = line; // unknown line -> keep as a name-only row
+        }
+      }
+      if (name || role) out.push({ role: cleanRole(role), name });
+    });
+  return out;
+}
+
 // Resize an uploaded image to <=1280px wide JPEG data URL, so the embedded
 // cover stays small inside films.json.
 function resizeImage(file, maxW = 1280) {
@@ -140,6 +184,13 @@ function filmCard(f, i) {
           <label>Credit 名單 <span class="en">（選填，例：Director / DP / Client）</span></label>
           <div class="creditList">${creditsHtml}</div>
           <button class="ghost tiny addCredit">＋ 加一個 credit</button>
+
+          <div class="autofill">
+            <label>✨ 貼上 credit 自動填</label>
+            <input class="myname" placeholder="你個名（用嚟認出邊個崗位係你，例：Christina）" value="${esc(localStorage.getItem("ding_myname") || "")}">
+            <textarea class="creditPaste" rows="5" placeholder="將整段 credit 貼上嚟，每行一個，例如：&#10;Director: 陳大文&#10;Editor: Christina Tsang&#10;DP: 李小明&#10;Client: HSBC"></textarea>
+            <button class="ghost tiny doParse">自動填入 ↓</button>
+          </div>
         </div>
         <div class="film-actions">
           <button class="danger tiny delFilm">刪除呢個作品</button>
@@ -192,6 +243,24 @@ function filmCard(f, i) {
   // credits
   f.credits = f.credits || [];
   $(".addCredit", el).onclick = () => { f.credits.push({ role: "", name: "" }); render(); };
+
+  // auto-fill from pasted credit block
+  const nameIn = $(".myname", el);
+  nameIn.oninput = () => localStorage.setItem("ding_myname", nameIn.value.trim());
+  $(".doParse", el).onclick = () => {
+    const text = $(".creditPaste", el).value;
+    const parsed = parseCredits(text);
+    if (!parsed.length) { alert("貼唔到嘢，或者認唔到格式。試吓每行一個崗位，例：Editor: Christina"); return; }
+    f.credits = parsed;
+    // detect which credit is hers -> set the card role
+    const me = nameIn.value.trim().toLowerCase();
+    if (me) {
+      const mine = parsed.find((c) => (c.name || "").toLowerCase().includes(me));
+      if (mine && mine.role) f.role = mine.role;
+    }
+    render();
+    toast(me ? `填好 ${parsed.length} 個 credit，崗位已認出` : `填好 ${parsed.length} 個 credit（填埋你個名就會自動認崗位）`);
+  };
   el.querySelectorAll(".credit").forEach((row) => {
     const ci = +row.dataset.ci;
     $(".c-role", row).oninput = (e) => { f.credits[ci].role = e.target.value; };
