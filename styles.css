@@ -177,7 +177,9 @@ img { display: block; max-width: 100%; }
 
 .card { position: relative; display: block; }
 .card .thumb {
+  display: block;              /* block so aspect-ratio actually applies */
   position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;        /* every thumbnail is locked to 16:9 */
   overflow: hidden;
   background: var(--bg-elev);
@@ -192,6 +194,7 @@ img { display: block; max-width: 100%; }
 .card:hover .thumb img { transform: scale(1.05); }   /* subtle zoom on hover */
 
 .card .meta {
+  display: block;
   text-align: center;
   padding: 16px 6px 0;
 }
@@ -213,7 +216,12 @@ img { display: block; max-width: 100%; }
 }
 
 /* ---------- Work (project) page ---------- */
-.work { padding: clamp(30px, 6vh, 64px) 0 clamp(60px, 12vh, 120px); }
+/* grid wall stays full-bleed; the project page is constrained narrower */
+.work {
+  max-width: 1500px;
+  margin-inline: auto;
+  padding: clamp(30px, 6vh, 64px) 0 clamp(60px, 12vh, 120px);
+}
 .back {
   display: inline-flex; align-items: center; gap: 10px;
   color: var(--ink-dim); margin-bottom: clamp(28px, 6vh, 56px);
