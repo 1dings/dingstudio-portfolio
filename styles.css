@@ -164,8 +164,10 @@ img { display: block; max-width: 100%; }
 .page-head .label { color: var(--ink); }
 .page-head .count { color: var(--ink-faint); white-space: nowrap; }
 
-/* ---------- Film wall (full-bleed grid, like the reference) ---------- */
-.wall { padding: clamp(20px, 3.5vh, 40px) 0 clamp(50px, 10vh, 110px); }
+/* ---------- Film wall ---------- */
+/* only set vertical padding here; horizontal padding comes from .wrap (--gut),
+   using the `padding` shorthand would reset the side gutter to 0 */
+.wall { padding-top: clamp(20px, 3.5vh, 40px); padding-bottom: clamp(50px, 10vh, 110px); }
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
