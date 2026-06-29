@@ -350,7 +350,20 @@
     "category": "COMMERCIAL",
     "youtube": "qO_lo09t80k",
     "role": "Editor",
-    "credits": []
+    "credits": [
+      {
+        "role": "Agency",
+        "name": "@durian.hk"
+      },
+      {
+        "role": "Video & Color",
+        "name": "Chris Leung @lsn_1012 @actacreation"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dingsfafa"
+      }
+    ]
   },
   {
     "slug": "hsbc-cny-reels",
@@ -632,6 +645,27 @@
       {
         "role": "Editor",
         "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "xwallet-edc-bts",
+    "title": "Xwallet × EDC — BTS",
+    "category": "COMMERCIAL",
+    "role": "Editor",
+    "youtube": "bjy4netOVyI",
+    "credits": [
+      {
+        "role": "Agency",
+        "name": "@durian.hk"
+      },
+      {
+        "role": "Video & Color",
+        "name": "Chris Leung @lsn_1012 @actacreation"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dingsfafa"
       }
     ]
   },

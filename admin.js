@@ -45,29 +45,64 @@ function ytThumb(id) {
 
 /* ---- credit auto-parsing ---- */
 // Map common Chinese/English role words to a clean English label for the card badge.
+// Abbreviation / alias -> clean title. Keys are matched case-insensitively.
 const ROLE_MAP = {
-  "導演": "Director", "导演": "Director", director: "Director",
-  "剪接": "Editor", "剪輯": "Editor", "剪片": "Editor", "剪接師": "Editor", editor: "Editor", edit: "Editor",
+  // Director family
+  "導演": "Director", "导演": "Director", director: "Director", dir: "Director",
+  "助理導演": "Assistant Director", "助導": "Assistant Director", "副導演": "Assistant Director",
+  ad: "Assistant Director", "asst dir": "Assistant Director", "assistant dir": "Assistant Director",
+  "1st ad": "1st AD", "2nd ad": "2nd AD",
+  "art dir": "Art Director", artdir: "Art Director", "art director": "Art Director", "美術": "Art Director", "美術指導": "Art Director",
+  // Camera
   "攝影": "DP", "攝影指導": "DP", "摄影": "DP", dp: "DP", dop: "DP", cinematographer: "DP",
-  "監製": "Producer", "制片": "Producer", "製片": "Producer", producer: "Producer",
-  "助理導演": "AD", "助導": "AD", "副導演": "AD", ad: "AD",
+  "cam asst": "Camera Assistant", "cam assist": "Camera Assistant", "camera assistant": "Camera Assistant", "攝助": "Camera Assistant",
+  gaffer: "Gaffer", "燈光": "Gaffer",
+  // Edit / post
+  "剪接": "Editor", "剪輯": "Editor", "剪片": "Editor", "剪接師": "Editor", editor: "Editor", edit: "Editor",
+  "offline editor": "Offline Editor", "online editor": "Online Editor",
   "調色": "Colourist", "調色師": "Colourist", colourist: "Colourist", colorist: "Colourist",
+  // Producing
+  "監製": "Producer", "制片": "Producer", "製片": "Producer", producer: "Producer", prod: "Producer",
+  "exec prod": "Executive Producer", "executive producer": "Executive Producer",
+  pa: "Production Assistant", "prod assistant": "Production Assistant", "production assistant": "Production Assistant",
+  pm: "Production Manager", "production manager": "Production Manager",
+  // Talent / styling
+  "mua": "Make-up Artist", "make up": "Make-up Artist", "makeup": "Make-up Artist",
+  stylist: "Stylist", styling: "Stylist", "造型": "Stylist",
 };
 const ROLE_KEYS = Object.keys(ROLE_MAP);
 function cleanRole(r) {
-  const k = String(r || "").trim();
+  // normalise: trim, drop trailing dots, collapse spaces
+  const k = String(r || "").trim().replace(/\.+$/, "").replace(/\s+/g, " ").trim();
   return ROLE_MAP[k.toLowerCase()] || ROLE_MAP[k] || k;
 }
+
+// Known people: when a handle appears, show the real name alongside it.
+const PEOPLE = {
+  "@lsn_1012": "Chris Leung", "lsn_1012": "Chris Leung",
+  "@laukit.find": "Lau Kit", "laukit.find": "Lau Kit",
+};
+function applyPeople(name) {
+  let out = String(name || "");
+  for (const [handle, real] of Object.entries(PEOPLE)) {
+    if (out.toLowerCase().includes(handle.toLowerCase()) && !out.includes(real)) {
+      out = real + " " + out;
+    }
+  }
+  return out;
+}
+// Christina's own aliases — used to auto-detect which credit row is hers.
+const MY_ALIASES = ["christina", "dings424", "dingsfafa", "dings"];
 // Parse a pasted block of credits into [{role,name}].
 function parseCredits(text) {
   const out = [];
   String(text || "")
     .split(/\r?\n/)
     .forEach((raw) => {
-      const line = raw.trim().replace(/^[•\-\*·]\s*/, "");
+      const line = raw.trim().replace(/^[-•*·]\s+/, ""); // strip leading bullet
       if (!line) return;
-      // try delimiter: colon (en/zh), tab, or " - "
-      let parts = line.split(/\s*[:：]\s*|\t+|\s+[-–—]\s+/);
+      // delimiter: colon (en/zh), pipe (en/zh), tab, or " - "
+      let parts = line.split(/\s*[:：|｜]\s*|\t+|\s+[-–—]\s+/);
       let role = "", name = "";
       if (parts.length >= 2 && parts[0].trim()) {
         role = parts[0].trim();
@@ -82,7 +117,7 @@ function parseCredits(text) {
           name = line; // unknown line -> keep as a name-only row
         }
       }
-      if (name || role) out.push({ role: cleanRole(role), name });
+      if (name || role) out.push({ role: cleanRole(role), name: applyPeople(name) });
     });
   return out;
 }
@@ -274,16 +309,20 @@ function filmCard(f, i) {
   $(".doParse", el).onclick = () => {
     const text = $(".creditPaste", el).value;
     const parsed = parseCredits(text);
-    if (!parsed.length) { alert("貼唔到嘢，或者認唔到格式。試吓每行一個崗位，例：Editor: Christina"); return; }
-    f.credits = parsed;
-    // detect which credit is hers -> set the card role
-    const me = nameIn.value.trim().toLowerCase();
-    if (me) {
-      const mine = parsed.find((c) => (c.name || "").toLowerCase().includes(me));
-      if (mine && mine.role) f.role = mine.role;
-    }
+    if (!parsed.length) { alert("貼唔到嘢，或者認唔到格式。試吓每行一個崗位，例：Dir | Laukit"); return; }
+    // APPEND to whatever is already there (don't wipe rows you typed), skip duplicates
+    const existing = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
+    const seen = new Set(existing.map((c) => (c.role + "|" + c.name).toLowerCase()));
+    const adds = parsed.filter((c) => !seen.has((c.role + "|" + c.name).toLowerCase()));
+    f.credits = existing.concat(adds);
+    // detect which credit is hers (by typed name OR her known handles) -> set the card role
+    const typed = nameIn.value.trim().toLowerCase();
+    const aliases = MY_ALIASES.concat(typed ? [typed] : []);
+    const mine = f.credits.find((c) => aliases.some((a) => (c.name || "").toLowerCase().includes(a)));
+    if (mine && mine.role) f.role = mine.role;
+    $(".creditPaste", el).value = ""; // clear so a second paste won't double-add
     render();
-    toast(me ? `填好 ${parsed.length} 個 credit，崗位已認出` : `填好 ${parsed.length} 個 credit（填埋你個名就會自動認崗位）`);
+    toast(`加咗 ${adds.length} 個 credit${mine ? "，崗位已認出" : ""}`);
   };
   el.querySelectorAll(".credit").forEach((row) => {
     const ci = +row.dataset.ci;
