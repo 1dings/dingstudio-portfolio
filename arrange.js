@@ -20,6 +20,7 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 
 function thumbSrc(f) {
   if (f.thumb && String(f.thumb).trim()) return f.thumb;
+  if (f.vimeo) return `https://vumbnail.com/${encodeURIComponent(String(f.vimeo).split("/")[0].trim())}.jpg`;
   return f.youtube ? `https://img.youtube.com/vi/${encodeURIComponent(f.youtube)}/hqdefault.jpg` : "";
 }
 

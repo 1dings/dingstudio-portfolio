@@ -42,6 +42,13 @@ function slugify(s) {
 function ytThumb(id) {
   return id ? `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : "";
 }
+function vimeoId(v) { return String(v || "").split("/")[0].trim(); }
+function vimeoThumb(v) { return v ? `https://vumbnail.com/${encodeURIComponent(vimeoId(v))}.jpg` : ""; }
+function previewFor(f) {
+  if (f.thumb && f.thumb.trim()) return f.thumb;
+  if (f.vimeo) return vimeoThumb(f.vimeo);
+  return ytThumb(f.youtube);
+}
 
 /* ---- credit auto-parsing ---- */
 // Map common Chinese/English role words to a clean English label for the card badge.
@@ -176,7 +183,7 @@ function filmCard(f, i) {
     )
     .join("");
 
-  const previewSrc = (f.thumb && f.thumb.trim()) || ytThumb(f.youtube);
+  const previewSrc = previewFor(f);
   const usingCustom = !!(f.thumb && f.thumb.trim());
 
   el.innerHTML = `
@@ -214,10 +221,17 @@ function filmCard(f, i) {
             <div class="help">留空就淨係顯示類型</div>
           </div>
         </div>
-        <div>
-          <label>YouTube 片 ID</label>
-          <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
-          <div class="help">網址 watch?v= 後面嗰串字</div>
+        <div class="row2">
+          <div>
+            <label>YouTube 片 ID</label>
+            <input class="f-yt" value="${esc(f.youtube)}" placeholder="9bZkp7q19f0">
+            <div class="help">網址 watch?v= 後面嗰串字</div>
+          </div>
+          <div>
+            <label>Vimeo ID <span class="en">（有 Vimeo 就填，會用 Vimeo 播）</span></label>
+            <input class="f-vimeo" value="${esc(f.vimeo || "")}" placeholder="1035519077">
+            <div class="help">vimeo.com/ 後面嗰串數字。私片用 id/hash</div>
+          </div>
         </div>
         <div class="credits">
           <label>Credit 名單 <span class="en">（選填，例：Director / DP / Client）</span></label>
@@ -240,6 +254,7 @@ function filmCard(f, i) {
   /* ---- wire up ---- */
   const titleIn = $(".f-title", el);
   const ytIn = $(".f-yt", el);
+  const vimeoIn = $(".f-vimeo", el);
   const catIn = $(".f-cat", el);
   const roleIn = $(".f-role", el);
   const prev = $(".thumbPrev", el);
@@ -249,10 +264,8 @@ function filmCard(f, i) {
     f.title = titleIn.value;
     if (!f.slug) f.slug = slugify(titleIn.value);
   };
-  ytIn.oninput = () => {
-    f.youtube = ytIn.value.trim();
-    if (!f.thumb) prev.src = ytThumb(f.youtube);
-  };
+  ytIn.oninput = () => { f.youtube = ytIn.value.trim(); if (!f.thumb) prev.src = previewFor(f); };
+  vimeoIn.oninput = () => { f.vimeo = vimeoIn.value.trim(); if (!f.thumb) prev.src = previewFor(f); };
   catIn.onchange = () => { f.category = catIn.value; };
   roleIn.oninput = () => { f.role = roleIn.value; };
 
@@ -343,6 +356,7 @@ function normalize(data) {
     category: (f.category || "COMMERCIAL").toUpperCase(),
     role: f.role || "",
     youtube: f.youtube || "",
+    vimeo: f.vimeo || "",
     thumb: f.thumb || "",
     credits: Array.isArray(f.credits) ? f.credits.map((c) => ({ role: c.role || "", name: c.name || "" })) : [],
   }));
@@ -383,6 +397,7 @@ function buildJson() {
       youtube: f.youtube || "",
     };
     if (f.role && f.role.trim()) o.role = f.role.trim();
+    if (f.vimeo && f.vimeo.trim()) o.vimeo = f.vimeo.trim();
     if (f.thumb && f.thumb.trim()) o.thumb = f.thumb.trim();
     o.credits = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
     return o;

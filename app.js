@@ -43,6 +43,21 @@ function thumbCheck(imgEl, id) {
 window.thumbFallback = thumbFallback;
 window.thumbCheck = thumbCheck;
 
+// Vimeo helpers. `vimeo` field holds the numeric id (optionally "id/hash" for
+// unlisted videos). vumbnail.com provides a thumbnail when none is set.
+function vimeoParts(v) {
+  const [id, hash] = String(v || "").split("/");
+  return { id: id.trim(), hash: (hash || "").trim() };
+}
+function vimeoThumb(v) {
+  return `https://vumbnail.com/${encodeURIComponent(vimeoParts(v).id)}.jpg`;
+}
+function vimeoEmbed(v) {
+  const { id, hash } = vimeoParts(v);
+  const h = hash ? `&h=${encodeURIComponent(hash)}` : "";
+  return `https://player.vimeo.com/video/${encodeURIComponent(id)}?title=0&byline=0&portrait=0${h}`;
+}
+
 async function loadFilms() {
   const res = await fetch("films.json", { cache: "no-store" });
   if (!res.ok) throw new Error("films.json not found");
@@ -67,13 +82,18 @@ async function renderWall(root, tabKey) {
 
   let cards = "";
   items.forEach((f, i) => {
-    // Custom thumbnail (assets/thumbs/...) wins; otherwise pull from YouTube.
+    // Thumbnail priority: custom thumb -> Vimeo (vumbnail) -> YouTube auto.
     const custom = f.thumb && String(f.thumb).trim();
-    const img = custom
-      ? `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`
-      : `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
+    let img;
+    if (custom) {
+      img = `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`;
+    } else if (f.vimeo) {
+      img = `<img src="${esc(vimeoThumb(f.vimeo))}" alt="${esc(f.title)}" loading="lazy">`;
+    } else {
+      img = `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
              onload="thumbCheck(this,'${esc(f.youtube)}')"
              onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
+    }
     cards += `<a class="card reveal" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
@@ -134,16 +154,16 @@ async function renderWork(root) {
            <span class="mono lab">${lab}</span><span class="t">${esc(f.title)}</span></a>`
       : `<span></span>`;
 
-  const yt =
-    `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}` +
-    `?rel=0&modestbranding=1&color=white`;
+  const embed = film.vimeo
+    ? vimeoEmbed(film.vimeo)
+    : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}?rel=0&modestbranding=1&color=white`;
 
   root.innerHTML = `<div class="wrap work reveal">
     <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
     <p class="mono tag">${esc([film.category, film.role].filter(Boolean).join(" · "))}</p>
     <h1>${esc(film.title)}</h1>
     <div class="player">
-      <iframe src="${yt}" title="${esc(film.title)}"
+      <iframe src="${embed}" title="${esc(film.title)}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
