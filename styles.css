@@ -22,7 +22,7 @@
 
   /* ---- Metrics ---- */
   --maxw: 2400px;
-  --gut: clamp(16px, 2.2vw, 48px);
+  --gut: clamp(24px, 3.5vw, 72px);   /* a little breathing room on the sides */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
