@@ -629,9 +629,7 @@
         "role": "Title Designer",
         "name": "Sharon Chow"
       }
-    ],
-    "vimeo": "1035519077",
-    "thumb": "https://img.youtube.com/vi/hm9NfjVhLoE/maxresdefault.jpg"
+    ]
   },
   {
     "slug": "regent-hotel-x-rey",
@@ -749,6 +747,205 @@
       {
         "role": "Music",
         "name": "Salina Killa, Banana Road"
+      }
+    ]
+  },
+  {
+    "slug": "cshk-corporate-video",
+    "title": "CSHK — Corporate Video",
+    "category": "COMMERCIAL",
+    "role": "Offline Editor",
+    "youtube": "",
+    "vimeo": "1011928644",
+    "credits": [
+      {
+        "role": "Production House",
+        "name": "Pigture Creations Ltd."
+      },
+      {
+        "role": "Director",
+        "name": "Kwan Yu @yukwanwing"
+      },
+      {
+        "role": "Producer",
+        "name": "Suky Yeung @sukyyeung"
+      },
+      {
+        "role": "DP",
+        "name": "Sam Tam @sam.t_fotoncine"
+      },
+      {
+        "role": "Gaffer",
+        "name": "LLC @llllllllll_c"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Ken Mok @kenmok1234"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "Roy Wong @roywong95, Dicky Ho @dickyh0"
+      },
+      {
+        "role": "Best Boy",
+        "name": "Ho Ho Cheung @ginger_bb14, Timothy Chan @timothychann, Victor Chow @victorhong_, Terence Chan @terence1125"
+      },
+      {
+        "role": "Drone Operator",
+        "name": "Chan Chak Long @chaklong"
+      },
+      {
+        "role": "Makeup & Hair",
+        "name": "Helia Chan @makeup._.helia, Scarlett @foon_empty_headed"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina @dingsfafa, Kelvin Tsoi @kelvintsoi0722"
+      },
+      {
+        "role": "Online Editor",
+        "name": "Paperbox"
+      },
+      {
+        "role": "Sound Mixing",
+        "name": "Chai @chaiiy_"
+      },
+      {
+        "role": "Graphic Designer",
+        "name": "Sharon Chow @sharonchow_"
+      },
+      {
+        "role": "Production Team",
+        "name": "5ghey @5ghey_, Eric Chan @ericchan02, Gavin @kaikaigavin, Kobe @kbisblue"
+      },
+      {
+        "role": "Colourist",
+        "name": "@fmlik_, Christina @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "gentle-bones-hey-you",
+    "title": "Gentle Bones — 'Hey You' (Official MV)",
+    "category": "MUSIC VIDEO",
+    "role": "Editor / Assistant Director",
+    "youtube": "DpBdgwNeEe8",
+    "credits": [
+      {
+        "role": "Produced by",
+        "name": "SameSame"
+      },
+      {
+        "role": "Composer & Lyricist",
+        "name": "Joel Tan, Rob Cohen, Blake Mares"
+      },
+      {
+        "role": "Mastering Engineer",
+        "name": "Dale Becker"
+      },
+      {
+        "role": "Mastering at",
+        "name": "Becker Mastering (Pasadena, CA)"
+      },
+      {
+        "role": "A&R",
+        "name": "Nicholas Cheung, Evan Low"
+      },
+      {
+        "role": "Label",
+        "name": "Asiatic, Warner Music Asia"
+      },
+      {
+        "role": "Starring",
+        "name": "Joel Tan, Sheena Chan"
+      },
+      {
+        "role": "Production House",
+        "name": "Pigture Creations Ltd."
+      },
+      {
+        "role": "Director",
+        "name": "Kwan Yu"
+      },
+      {
+        "role": "Assistant Director",
+        "name": "Christina Tsang"
+      },
+      {
+        "role": "Producer",
+        "name": "Ricky"
+      },
+      {
+        "role": "DP",
+        "name": "Sam Tam"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Ho Ching Hei"
+      },
+      {
+        "role": "Gaffer",
+        "name": "LLC"
+      },
+      {
+        "role": "Best Boy",
+        "name": "Roy Wong, Ho Ho Cheung"
+      },
+      {
+        "role": "Production Manager",
+        "name": "Yu On On"
+      },
+      {
+        "role": "Production Assistant",
+        "name": "Poon Ka Fai"
+      },
+      {
+        "role": "Art Director",
+        "name": "Ranice Chang"
+      },
+      {
+        "role": "Art Team",
+        "name": "Paul Ma, Henry Tsoi, Eric Chan"
+      },
+      {
+        "role": "Title Designer",
+        "name": "Sharon Chow"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina Tsang"
+      },
+      {
+        "role": "Online Editor",
+        "name": "19"
+      },
+      {
+        "role": "Colourist",
+        "name": "Sam Tam"
+      },
+      {
+        "role": "Supporting Cast",
+        "name": "Scarlett Li, 5ghey, Kaho, Kelvin Tsoi"
+      },
+      {
+        "role": "Stylist",
+        "name": "Tang Pei"
+      },
+      {
+        "role": "Styling Assistant",
+        "name": "Yumi"
+      },
+      {
+        "role": "Make-up & Hair",
+        "name": "Tiffany Ting"
+      },
+      {
+        "role": "Still Photographer",
+        "name": "Leo Yuen"
+      },
+      {
+        "role": "Venue",
+        "name": "Florist Claudia"
       }
     ]
   },
