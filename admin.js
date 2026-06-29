@@ -129,19 +129,26 @@ function parseCredits(text) {
   return out;
 }
 
-// Resize an uploaded image to <=1280px wide JPEG data URL, so the embedded
-// cover stays small inside films.json.
-function resizeImage(file, maxW = 1280) {
+// Force the uploaded cover to a 16:9 JPEG (1280x720), centre-cropped exactly
+// like the website's object-fit:cover — so what you see here is what shows live.
+function resizeImage(file, outW = 1280) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
-      const scale = Math.min(1, maxW / img.naturalWidth);
-      const w = Math.max(1, Math.round(img.naturalWidth * scale));
-      const h = Math.max(1, Math.round(img.naturalHeight * scale));
+      const ratio = 16 / 9;
+      const outH = Math.round(outW / ratio); // 720
       const c = document.createElement("canvas");
-      c.width = w;
-      c.height = h;
-      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      c.width = outW;
+      c.height = outH;
+      // centre-crop source to 16:9
+      const srcRatio = img.naturalWidth / img.naturalHeight;
+      let sw, sh, sx, sy;
+      if (srcRatio > ratio) {            // source too wide -> trim left/right
+        sh = img.naturalHeight; sw = sh * ratio; sx = (img.naturalWidth - sw) / 2; sy = 0;
+      } else {                            // source too tall -> trim top/bottom
+        sw = img.naturalWidth; sh = sw / ratio; sx = 0; sy = (img.naturalHeight - sh) / 2;
+      }
+      c.getContext("2d").drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
       resolve(c.toDataURL("image/jpeg", 0.85));
       URL.revokeObjectURL(img.src);
     };
