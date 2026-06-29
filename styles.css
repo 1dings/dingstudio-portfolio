@@ -222,7 +222,9 @@ img { display: block; max-width: 100%; }
 .work {
   max-width: 1500px;
   margin-inline: auto;
-  padding: clamp(30px, 6vh, 64px) 0 clamp(60px, 12vh, 120px);
+  /* vertical padding only; horizontal comes from .wrap (--gut) so it isn't zeroed */
+  padding-top: clamp(30px, 6vh, 64px);
+  padding-bottom: clamp(60px, 12vh, 120px);
 }
 .back {
   display: inline-flex; align-items: center; gap: 10px;
