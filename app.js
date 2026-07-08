@@ -10,8 +10,9 @@
 const FILMO_CATEGORIES = ["MUSIC VIDEO", "COMMERCIAL"];
 
 const TABS = {
-  filmography: { label: "Filmography", page: "index.html", match: (c) => FILMO_CATEGORIES.includes(c) },
-  events:      { label: "Events",      page: "event.html", match: (c) => c === "EVENT" },
+  filmography: { label: "Filmography",  page: "index.html", match: (c) => FILMO_CATEGORIES.includes(c) },
+  reels:       { label: "Social Reels", page: "reels.html", match: (c) => c === "SOCIAL REELS" },
+  events:      { label: "Events",       page: "event.html", match: (c) => c === "EVENT" },
 };
 
 const esc = (s) =>
@@ -112,6 +113,98 @@ async function renderWall(root, tabKey) {
   </div>`;
 }
 
+/* ----------------------- Social Reels (9:16 wall + lightbox) ----------------------- */
+function thumbImg(f) {
+  const custom = f.thumb && String(f.thumb).trim();
+  if (custom) return `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`;
+  if (f.vimeo) return `<img src="${esc(vimeoThumb(f.vimeo))}" alt="${esc(f.title)}" loading="lazy">`;
+  return `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
+            onload="thumbCheck(this,'${esc(f.youtube)}')"
+            onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
+}
+
+async function renderReels(root) {
+  let films;
+  try {
+    films = await loadFilms();
+  } catch (e) {
+    root.innerHTML = `<div class="wrap"><p class="note">Could not load films.json — ${esc(e.message)}</p></div>`;
+    return;
+  }
+
+  const items = films.filter((f) => (f.category || "").toUpperCase() === "SOCIAL REELS");
+
+  let cards = "";
+  items.forEach((f, i) => {
+    cards += `<button class="reel reveal" style="animation-delay:${i * 45}ms"
+                data-yt="${esc(f.youtube || "")}" data-vimeo="${esc(f.vimeo || "")}"
+                data-slug="${esc(f.slug)}" data-title="${esc(f.title)}"
+                aria-label="Play ${esc(f.title)}">
+      <span class="thumb">
+        ${thumbImg(f)}
+        <span class="play"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </span>
+      <span class="meta">
+        <span class="title">${esc(f.title)}</span>
+        <span class="cat">${esc(f.role || "")}</span>
+      </span>
+    </button>`;
+  });
+
+  root.innerHTML = `<div class="wrap wall">
+    <div class="reelgrid">${cards || `<p class="note">Nothing here yet.</p>`}</div>
+  </div>`;
+
+  root.querySelectorAll(".reel").forEach((btn) =>
+    btn.addEventListener("click", () => openReel(btn.dataset))
+  );
+}
+
+function ensureLightbox() {
+  let lb = document.getElementById("lightbox");
+  if (lb) return lb;
+  lb = document.createElement("div");
+  lb.id = "lightbox";
+  lb.className = "lightbox";
+  lb.innerHTML = `
+    <div class="lb-backdrop" data-close></div>
+    <div class="lb-inner">
+      <button class="lb-close" data-close aria-label="Close">&times;</button>
+      <div class="lb-frame"><div class="lb-player"></div></div>
+      <div class="lb-cap">
+        <span class="lb-title"></span>
+        <a class="lb-credits mono" href="#">View credits &rarr;</a>
+      </div>
+    </div>`;
+  document.body.appendChild(lb);
+  lb.addEventListener("click", (e) => { if (e.target.hasAttribute("data-close")) closeReel(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeReel(); });
+  return lb;
+}
+
+function openReel(d) {
+  const lb = ensureLightbox();
+  const src = d.vimeo
+    ? vimeoEmbed(d.vimeo) + "&autoplay=1"
+    : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(d.yt)}?rel=0&modestbranding=1&autoplay=1&playsinline=1&color=white`;
+  lb.querySelector(".lb-player").innerHTML =
+    `<iframe src="${src}" title="${esc(d.title)}"
+       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+       allowfullscreen></iframe>`;
+  lb.querySelector(".lb-title").textContent = d.title;
+  lb.querySelector(".lb-credits").href = `work.html?v=${encodeURIComponent(d.slug)}`;
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeReel() {
+  const lb = document.getElementById("lightbox");
+  if (!lb) return;
+  lb.classList.remove("open");
+  lb.querySelector(".lb-player").innerHTML = "";   // unload iframe -> stops playback
+  document.body.style.overflow = "";
+}
+
 /* ----------------------- Project page ----------------------- */
 async function renderWork(root) {
   const slug = new URLSearchParams(location.search).get("v");
@@ -158,11 +251,13 @@ async function renderWork(root) {
     ? vimeoEmbed(film.vimeo)
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}?rel=0&modestbranding=1&color=white`;
 
+  const vertical = (film.category || "").toUpperCase() === "SOCIAL REELS";
+
   root.innerHTML = `<div class="wrap work reveal">
     <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
     <p class="mono tag">${esc([film.category, film.role].filter(Boolean).join(" · "))}</p>
     <h1>${esc(film.title)}</h1>
-    <div class="player">
+    <div class="player${vertical ? " vertical" : ""}">
       <iframe src="${embed}" title="${esc(film.title)}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
@@ -178,9 +273,11 @@ async function renderWork(root) {
 /* ----------------------- boot ----------------------- */
 document.addEventListener("DOMContentLoaded", () => {
   const filmo = document.getElementById("filmography");
+  const reels = document.getElementById("reels");
   const events = document.getElementById("events");
   const work = document.getElementById("work");
   if (filmo) renderWall(filmo, "filmography");
+  if (reels) renderReels(reels);
   if (events) renderWall(events, "events");
   if (work) renderWork(work);
 });

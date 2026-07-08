@@ -8,6 +8,7 @@
 const CATEGORIES = [
   { v: "MUSIC VIDEO", t: "Music Video（去 FILMOGRAPHY tab）" },
   { v: "COMMERCIAL", t: "Commercial（去 FILMOGRAPHY tab）" },
+  { v: "SOCIAL REELS", t: "Social Reels（9:16 直片 · 去 SOCIAL REELS tab）" },
   { v: "EVENT", t: "Event（去 EVENT tab）" },
 ];
 let films = [];

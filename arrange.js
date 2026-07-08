@@ -7,8 +7,9 @@
 
 const FILMO = ["MUSIC VIDEO", "COMMERCIAL"];
 const isEvent = (c) => (c || "").toUpperCase() === "EVENT";
+const isReel = (c) => (c || "").toUpperCase() === "SOCIAL REELS";
 
-let groups = { filmo: [], event: [] }; // arrays of full film objects, in display order
+let groups = { filmo: [], reels: [], event: [] }; // arrays of full film objects, in display order
 let drag = null; // { group, index }
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -27,8 +28,10 @@ function thumbSrc(f) {
 function render() {
   board.innerHTML = `
     ${section("FILMOGRAPHY", "filmo")}
+    ${section("SOCIAL REELS", "reels")}
     ${section("EVENT", "event")}`;
   wire("filmo");
+  wire("reels");
   wire("event");
 }
 
@@ -101,8 +104,11 @@ function move(key, from, to) {
 /* ---------------- load / save ---------------- */
 function ingest(data) {
   if (!Array.isArray(data)) throw new Error("films.json must be a list");
-  groups = { filmo: [], event: [] };
-  data.forEach((f) => (isEvent(f.category) ? groups.event : groups.filmo).push(f));
+  groups = { filmo: [], reels: [], event: [] };
+  data.forEach((f) => {
+    const g = isEvent(f.category) ? groups.event : isReel(f.category) ? groups.reels : groups.filmo;
+    g.push(f);
+  });
   render();
 }
 
@@ -111,7 +117,7 @@ async function autoLoad() {
     const res = await fetch("films.json", { cache: "no-store" });
     if (!res.ok) throw new Error();
     ingest(await res.json());
-    toast(`已載入 ${groups.filmo.length + groups.event.length} 條`);
+    toast(`已載入 ${groups.filmo.length + groups.reels.length + groups.event.length} 條`);
   } catch {
     board.innerHTML = `<div class="empty">撳右上角「載入 films.json」揀你個檔。</div>`;
   }
@@ -124,7 +130,7 @@ function loadFromFile(file) {
 }
 
 function download() {
-  const out = [...groups.filmo, ...groups.event];
+  const out = [...groups.filmo, ...groups.reels, ...groups.event];
   if (!out.length) { alert("仲未載入作品。"); return; }
   const blob = new Blob([JSON.stringify(out, null, 2) + "\n"], { type: "application/json" });
   const url = URL.createObjectURL(blob);
