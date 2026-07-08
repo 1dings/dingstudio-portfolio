@@ -376,6 +376,14 @@ img { display: block; max-width: 100%; }
 }
 .credits .row dt { color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 2px; }
 .credits .row dd { font-size: 1.02rem; }
+.credits .ig-h {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-faint);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.credits .ig-h:hover { color: var(--ink); text-decoration-color: var(--ink); }
 @media (max-width: 560px) { .credits .row { grid-template-columns: 1fr; gap: 4px; } }
 
 .pager {

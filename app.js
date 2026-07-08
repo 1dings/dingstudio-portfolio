@@ -22,6 +22,16 @@ const esc = (s) =>
 
 const pad = (n) => String(n).padStart(2, "0");
 
+// Turn @handles inside a credit name into clickable Instagram profile links.
+// Escapes first, then linkifies. Handles may contain letters/digits/_/. but must
+// start and end on an alphanumeric or underscore (so trailing dots stay as text).
+function linkifyHandles(str) {
+  return esc(str).replace(
+    /@([A-Za-z0-9_](?:[A-Za-z0-9_.]*[A-Za-z0-9_])?)/g,
+    (_m, h) => `<a class="ig-h" href="https://instagram.com/${h}" target="_blank" rel="noopener">@${h}</a>`
+  );
+}
+
 function thumb(id) {
   return `https://img.youtube.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`;
 }
@@ -241,7 +251,7 @@ async function renderWork(root) {
   const credits = Array.isArray(film.credits) ? film.credits.filter((c) => c && c.name && c.name !== "—") : [];
   const creditsHtml = credits.length
     ? `<dl class="credits">${credits
-        .map((c) => `<div class="row"><dt>${esc(c.role)}</dt><dd>${esc(c.name)}</dd></div>`)
+        .map((c) => `<div class="row"><dt>${esc(c.role)}</dt><dd>${linkifyHandles(c.name)}</dd></div>`)
         .join("")}</dl>`
     : "";
 
