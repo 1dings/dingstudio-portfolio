@@ -81,6 +81,10 @@ async function renderWall(root, tabKey) {
   const tab = TABS[tabKey];
   const items = films.filter((f) => tab.match((f.category || "").toUpperCase()));
 
+  // Events can hold both 16:9 and 9:16 films -> masonry layout so each keeps its
+  // true ratio without leaving gaps.
+  const mixed = tabKey === "events" && items.some((f) => f.vertical);
+
   let cards = "";
   items.forEach((f, i) => {
     // Thumbnail priority: custom thumb -> Vimeo (vumbnail) -> YouTube auto.
@@ -95,7 +99,7 @@ async function renderWall(root, tabKey) {
              onload="thumbCheck(this,'${esc(f.youtube)}')"
              onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
     }
-    cards += `<a class="card reveal" style="animation-delay:${i * 45}ms"
+    cards += `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
@@ -109,7 +113,7 @@ async function renderWall(root, tabKey) {
   });
 
   root.innerHTML = `<div class="wrap wall">
-    <div class="grid">${cards || `<p class="note">Nothing here yet.</p>`}</div>
+    <div class="${mixed ? "masonry" : "grid"}">${cards || `<p class="note">Nothing here yet.</p>`}</div>
   </div>`;
 }
 

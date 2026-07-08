@@ -121,11 +121,26 @@ img { display: block; max-width: 100%; }
   .site-head {
     grid-template-columns: 1fr auto;
     grid-template-areas: "brand ig" "nav nav";
-    row-gap: 13px;
+    row-gap: 14px;
   }
   .wordmark { grid-area: brand; grid-column: auto; justify-self: start; }
   .head-right { grid-area: ig; grid-column: auto; }
-  .nav-left { grid-area: nav; }
+  /* On mobile the mono tab labels ran together — make each tab a clearly
+     tappable pill so it reads as a separate button. */
+  .nav-left { grid-area: nav; gap: 8px; }
+  .nav-left a {
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+  }
+  .nav-left a::after { display: none; }   /* drop the underline effect for pills */
+  /* extra specificity so it beats `.nav a[aria-current]{color:var(--ink)}` below */
+  .site-head .nav-left a[aria-current="page"] {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
 }
 .nav a {
   font-family: var(--font-mono);
@@ -176,6 +191,14 @@ img { display: block; max-width: 100%; }
 }
 @media (min-width: 720px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1080px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Masonry (Events, when it mixes 16:9 + 9:16) — packs tiles by height, no gaps */
+.masonry { columns: 2; column-gap: clamp(14px, 1.6vw, 26px); }
+@media (min-width: 720px)  { .masonry { columns: 3; } }
+@media (min-width: 1080px) { .masonry { columns: 4; } }
+.masonry .card { break-inside: avoid; margin: 0 0 clamp(30px, 4vh, 52px); }
+/* vertical tiles keep their true 9:16 ratio */
+.card.tall .thumb { aspect-ratio: 9 / 16; }
 
 .card { position: relative; display: block; }
 .card .thumb {
