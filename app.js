@@ -109,7 +109,7 @@ async function renderWall(root, tabKey) {
              onload="thumbCheck(this,'${esc(f.youtube)}')"
              onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
     }
-    cards += `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
+    cards += `<a class="card reveal${f.vertical ? " tall" : ""}" style="--ar:${f.vertical ? "0.5625" : "1.7778"};animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
@@ -123,7 +123,7 @@ async function renderWall(root, tabKey) {
   });
 
   root.innerHTML = `<div class="wrap wall">
-    <div class="${mixed ? "masonry" : "grid"}">${cards || `<p class="note">Nothing here yet.</p>`}</div>
+    <div class="${mixed ? "evgrid" : "grid"}">${cards || `<p class="note">Nothing here yet.</p>`}</div>
   </div>`;
 }
 

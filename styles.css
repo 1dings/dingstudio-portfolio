@@ -192,13 +192,24 @@ img { display: block; max-width: 100%; }
 @media (min-width: 720px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1080px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
-/* Masonry (Events, when it mixes 16:9 + 9:16) — packs tiles by height, no gaps */
-.masonry { columns: 2; column-gap: clamp(14px, 1.6vw, 26px); }
-@media (min-width: 720px)  { .masonry { columns: 3; } }
-@media (min-width: 1080px) { .masonry { columns: 4; } }
-.masonry .card { break-inside: avoid; margin: 0 0 clamp(30px, 4vh, 52px); }
-/* vertical tiles keep their true 9:16 ratio */
-.card.tall .thumb { aspect-ratio: 9 / 16; }
+/* Events (mixes 16:9 + 9:16): justified rows where every tile shares the SAME
+   height. Vertical tiles are just narrower, not taller — so they no longer
+   dominate. Each card carries --ar (aspect ratio) inline from app.js. */
+.card.tall .thumb { aspect-ratio: 9 / 16; }   /* fallback if ever shown outside .evgrid */
+.evgrid { display: flex; flex-wrap: wrap; gap: clamp(16px, 1.8vw, 30px); align-items: flex-start; }
+.evgrid::after { content: ""; flex-grow: 999999; }   /* soak up last-row slack -> left-aligns */
+.evgrid .card {
+  --rh: clamp(180px, 23vh, 290px);        /* shared row height */
+  flex-grow: var(--ar);
+  flex-basis: calc(var(--ar) * var(--rh));
+  margin-bottom: clamp(6px, 1.2vh, 16px);
+}
+.evgrid .card .thumb,
+.evgrid .card.tall .thumb { height: var(--rh); width: 100%; aspect-ratio: auto; }
+@media (max-width: 560px) {
+  /* phones: taller rows so vertical tiles stay legible */
+  .evgrid .card { --rh: clamp(200px, 46vw, 300px); }
+}
 
 .card { position: relative; display: block; }
 .card .thumb {
