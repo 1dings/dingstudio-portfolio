@@ -192,24 +192,10 @@ img { display: block; max-width: 100%; }
 @media (min-width: 720px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1080px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
-/* Events (mixes 16:9 + 9:16): justified rows where every tile shares the SAME
-   height. Vertical tiles are just narrower, not taller — so they no longer
-   dominate. Each card carries --ar (aspect ratio) inline from app.js. */
-.card.tall .thumb { aspect-ratio: 9 / 16; }   /* fallback if ever shown outside .evgrid */
-.evgrid { display: flex; flex-wrap: wrap; gap: clamp(16px, 1.8vw, 30px); align-items: flex-start; }
-.evgrid::after { content: ""; flex-grow: 999999; }   /* soak up last-row slack -> left-aligns */
-.evgrid .card {
-  --rh: clamp(180px, 23vh, 290px);        /* shared row height */
-  flex-grow: var(--ar);
-  flex-basis: calc(var(--ar) * var(--rh));
-  margin-bottom: clamp(6px, 1.2vh, 16px);
-}
-.evgrid .card .thumb,
-.evgrid .card.tall .thumb { height: var(--rh); width: 100%; aspect-ratio: auto; }
-@media (max-width: 560px) {
-  /* phones: taller rows so vertical tiles stay legible */
-  .evgrid .card { --rh: clamp(200px, 46vw, 300px); }
-}
+/* Events mix 16:9 + 9:16: the 16:9 films sit in the normal grid on top, then the
+   9:16 films are grouped below as clickable Social-Reels tiles (open the lightbox). */
+.card.tall .thumb { aspect-ratio: 9 / 16; }
+.wall .grid + .reelgrid { margin-top: clamp(34px, 6vh, 68px); }
 
 .card { position: relative; display: block; }
 .card .thumb {

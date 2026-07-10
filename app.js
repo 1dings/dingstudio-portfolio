@@ -91,39 +91,31 @@ async function renderWall(root, tabKey) {
   const tab = TABS[tabKey];
   const items = films.filter((f) => tab.match((f.category || "").toUpperCase()));
 
-  // Events can hold both 16:9 and 9:16 films -> masonry layout so each keeps its
-  // true ratio without leaving gaps.
-  const mixed = tabKey === "events" && items.some((f) => f.vertical);
-
-  let cards = "";
-  items.forEach((f, i) => {
-    // Thumbnail priority: custom thumb -> Vimeo (vumbnail) -> YouTube auto.
-    const custom = f.thumb && String(f.thumb).trim();
-    let img;
-    if (custom) {
-      img = `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`;
-    } else if (f.vimeo) {
-      img = `<img src="${esc(vimeoThumb(f.vimeo))}" alt="${esc(f.title)}" loading="lazy">`;
-    } else {
-      img = `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
-             onload="thumbCheck(this,'${esc(f.youtube)}')"
-             onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
-    }
-    cards += `<a class="card reveal${f.vertical ? " tall" : ""}" style="--ar:${f.vertical ? "0.5625" : "1.7778"};animation-delay:${i * 45}ms"
+  const cardHtml = (f, i) => `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
                  aria-label="${esc(f.title)}">
-      <span class="thumb">
-        ${img}
-      </span>
+      <span class="thumb">${thumbImg(f)}</span>
       <span class="meta">
         <span class="title">${esc(f.title)}</span>
         <span class="cat">${esc([f.role, f.category].filter(Boolean).join(" · "))}</span>
       </span>
     </a>`;
-  });
+
+  // Events mix 16:9 + 9:16: put all the 16:9 together on top, then the 9:16
+  // grouped below at Social-Reels size.
+  if (tabKey === "events" && items.some((f) => f.vertical)) {
+    const horiz = items.filter((f) => !f.vertical);
+    const vert = items.filter((f) => f.vertical);
+    root.innerHTML = `<div class="wrap wall">
+      <div class="grid">${horiz.map(cardHtml).join("")}</div>
+      ${vert.length ? `<div class="reelgrid">${vert.map(reelCardHtml).join("")}</div>` : ""}
+    </div>`;
+    wireReels(root);   // 9:16 tiles open the lightbox, same as Social Reels
+    return;
+  }
 
   root.innerHTML = `<div class="wrap wall">
-    <div class="${mixed ? "evgrid" : "grid"}">${cards || `<p class="note">Nothing here yet.</p>`}</div>
+    <div class="grid">${items.map(cardHtml).join("") || `<p class="note">Nothing here yet.</p>`}</div>
   </div>`;
 }
 
@@ -137,20 +129,10 @@ function thumbImg(f) {
             onerror="thumbFallback(this,'${esc(f.youtube)}')">`;
 }
 
-async function renderReels(root) {
-  let films;
-  try {
-    films = await loadFilms();
-  } catch (e) {
-    root.innerHTML = `<div class="wrap"><p class="note">Could not load films.json — ${esc(e.message)}</p></div>`;
-    return;
-  }
-
-  const items = films.filter((f) => (f.category || "").toUpperCase() === "SOCIAL REELS");
-
-  let cards = "";
-  items.forEach((f, i) => {
-    cards += `<button class="reel reveal" style="animation-delay:${i * 45}ms"
+// A 9:16 tile that opens the lightbox (used by Social Reels AND the 9:16 group
+// on the Event page).
+function reelCardHtml(f, i) {
+  return `<button class="reel reveal" style="animation-delay:${i * 45}ms"
                 data-yt="${esc(f.youtube || "")}" data-vimeo="${esc(f.vimeo || "")}"
                 data-slug="${esc(f.slug)}" data-title="${esc(f.title)}"
                 aria-label="Play ${esc(f.title)}">
@@ -163,15 +145,29 @@ async function renderReels(root) {
         <span class="cat">${esc(f.role || "")}</span>
       </span>
     </button>`;
-  });
-
-  root.innerHTML = `<div class="wrap wall">
-    <div class="reelgrid">${cards || `<p class="note">Nothing here yet.</p>`}</div>
-  </div>`;
-
+}
+function wireReels(root) {
   root.querySelectorAll(".reel").forEach((btn) =>
     btn.addEventListener("click", () => openReel(btn.dataset))
   );
+}
+
+async function renderReels(root) {
+  let films;
+  try {
+    films = await loadFilms();
+  } catch (e) {
+    root.innerHTML = `<div class="wrap"><p class="note">Could not load films.json — ${esc(e.message)}</p></div>`;
+    return;
+  }
+
+  const items = films.filter((f) => (f.category || "").toUpperCase() === "SOCIAL REELS");
+
+  root.innerHTML = `<div class="wrap wall">
+    <div class="reelgrid">${items.map(reelCardHtml).join("") || `<p class="note">Nothing here yet.</p>`}</div>
+  </div>`;
+
+  wireReels(root);
 }
 
 function ensureLightbox() {
@@ -265,7 +261,7 @@ async function renderWork(root) {
     ? vimeoEmbed(film.vimeo)
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}?rel=0&modestbranding=1&color=white`;
 
-  const vertical = (film.category || "").toUpperCase() === "SOCIAL REELS";
+  const vertical = !!film.vertical || (film.category || "").toUpperCase() === "SOCIAL REELS";
 
   root.innerHTML = `<div class="wrap work reveal">
     <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
