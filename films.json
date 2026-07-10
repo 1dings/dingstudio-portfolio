@@ -1167,7 +1167,7 @@
     "slug": "hsbc-x-kingsman-bar-event-reels",
     "title": "HSBC x Kingsman bar - event reels",
     "category": "EVENT",
-    "youtube": "xWCehZT7e4s",
+    "youtube": "pGkfvKYT6TQ",
     "role": "Editor",
     "credits": [
       {
@@ -1378,6 +1378,127 @@
       {
         "role": "Director",
         "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "proven-women-reels",
+    "title": "Proven Women - reels",
+    "category": "SOCIAL REELS",
+    "youtube": "fhFTxgHcyIY",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "grace-proven-immune",
+    "title": "Grace Proven Immune",
+    "category": "SOCIAL REELS",
+    "youtube": "u06nq3z4HiQ",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "stephen-return",
+    "title": "Stephen RETURN",
+    "category": "SOCIAL REELS",
+    "youtube": "YMHPQ3Y3m_g",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "elva-holdbody",
+    "title": "Elva HOLDBODY",
+    "category": "SOCIAL REELS",
+    "youtube": "5-KCpD-FM_g",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "christies-patek-philippe",
+    "title": "Christie's 'The Class' Patek Philippe Nautilus",
+    "category": "SOCIAL REELS",
+    "youtube": "aLZ1srcPapY",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "gerald-charles-event",
+    "title": "Gerald Charles - event",
+    "category": "EVENT",
+    "youtube": "4LDind_X0pQ",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "btl-event-highlight",
+    "title": "BTL event highlight",
+    "category": "EVENT",
+    "youtube": "KPBHT8KZ0G4",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
       },
       {
         "role": "Editor",
