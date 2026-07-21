@@ -914,6 +914,23 @@
     ]
   },
   {
+    "slug": "cx-full-journey",
+    "title": "CX full journey",
+    "category": "SOCIAL REELS",
+    "youtube": "uD2xtPdvwhU",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "jollibee-brand-reels",
     "title": "Jollibee — Brand Reels",
     "category": "SOCIAL REELS",
@@ -1155,14 +1172,6 @@
     ]
   },
   {
-    "slug": "cx-full-journey",
-    "title": "CX full journey",
-    "category": "SOCIAL REELS",
-    "youtube": "uD2xtPdvwhU",
-    "role": "Editor",
-    "credits": []
-  },
-  {
     "slug": "hsbc-liv-golf-event-film",
     "title": "HSBC × LIV Golf — Event Film",
     "category": "EVENT",
@@ -1291,6 +1300,23 @@
     ]
   },
   {
+    "slug": "hsbc-wealth-summit-event-highlight",
+    "title": "HSBC wealth summit event highlight",
+    "category": "EVENT",
+    "youtube": "bK0SA7GbVHw",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "hsbc-gis-same-day-edit",
     "title": "HSBC GIS-same day edit",
     "category": "EVENT",
@@ -1392,6 +1418,42 @@
     "vertical": true
   },
   {
+    "slug": "hsbc-mplus-lee-buil-exhibition",
+    "title": "HSBC M+ Lee Buil exhibition - same day edit",
+    "category": "EVENT",
+    "youtube": "CU86SU0aMfs",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "hsbc-hk-dance-event-highlight",
+    "title": "HSBC HK Dance event highlight - same day edit",
+    "category": "EVENT",
+    "youtube": "88Zh6KSTfeQ",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "world-class-2026-challenge-1-same-day-edit",
     "title": "World Class 2026 -Challenge 1 -same day edit",
     "category": "EVENT",
@@ -1418,24 +1480,6 @@
     "vertical": true
   },
   {
-    "slug": "cathay-pacific-m",
-    "title": "Cathay Pacific × M+",
-    "category": "EVENT",
-    "youtube": "YEU_zhMlwhg",
-    "role": "Editor",
-    "credits": [
-      {
-        "role": "Director",
-        "name": "Lau Kit"
-      },
-      {
-        "role": "Editor",
-        "name": "Christina"
-      }
-    ],
-    "vertical": true
-  },
-  {
     "slug": "world-class-2026-challenge-2-same-day-edit",
     "title": "World Class 2026 -Challenge 2 -same day edit",
     "category": "EVENT",
@@ -1453,6 +1497,24 @@
       {
         "role": "Cam Assistant",
         "name": "Carlos"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ],
+    "vertical": true
+  },
+  {
+    "slug": "cathay-pacific-m",
+    "title": "Cathay Pacific × M+",
+    "category": "EVENT",
+    "youtube": "YEU_zhMlwhg",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
       },
       {
         "role": "Editor",
@@ -1496,40 +1558,5 @@
         "name": "Christina"
       }
     ]
-  },
-  {
-    "slug": "hsbc-mplus-lee-buil-exhibition",
-    "title": "HSBC M+ Lee Buil exhibition - same day edit",
-    "category": "EVENT",
-    "youtube": "CU86SU0aMfs",
-    "role": "Editor",
-    "vertical": true,
-    "credits": []
-  },
-  {
-    "slug": "hsbc-hk-dance-event-highlight",
-    "title": "HSBC HK Dance event highlight - same day edit",
-    "category": "EVENT",
-    "youtube": "88Zh6KSTfeQ",
-    "role": "Editor",
-    "vertical": true,
-    "credits": []
-  },
-  {
-    "slug": "hsbc-wealth-summit-event-highlight",
-    "title": "HSBC wealth summit event highlight",
-    "category": "EVENT",
-    "youtube": "bK0SA7GbVHw",
-    "role": "Editor",
-    "credits": []
-  },
-  {
-    "slug": "hsbc-mplus-prem-elite",
-    "title": "HSBC x M+ prem elite - same day edit",
-    "category": "EVENT",
-    "youtube": "Rpqk0X7pHOc",
-    "role": "Editor",
-    "vertical": true,
-    "credits": []
   }
 ]
