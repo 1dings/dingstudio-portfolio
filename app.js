@@ -10,9 +10,9 @@
 const FILMO_CATEGORIES = ["MUSIC VIDEO", "COMMERCIAL"];
 
 const TABS = {
-  filmography: { label: "Filmography",  page: "index.html", match: (c) => FILMO_CATEGORIES.includes(c) },
-  reels:       { label: "Social Reels", page: "reels.html", match: (c) => c === "SOCIAL REELS" },
-  events:      { label: "Events",       page: "event.html", match: (c) => c === "EVENT" },
+  filmography: { label: "Filmography",  page: "index.html#filmography", match: (c) => FILMO_CATEGORIES.includes(c) },
+  reels:       { label: "Social Reels", page: "index.html#reels",       match: (c) => c === "SOCIAL REELS" },
+  events:      { label: "Events",       page: "index.html#events",      match: (c) => c === "EVENT" },
 };
 
 const esc = (s) =>
@@ -91,23 +91,13 @@ async function renderWall(root, tabKey) {
   const tab = TABS[tabKey];
   const items = films.filter((f) => tab.match((f.category || "").toUpperCase()));
 
-  const cardHtml = (f, i) => `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
-                 href="work.html?v=${encodeURIComponent(f.slug)}"
-                 aria-label="${esc(f.title)}">
-      <span class="thumb">${thumbImg(f)}</span>
-      <span class="meta">
-        <span class="title">${esc(f.title)}</span>
-        <span class="cat">${esc([f.role, f.category].filter(Boolean).join(" · "))}</span>
-      </span>
-    </a>`;
-
   // Events mix 16:9 + 9:16: put all the 16:9 together on top, then the 9:16
   // grouped below at Social-Reels size.
   if (tabKey === "events" && items.some((f) => f.vertical)) {
     const horiz = items.filter((f) => !f.vertical);
     const vert = items.filter((f) => f.vertical);
     root.innerHTML = `<div class="wrap wall">
-      <div class="grid">${horiz.map(cardHtml).join("")}</div>
+      <div class="grid">${horiz.map(filmCardHtml).join("")}</div>
       ${vert.length ? `<div class="reelgrid">${vert.map(reelCardHtml).join("")}</div>` : ""}
     </div>`;
     wireReels(root);   // 9:16 tiles open the lightbox, same as Social Reels
@@ -115,7 +105,7 @@ async function renderWall(root, tabKey) {
   }
 
   root.innerHTML = `<div class="wrap wall">
-    <div class="grid">${items.map(cardHtml).join("") || `<p class="note">Nothing here yet.</p>`}</div>
+    <div class="grid">${items.map(filmCardHtml).join("") || `<p class="note">Nothing here yet.</p>`}</div>
   </div>`;
 }
 
@@ -150,6 +140,82 @@ function wireReels(root) {
   root.querySelectorAll(".reel").forEach((btn) =>
     btn.addEventListener("click", () => openReel(btn.dataset))
   );
+}
+
+// A 16:9 (or 9:16 when .tall) card that links to the project page.
+function filmCardHtml(f, i) {
+  return `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
+                 href="work.html?v=${encodeURIComponent(f.slug)}"
+                 aria-label="${esc(f.title)}">
+      <span class="thumb">${thumbImg(f)}</span>
+      <span class="meta">
+        <span class="title">${esc(f.title)}</span>
+        <span class="cat">${esc([f.role, f.category].filter(Boolean).join(" · "))}</span>
+      </span>
+    </a>`;
+}
+
+/* ----------------------- Home: one continuous scroll through every section ----------------------- */
+const HOME_SECTIONS = [
+  { id: "filmography", label: "Filmography",  sub: "Music videos & commercials", match: (c) => FILMO_CATEGORIES.includes(c) },
+  { id: "reels",       label: "Social Reels", sub: "Vertical films",             match: (c) => c === "SOCIAL REELS" },
+  { id: "events",      label: "Event",        sub: "Events & same-day edits",    match: (c) => c === "EVENT" },
+];
+
+async function renderHome(root) {
+  let films;
+  try {
+    films = await loadFilms();
+  } catch (e) {
+    root.innerHTML = `<div class="wrap"><p class="note">Could not load films.json — ${esc(e.message)}</p></div>`;
+    return;
+  }
+
+  let sections = "";
+  HOME_SECTIONS.forEach((sec, si) => {
+    const items = films.filter((f) => sec.match((f.category || "").toUpperCase()));
+    let body;
+    if (sec.id === "events" && items.some((f) => f.vertical)) {
+      const horiz = items.filter((f) => !f.vertical);
+      const vert = items.filter((f) => f.vertical);
+      body = `<div class="grid">${horiz.map(filmCardHtml).join("")}</div>` +
+             (vert.length ? `<div class="reelgrid">${vert.map(reelCardHtml).join("")}</div>` : "");
+    } else if (sec.id === "reels") {
+      body = `<div class="reelgrid">${items.map(reelCardHtml).join("")}</div>`;
+    } else {
+      body = `<div class="grid">${items.map(filmCardHtml).join("")}</div>`;
+    }
+    sections += `<section id="${sec.id}" class="sec">
+      <header class="sec-head">
+        <div class="sec-row"><h2 class="sec-title">${esc(sec.label)}</h2><span class="sec-line"></span></div>
+        <span class="sec-sub mono">${pad(si + 1)} · ${esc(sec.sub)}</span>
+      </header>
+      ${body}
+    </section>`;
+  });
+
+  root.innerHTML = `<div class="wrap wall">${sections}</div>`;
+  wireReels(root);
+  setupScrollSpy();
+}
+
+// As you scroll, highlight the nav tab for whichever section is in view — so you
+// can see you've moved into the next section without clicking.
+function setupScrollSpy() {
+  const links = {};
+  document.querySelectorAll('.nav-left a[href*="#"]').forEach((a) => {
+    const id = (a.getAttribute("href").split("#")[1] || "").trim();
+    if (id) links[id] = a;
+  });
+  const secs = document.querySelectorAll("main .sec");
+  if (!secs.length) return;
+  const setActive = (id) =>
+    Object.entries(links).forEach(([k, a]) => a.classList.toggle("active", k === id));
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach((en) => { if (en.isIntersecting) setActive(en.target.id); }),
+    { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+  );
+  secs.forEach((s) => obs.observe(s));
 }
 
 async function renderReels(root) {
@@ -282,6 +348,8 @@ async function renderWork(root) {
 
 /* ----------------------- boot ----------------------- */
 document.addEventListener("DOMContentLoaded", () => {
+  const home = document.getElementById("home");
+  if (home) { renderHome(home); return; }   // unified continuous-scroll page
   const filmo = document.getElementById("filmography");
   const reels = document.getElementById("reels");
   const events = document.getElementById("events");

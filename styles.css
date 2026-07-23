@@ -197,6 +197,34 @@ img { display: block; max-width: 100%; }
 .card.tall .thumb { aspect-ratio: 9 / 16; }
 .wall .grid + .reelgrid { margin-top: clamp(34px, 6vh, 68px); }
 
+/* ---------- Home: continuous-scroll sections + editorial dividers ---------- */
+html { scroll-behavior: smooth; }
+.sec { scroll-margin-top: clamp(74px, 10vh, 104px); }   /* clear the sticky header on jump */
+.sec + .sec { margin-top: clamp(52px, 9vh, 120px); }
+.sec-head { margin: 0 0 clamp(26px, 4vh, 46px); }
+.sec-row { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); }
+.sec-title {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3.6vw, 2.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+.sec-line { flex: 1; height: 1px; background: var(--line); }
+.sec-sub { display: block; margin-top: 12px; color: var(--ink-faint); }
+
+/* scroll-spy: active tab looks like the current page (underline shown) */
+.nav a.active { color: var(--ink); }
+.nav a.active::after { transform: scaleX(1); transform-origin: left; }
+
+/* mobile header is taller (stacked brand + pill nav) -> bigger jump offset so the
+   section title isn't hidden under it */
+@media (max-width: 640px) { .sec { scroll-margin-top: 138px; } }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 .card { position: relative; display: block; }
 .card .thumb {
   display: block;              /* block so aspect-ratio actually applies */

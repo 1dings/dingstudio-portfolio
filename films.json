@@ -4,8 +4,41 @@
     "title": "McDonald's — 人氣著數套餐",
     "category": "COMMERCIAL",
     "youtube": "9ocfjYIGPE4",
-    "role": "Editor",
-    "credits": []
+    "role": "Offline Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "@the11thgram"
+      },
+      {
+        "role": "Creative",
+        "name": "@hcwong519"
+      },
+      {
+        "role": "Art Director",
+        "name": "@garytamkh"
+      },
+      {
+        "role": "Agency",
+        "name": "@bbdohk"
+      },
+      {
+        "role": "Production",
+        "name": "THE BASTARDS @such.hk"
+      },
+      {
+        "role": "Producer",
+        "name": "@himberly"
+      },
+      {
+        "role": "Gaffer",
+        "name": "@wcw_kow"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina"
+      }
+    ]
   },
   {
     "slug": "wellcome-victoria-road",
@@ -609,7 +642,7 @@
     "title": "Hong Kong Red Cross Hospital School 《沿途有你》 MV",
     "category": "MUSIC VIDEO",
     "youtube": "hm9NfjVhLoE",
-    "role": "Editor",
+    "role": "Director",
     "credits": [
       {
         "role": "Director",
