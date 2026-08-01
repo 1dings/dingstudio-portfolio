@@ -1282,23 +1282,6 @@
     ]
   },
   {
-    "slug": "scb-gmo-event-same-day-edit",
-    "title": "SCB GMO event -same day edit",
-    "category": "EVENT",
-    "youtube": "j7ej-1oZYMk",
-    "role": "Editor",
-    "credits": [
-      {
-        "role": "Director",
-        "name": "Lau Kit"
-      },
-      {
-        "role": "Editor",
-        "name": "Christina"
-      }
-    ]
-  },
-  {
     "slug": "hsbc-wealth-series-howard-online-video",
     "title": "HSBC wealth series: Howard - online video",
     "category": "EVENT",
@@ -1365,6 +1348,23 @@
         "name": "Christina"
       }
     ]
+  },
+  {
+    "slug": "scb-gmo",
+    "title": "SCB GMO",
+    "category": "EVENT",
+    "youtube": "YAAGfZpr-N8",
+    "role": "Editor",
+    "credits": []
+  },
+  {
+    "slug": "nespresso-jeffrey",
+    "title": "Nespresso Jeffrey",
+    "category": "EVENT",
+    "youtube": "2mM-IkFma-s",
+    "role": "Editor",
+    "credits": [],
+    "vertical": true
   },
   {
     "slug": "hkfa-x-lofficiel",
@@ -1591,5 +1591,14 @@
         "name": "Christina"
       }
     ]
+  },
+  {
+    "slug": "hsbc-one-cool",
+    "title": "HSBC One Cool",
+    "category": "EVENT",
+    "youtube": "m1UuP-odmAs",
+    "role": "Editor",
+    "credits": [],
+    "vertical": true
   }
 ]

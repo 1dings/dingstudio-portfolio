@@ -136,10 +136,15 @@ function reelCardHtml(f, i) {
       </span>
     </button>`;
 }
+// Wire per reelgrid so prev/next in the lightbox stays inside its own group
+// (Social Reels wall vs the 9:16 group on Event).
 function wireReels(root) {
-  root.querySelectorAll(".reel").forEach((btn) =>
-    btn.addEventListener("click", () => openReel(btn.dataset))
-  );
+  root.querySelectorAll(".reelgrid").forEach((grid) => {
+    const btns = [...grid.querySelectorAll(".reel")];
+    btns.forEach((btn, i) =>
+      btn.addEventListener("click", () => openReel(btn.dataset, btns.map((b) => b.dataset), i))
+    );
+  });
 }
 
 // A 16:9 (or 9:16 when .tall) card that links to the project page.
@@ -236,6 +241,10 @@ async function renderReels(root) {
   wireReels(root);
 }
 
+// Current lightbox playlist: the reelgrid group the opened tile belongs to.
+let reelList = [];
+let reelIndex = -1;
+
 function ensureLightbox() {
   let lb = document.getElementById("lightbox");
   if (lb) return lb;
@@ -246,6 +255,8 @@ function ensureLightbox() {
     <div class="lb-backdrop" data-close></div>
     <div class="lb-inner">
       <button class="lb-close" data-close aria-label="Close">&times;</button>
+      <button class="lb-nav lb-prev" aria-label="Previous">&larr;</button>
+      <button class="lb-nav lb-next" aria-label="Next">&rarr;</button>
       <div class="lb-frame"><div class="lb-player"></div></div>
       <div class="lb-cap">
         <span class="lb-title"></span>
@@ -254,12 +265,42 @@ function ensureLightbox() {
     </div>`;
   document.body.appendChild(lb);
   lb.addEventListener("click", (e) => { if (e.target.hasAttribute("data-close")) closeReel(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeReel(); });
+  lb.querySelector(".lb-prev").addEventListener("click", () => stepReel(-1));
+  lb.querySelector(".lb-next").addEventListener("click", () => stepReel(1));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeReel();
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "ArrowLeft") stepReel(-1);
+    if (e.key === "ArrowRight") stepReel(1);
+  });
+  // Swipe left/right (on the backdrop/caption; the iframe itself eats touches)
+  let touchX = null;
+  lb.addEventListener("touchstart", (e) => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (touchX == null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 50) stepReel(dx < 0 ? 1 : -1);
+  }, { passive: true });
   return lb;
 }
 
-function openReel(d) {
+function stepReel(dir) {
+  const i = reelIndex + dir;
+  if (i < 0 || i >= reelList.length) return;
+  reelIndex = i;
+  openReel(reelList[i]);
+}
+
+function updateLbNav(lb) {
+  lb.querySelector(".lb-prev").toggleAttribute("disabled", reelIndex <= 0);
+  lb.querySelector(".lb-next").toggleAttribute("disabled", reelIndex < 0 || reelIndex >= reelList.length - 1);
+}
+
+function openReel(d, list, idx) {
+  if (list) { reelList = list; reelIndex = idx; }
   const lb = ensureLightbox();
+  updateLbNav(lb);
   const src = d.vimeo
     ? vimeoEmbed(d.vimeo) + "&autoplay=1"
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(d.yt)}?rel=0&modestbranding=1&autoplay=1&playsinline=1&color=white`;

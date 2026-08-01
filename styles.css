@@ -350,6 +350,20 @@ html { scroll-behavior: smooth; }
   transition: background 0.3s var(--ease);
 }
 .lb-close:hover { background: rgba(255, 255, 255, 0.15); }
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.3); color: #fff;
+  font-size: 1.1rem; line-height: 1; cursor: pointer;
+  transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.lb-nav:hover { background: rgba(255, 255, 255, 0.15); }
+.lb-prev { left: 22px; }
+.lb-next { right: 22px; }
+.lb-nav[disabled] { opacity: 0.25; cursor: default; pointer-events: none; }
+/* on phones the frame spans ~92vw — arrows would sit on the video, so swipe instead */
+@media (max-width: 720px) { .lb-nav { display: none; } }
 
 /* ---------- Work (project) page ---------- */
 /* grid wall stays full-bleed; the project page is constrained narrower */
