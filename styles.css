@@ -241,7 +241,7 @@ html { scroll-behavior: smooth; }
   transform: scale(1.005);
   transition: transform 0.85s var(--ease);
 }
-.card:hover .thumb img { transform: scale(1.05); }   /* subtle zoom on hover */
+/* (image zoom removed — the whole tile scales on hover instead) */
 
 .card .meta {
   display: block;
@@ -292,8 +292,8 @@ html { scroll-behavior: smooth; }
   transform: scale(1.005);
   transition: transform 0.85s var(--ease);
 }
-.reel:hover .thumb img { transform: scale(1.05); }
-.reel .play {
+/* (image zoom removed — the whole tile scales on hover instead) */
+.reel .play, .card .play {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 54px; height: 54px; border-radius: 50%;
   display: grid; place-items: center;
@@ -301,10 +301,16 @@ html { scroll-behavior: smooth; }
   backdrop-filter: blur(2px);
   opacity: 0; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
-.reel .play svg { margin-left: 3px; }
-.reel:hover .play, .reel:focus-visible .play {
+.reel .play svg, .card .play svg { margin-left: 3px; }
+.reel:hover .play, .reel:focus-visible .play,
+.card:hover .play, .card:focus-visible .play {
   opacity: 1; transform: translate(-50%, -50%) scale(1.06);
 }
+
+/* whole tile — frame, caption and all — grows on hover
+   (entry animation drops .reveal on end so this transform can apply) */
+.card, .reel { transition: transform 0.45s var(--ease); }
+.card:hover, .reel:hover { transform: scale(1.03); position: relative; z-index: 2; }
 .reel .meta { display: block; text-align: center; padding: 12px 4px 0; }
 .reel .meta .title {
   display: block; font-size: clamp(0.8rem, 0.9vw, 0.92rem);
@@ -315,6 +321,16 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-mono); font-size: 0.62rem;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint);
 }
+
+/* ---------- Hover autoplay preview ---------- */
+/* muted inline player layered over the thumb; clicks pass through to the tile */
+.thumb .hoverplay {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0; transition: opacity 0.45s var(--ease);
+}
+.thumb .hoverplay.on { opacity: 1; }
 
 /* ---------- Reel lightbox ---------- */
 .lightbox { position: fixed; inset: 0; z-index: 200; display: none; }

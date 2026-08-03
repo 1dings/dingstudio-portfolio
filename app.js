@@ -10,9 +10,9 @@
 const FILMO_CATEGORIES = ["MUSIC VIDEO", "COMMERCIAL"];
 
 const TABS = {
-  filmography: { label: "Filmography",  page: "index.html#filmography", match: (c) => FILMO_CATEGORIES.includes(c) },
-  reels:       { label: "Social Reels", page: "index.html#reels",       match: (c) => c === "SOCIAL REELS" },
-  events:      { label: "Events",       page: "index.html#events",      match: (c) => c === "EVENT" },
+  filmography: { label: "Filmography",  page: "./#filmography", match: (c) => FILMO_CATEGORIES.includes(c) },
+  reels:       { label: "Social Reels", page: "./#reels",       match: (c) => c === "SOCIAL REELS" },
+  events:      { label: "Events",       page: "./#events",      match: (c) => c === "EVENT" },
 };
 
 const esc = (s) =>
@@ -151,13 +151,55 @@ function wireReels(root) {
 function filmCardHtml(f, i) {
   return `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
                  href="work.html?v=${encodeURIComponent(f.slug)}"
+                 data-slug="${esc(f.slug)}"
                  aria-label="${esc(f.title)}">
-      <span class="thumb">${thumbImg(f)}</span>
+      <span class="thumb">
+        ${thumbImg(f)}
+        <span class="play"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </span>
       <span class="meta">
         <span class="title">${esc(f.title)}</span>
         <span class="cat">${esc([f.role, f.category].filter(Boolean).join(" · "))}</span>
       </span>
     </a>`;
+}
+
+/* ----------------------- Hover autoplay preview -----------------------
+   YouTube-style: rest the cursor on a tile for a moment and a short muted
+   clip of the video plays in place (desktop pointers only). Clips are
+   self-hosted (assets/previews/<slug>.mp4, built by tools/make-previews.sh)
+   so there's no player chrome — just the picture. Tiles without a clip
+   simply keep their static thumb. */
+const HOVER_PLAY_DELAY = 600;   // ms the cursor must rest before playing
+
+function wireHoverVideo(root) {
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  root.querySelectorAll(".card[data-slug], .reel[data-slug]").forEach((el) => {
+    const slug = el.dataset.slug;
+    const box = el.querySelector(".thumb");
+    if (!slug || !box) return;
+    let timer = null, vid = null;
+    el.addEventListener("mouseenter", () => {
+      timer = setTimeout(() => {
+        vid = document.createElement("video");
+        vid.className = "hoverplay";
+        vid.src = `assets/previews/${encodeURIComponent(slug)}.mp4`;
+        vid.muted = true;
+        vid.loop = true;
+        vid.playsInline = true;
+        vid.setAttribute("aria-hidden", "true");
+        vid.addEventListener("canplay", () => { if (vid) vid.classList.add("on"); });
+        vid.addEventListener("error", () => { if (vid) { vid.remove(); vid = null; } });
+        box.appendChild(vid);
+        vid.play().catch(() => {});
+      }, HOVER_PLAY_DELAY);
+    });
+    el.addEventListener("mouseleave", () => {
+      clearTimeout(timer);
+      timer = null;
+      if (vid) { vid.remove(); vid = null; }
+    });
+  });
 }
 
 /* ----------------------- Home: one continuous scroll through every section ----------------------- */
@@ -201,8 +243,13 @@ async function renderHome(root) {
 
   root.innerHTML = `<div class="wrap wall">${sections}</div>`;
   wireReels(root);
+  wireHoverVideo(root);
   setupScrollSpy();
   openReelFromHash(root);
+  // Sections render after the browser's own fragment scroll has already given
+  // up (films.json is async), so honour #reels / #events arrivals ourselves.
+  const anchor = document.getElementById((location.hash || "").slice(1));
+  if (anchor && anchor.classList.contains("sec")) anchor.scrollIntoView();
 }
 
 // As you scroll, highlight the nav tab for whichever section is in view — so you
@@ -215,8 +262,18 @@ function setupScrollSpy() {
   });
   const secs = document.querySelectorAll("main .sec");
   if (!secs.length) return;
-  const setActive = (id) =>
+  const firstId = secs[0].id;
+  const setActive = (id) => {
     Object.entries(links).forEach(([k, a]) => a.classList.toggle("active", k === id));
+    // Keep the URL in sync with the section in view — but never touch a
+    // #play= deep link while the lightbox is open, and don't stamp the first
+    // section's hash onto a clean URL before the user has scrolled anywhere.
+    const lb = document.getElementById("lightbox");
+    if (lb && lb.classList.contains("open")) return;
+    if (!location.hash && id === firstId) return;
+    if (location.hash === "#" + id) return;
+    history.replaceState(null, "", cleanPath() + location.search + "#" + id);
+  };
   const obs = new IntersectionObserver(
     (entries) => entries.forEach((en) => { if (en.isIntersecting) setActive(en.target.id); }),
     { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
@@ -247,8 +304,11 @@ let reelList = [];
 let reelIndex = -1;
 let preLightboxHash = "";   // hash to restore when the lightbox closes
 
+// URL path without a trailing "index.html" — keeps the address bar clean.
+const cleanPath = () => location.pathname.replace(/index\.html$/, "");
+
 const playUrl = (slug) =>
-  location.origin + location.pathname + "#play=" + encodeURIComponent(slug);
+  location.origin + cleanPath() + "#play=" + encodeURIComponent(slug);
 
 function ensureLightbox() {
   let lb = document.getElementById("lightbox");
@@ -331,7 +391,7 @@ function closeReel() {
   lb.classList.remove("open");
   lb.querySelector(".lb-player").innerHTML = "";   // unload iframe -> stops playback
   document.body.style.overflow = "";
-  history.replaceState(null, "", location.pathname + location.search + preLightboxHash);
+  history.replaceState(null, "", cleanPath() + location.search + preLightboxHash);
 }
 
 // #play=<slug> (or ?play=<slug>) deep link: open that reel's lightbox on arrival.
@@ -365,7 +425,7 @@ async function renderWork(root) {
   const film = films.find((f) => f.slug === slug);
   if (!film) {
     root.innerHTML = `<div class="wrap work">
-      <a class="back" href="index.html">&larr; Back</a>
+      <a class="back" href="./">&larr; Back</a>
       <h1>Not found</h1></div>`;
     return;
   }
@@ -418,7 +478,20 @@ async function renderWork(root) {
 }
 
 /* ----------------------- boot ----------------------- */
+// Once a tile's entry animation finishes, drop .reveal so its fill-mode stops
+// pinning transform — otherwise the whole-tile hover scale can't apply.
+document.addEventListener("animationend", (e) => {
+  if (e.target.classList && e.target.classList.contains("reveal")) {
+    e.target.classList.remove("reveal");
+    e.target.style.animationDelay = "";
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
+  // Tidy the address bar: /index.html#reels -> /#reels
+  if (/index\.html$/.test(location.pathname)) {
+    history.replaceState(null, "", cleanPath() + location.search + location.hash);
+  }
   const home = document.getElementById("home");
   if (home) { renderHome(home); return; }   // unified continuous-scroll page
   const filmo = document.getElementById("filmography");
