@@ -202,6 +202,7 @@ async function renderHome(root) {
   root.innerHTML = `<div class="wrap wall">${sections}</div>`;
   wireReels(root);
   setupScrollSpy();
+  openReelFromHash(root);
 }
 
 // As you scroll, highlight the nav tab for whichever section is in view — so you
@@ -244,6 +245,10 @@ async function renderReels(root) {
 // Current lightbox playlist: the reelgrid group the opened tile belongs to.
 let reelList = [];
 let reelIndex = -1;
+let preLightboxHash = "";   // hash to restore when the lightbox closes
+
+const playUrl = (slug) =>
+  location.origin + location.pathname + "#play=" + encodeURIComponent(slug);
 
 function ensureLightbox() {
   let lb = document.getElementById("lightbox");
@@ -301,6 +306,12 @@ function openReel(d, list, idx) {
   if (list) { reelList = list; reelIndex = idx; }
   const lb = ensureLightbox();
   updateLbNav(lb);
+  // Deep link: reflect the open reel in the URL so copying the address bar
+  // always points at this exact video.
+  if (!lb.classList.contains("open")) {
+    preLightboxHash = location.hash.startsWith("#play=") ? "" : location.hash;
+  }
+  history.replaceState(null, "", playUrl(d.slug));
   const src = d.vimeo
     ? vimeoEmbed(d.vimeo) + "&autoplay=1"
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(d.yt)}?rel=0&modestbranding=1&autoplay=1&playsinline=1&color=white`;
@@ -320,6 +331,24 @@ function closeReel() {
   lb.classList.remove("open");
   lb.querySelector(".lb-player").innerHTML = "";   // unload iframe -> stops playback
   document.body.style.overflow = "";
+  history.replaceState(null, "", location.pathname + location.search + preLightboxHash);
+}
+
+// #play=<slug> (or ?play=<slug>) deep link: open that reel's lightbox on arrival.
+function openReelFromHash(root) {
+  const m = location.hash.match(/^#play=(.+)$/) ||
+            location.search.match(/[?&]play=([^&]+)/);
+  if (!m) return;
+  const slug = decodeURIComponent(m[1]);
+  for (const grid of root.querySelectorAll(".reelgrid")) {
+    const btns = [...grid.querySelectorAll(".reel")];
+    const i = btns.findIndex((b) => b.dataset.slug === slug);
+    if (i >= 0) {
+      btns[i].scrollIntoView({ block: "center" });
+      openReel(btns[i].dataset, btns.map((b) => b.dataset), i);
+      return;
+    }
+  }
 }
 
 /* ----------------------- Project page ----------------------- */
@@ -361,7 +390,8 @@ async function renderWork(root) {
   const link = (f, cls, lab) =>
     f
       ? `<a class="${cls}" href="work.html?v=${encodeURIComponent(f.slug)}">
-           <span class="mono lab">${lab}</span><span class="t">${esc(f.title)}</span></a>`
+           <span class="pg-thumb">${thumbImg(f)}</span>
+           <span class="pg-info"><span class="mono lab">${lab}</span><span class="t">${esc(f.title)}</span></span></a>`
       : `<span></span>`;
 
   const embed = film.vimeo

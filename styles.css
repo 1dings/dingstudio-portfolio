@@ -359,8 +359,10 @@ html { scroll-behavior: smooth; }
   transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
 }
 .lb-nav:hover { background: rgba(255, 255, 255, 0.15); }
-.lb-prev { left: 22px; }
-.lb-next { right: 22px; }
+/* sit just outside the 9:16 frame edge (frame half-width = min(46vw, 41vh*9/16)),
+   14px gap + 46px button, clamped so they never leave the screen */
+.lb-prev { left: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
+.lb-next { right: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
 .lb-nav[disabled] { opacity: 0.25; cursor: default; pointer-events: none; }
 /* on phones the frame spans ~92vw — arrows would sit on the video, so swipe instead */
 @media (max-width: 720px) { .lb-nav { display: none; } }
@@ -430,11 +432,25 @@ html { scroll-behavior: smooth; }
   display: flex; justify-content: space-between; gap: 20px;
   border-top: 1px solid var(--line); padding-top: 26px;
 }
-.pager a { color: var(--ink-dim); transition: color 0.4s var(--ease); max-width: 45%; }
+.pager a {
+  color: var(--ink-dim); transition: color 0.4s var(--ease); max-width: 45%;
+  display: flex; align-items: center; gap: 14px; min-width: 0;
+}
 .pager a:hover { color: var(--ink); }
+.pager .pg-thumb {
+  flex: 0 0 116px; aspect-ratio: 16 / 9;
+  border-radius: 4px; overflow: hidden; background: var(--bg-elev);
+}
+.pager .pg-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.5s var(--ease);
+}
+.pager a:hover .pg-thumb img { transform: scale(1.06); }
+.pager .pg-info { min-width: 0; }
 .pager .lab { display: block; margin-bottom: 6px; }
 .pager .t { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: -0.02em; }
-.pager .next { text-align: right; margin-left: auto; }
+.pager .next { text-align: right; margin-left: auto; flex-direction: row-reverse; }
+@media (max-width: 560px) { .pager .pg-thumb { flex-basis: 88px; } }
 
 /* ---------- Contact ---------- */
 .contact { padding: clamp(56px, 14vh, 170px) 0; }
