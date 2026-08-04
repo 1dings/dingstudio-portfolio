@@ -118,6 +118,17 @@ img { display: block; max-width: 100%; }
 .nav-left { grid-column: 1; justify-self: start; flex-wrap: wrap; }
 
 @media (max-width: 640px) {
+  /* independent fixed shield over the notch/status-bar zone — content can
+     never show through it, whatever the sticky header is doing mid-scroll.
+     Above the header (100), below the lightbox (200). */
+  body::before {
+    content: "";
+    position: fixed; top: 0; left: 0; right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    z-index: 150;
+    pointer-events: none;
+  }
   .site-head {
     grid-template-columns: 1fr auto;
     grid-template-areas: "brand ig" "nav nav";
@@ -133,16 +144,28 @@ img { display: block; max-width: 100%; }
   .wordmark { grid-area: brand; grid-column: auto; justify-self: start; }
   .head-right { grid-area: ig; grid-column: auto; }
   .wordmark, .head-right { min-height: 0; overflow: hidden; }
-  /* once scrolled: solid theme background, brand + IG row folds away */
+  /* once scrolled: header chrome melts away — brand + IG row folds, the bar
+     itself goes fully transparent and only the pills float over the work,
+     each with its own frosted-glass fill */
   .site-head.scrolled {
-    background: var(--bg);
+    background: transparent;
     backdrop-filter: none;
+    border-bottom-color: transparent;
     grid-template-rows: 0fr auto;
     row-gap: 0;
+    pointer-events: none;          /* taps in the empty band reach the page */
+  }
+  .site-head.scrolled a { pointer-events: auto; }
+  .site-head.scrolled .nav-left a:not([aria-current="page"]) {
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+    backdrop-filter: blur(10px) saturate(1.2);
   }
   .site-head.scrolled .wordmark,
   .site-head.scrolled .head-right { opacity: 0; }
   .wordmark, .head-right { transition: opacity 0.3s var(--ease); }
+  .site-head { border-bottom-color: var(--line); transition: background 0.35s var(--ease),
+    grid-template-rows 0.35s var(--ease), row-gap 0.35s var(--ease),
+    border-bottom-color 0.35s var(--ease); }
   /* On mobile the mono tab labels ran together — make each tab a clearly
      tappable pill so it reads as a separate button. */
   .nav-left { grid-area: nav; gap: 8px; }
