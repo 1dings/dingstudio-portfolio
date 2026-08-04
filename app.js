@@ -492,6 +492,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (/index\.html$/.test(location.pathname)) {
     history.replaceState(null, "", cleanPath() + location.search + location.hash);
   }
+  // Mobile header: mark as scrolled so CSS can go solid + fold the brand row
+  // (the class is inert on desktop — all rules live in the 640px media query).
+  const head = document.querySelector(".site-head");
+  if (head) {
+    let ticking = false;
+    const update = () => { head.classList.toggle("scrolled", window.scrollY > 24); ticking = false; };
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
   const home = document.getElementById("home");
   if (home) { renderHome(home); return; }   // unified continuous-scroll page
   const filmo = document.getElementById("filmography");

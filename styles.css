@@ -121,10 +121,28 @@ img { display: block; max-width: 100%; }
   .site-head {
     grid-template-columns: 1fr auto;
     grid-template-areas: "brand ig" "nav nav";
+    grid-template-rows: 1fr auto;
     row-gap: 14px;
+    /* cover the iPhone notch/status-bar zone so content can't scroll through */
+    padding-top: calc(16px + env(safe-area-inset-top, 0px));
+    padding-bottom: 14px;
+    transition: background 0.35s var(--ease),
+                grid-template-rows 0.35s var(--ease),
+                row-gap 0.35s var(--ease);
   }
   .wordmark { grid-area: brand; grid-column: auto; justify-self: start; }
   .head-right { grid-area: ig; grid-column: auto; }
+  .wordmark, .head-right { min-height: 0; overflow: hidden; }
+  /* once scrolled: solid theme background, brand + IG row folds away */
+  .site-head.scrolled {
+    background: var(--bg);
+    backdrop-filter: none;
+    grid-template-rows: 0fr auto;
+    row-gap: 0;
+  }
+  .site-head.scrolled .wordmark,
+  .site-head.scrolled .head-right { opacity: 0; }
+  .wordmark, .head-right { transition: opacity 0.3s var(--ease); }
   /* On mobile the mono tab labels ran together — make each tab a clearly
      tappable pill so it reads as a separate button. */
   .nav-left { grid-area: nav; gap: 8px; }
