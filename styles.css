@@ -380,8 +380,13 @@ html { scroll-behavior: smooth; }
 .lb-prev { left: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
 .lb-next { right: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
 .lb-nav[disabled] { opacity: 0.25; cursor: default; pointer-events: none; }
-/* on phones the frame spans ~92vw — arrows would sit on the video, so swipe instead */
-@media (max-width: 720px) { .lb-nav { display: none; } }
+/* phones: the frame spans ~92vw and the iframe eats touches, so swipe can't
+   register on the video itself — keep compact arrows overlaid at the edges */
+@media (max-width: 720px) {
+  .lb-nav { width: 38px; height: 38px; font-size: 1rem; }
+  .lb-prev { left: 8px; }
+  .lb-next { right: 8px; }
+}
 
 /* ---------- Work (project) page ---------- */
 /* grid wall stays full-bleed; the project page is constrained narrower */
@@ -466,7 +471,13 @@ html { scroll-behavior: smooth; }
 .pager .lab { display: block; margin-bottom: 6px; }
 .pager .t { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: -0.02em; }
 .pager .next { text-align: right; margin-left: auto; flex-direction: row-reverse; }
-@media (max-width: 560px) { .pager .pg-thumb { flex-basis: 88px; } }
+/* phones: stack prev/next as two full-width rows so titles breathe */
+@media (max-width: 560px) {
+  .pager { flex-direction: column; gap: 22px; }
+  .pager a { max-width: 100%; }
+  .pager .pg-thumb { flex-basis: 104px; }
+  .pager .next { margin-left: 0; }
+}
 
 /* ---------- Contact ---------- */
 .contact { padding: clamp(56px, 14vh, 170px) 0; }
