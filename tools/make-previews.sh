@@ -17,14 +17,24 @@ while IFS=$'\t' read -r slug yt; do
   case "$dur" in (''|*[!0-9]*) dur=30;; esac
   start=$(( dur * 35 / 100 ))
   end=$(( start + 6 ))                       # grab 6s, trim to 4 in encode
-  if ! yt-dlp --no-update -q -f "bv*[height<=720]/bv*" \
+  # Fast path: fetch only the 6s we need. Fails on videos whose default
+  # (ANDROID_VR) DASH/AV1 URLs 403 on ffmpeg's ranged request.
+  yt-dlp --no-update -q -f "bv*[height<=720]/bv*" \
         --download-sections "*${start}-${end}" --force-keyframes-at-cuts \
-        -o "$TMP/$slug.%(ext)s" "https://youtu.be/$yt" 2>/dev/null; then
-    echo "SKIP (download failed): $slug"; continue
-  fi
+        -o "$TMP/$slug.%(ext)s" "https://youtu.be/$yt" 2>/dev/null
   src=$(ls "$TMP/$slug".* 2>/dev/null | head -1)
-  [ -z "$src" ] && { echo "SKIP (no file): $slug"; continue; }
-  if ffmpeg -y -v error -i "$src" -t 4 -an \
+  seek=0
+  if [ -z "$src" ]; then
+    # Fallback: the android client still serves a progressive H.264 stream.
+    # Grab the whole (short) video and seek locally instead.
+    yt-dlp --no-update -q --extractor-args "youtube:player_client=android" \
+          -f "b[height<=720]/b" -o "$TMP/$slug.%(ext)s" \
+          "https://youtu.be/$yt" 2>/dev/null
+    src=$(ls "$TMP/$slug".* 2>/dev/null | head -1)
+    seek=$start
+  fi
+  [ -z "$src" ] && { echo "SKIP (download failed): $slug"; continue; }
+  if ffmpeg -y -v error -ss "$seek" -i "$src" -t 4 -an \
         -vf "scale='if(gt(iw,ih),-2,480)':'if(gt(iw,ih),480,-2)'" \
         -c:v libx264 -preset veryfast -crf 28 -pix_fmt yuv420p -movflags +faststart \
         "$out"; then
