@@ -1,0 +1,3 @@
+# work.html?v=<slug> was the film URL before each film got its own
+# page. Netlify matches the query param and 301s to the new path.
+/work.html  v=:slug  /work/:slug.html  301!

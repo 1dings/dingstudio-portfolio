@@ -1,11 +1,28 @@
 #!/bin/bash
-# Auto-build hover-preview clips whenever films.json is part of a commit.
+# Keep the generated parts of the site in sync on every commit.
 # Enabled with:  git config core.hooksPath .githooks
-# Nothing to build = instant no-op (make-previews.sh skips slugs that already
-# have a clip before it touches the network).
+#
+#   1. build-seo.py     always. Instant, no network. Regenerates robots.txt,
+#                       sitemap.xml, _redirects, the pre-rendered film wall in
+#                       index.html and one page per film under work/.
+#   2. make-previews.sh only when films.json is in the commit. Skips clips that
+#                       already exist before it touches the network, so a commit
+#                       with no new films costs nothing.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 0
 
+# --- 1. crawlable layer -----------------------------------------------------
+if command -v python3 >/dev/null; then
+  if python3 tools/build-seo.py; then
+    git add robots.txt sitemap.xml _redirects index.html contact.html work 2>/dev/null || true
+  else
+    echo "pre-commit: build-seo.py failed, committing without regenerating it" >&2
+  fi
+else
+  echo "pre-commit: python3 not found, skipping SEO build" >&2
+fi
+
+# --- 2. hover previews ------------------------------------------------------
 git diff --cached --name-only | grep -qx 'films.json' || exit 0
 
 command -v jq      >/dev/null || { echo "pre-commit: jq not found, skipping previews"     >&2; exit 0; }

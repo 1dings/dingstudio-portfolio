@@ -150,7 +150,7 @@ function wireReels(root) {
 // A 16:9 (or 9:16 when .tall) card that links to the project page.
 function filmCardHtml(f, i) {
   return `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
-                 href="work.html?v=${encodeURIComponent(f.slug)}"
+                 href="/work/${encodeURIComponent(f.slug)}.html"
                  data-slug="${esc(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
@@ -380,7 +380,7 @@ function openReel(d, list, idx) {
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
        allowfullscreen></iframe>`;
   lb.querySelector(".lb-title").textContent = d.title;
-  lb.querySelector(".lb-credits").href = `work.html?v=${encodeURIComponent(d.slug)}`;
+  lb.querySelector(".lb-credits").href = `/work/${encodeURIComponent(d.slug)}.html`;
   lb.classList.add("open");
   document.body.style.overflow = "hidden";
 }
@@ -449,7 +449,7 @@ async function renderWork(root) {
 
   const link = (f, cls, lab) =>
     f
-      ? `<a class="${cls}" href="work.html?v=${encodeURIComponent(f.slug)}">
+      ? `<a class="${cls}" href="/work/${encodeURIComponent(f.slug)}.html">
            <span class="pg-thumb">${thumbImg(f)}</span>
            <span class="pg-info"><span class="mono lab">${lab}</span><span class="t">${esc(f.title)}</span></span></a>`
       : `<span></span>`;

@@ -49,6 +49,28 @@ Needs `jq`, `yt-dlp` and `ffmpeg`. On a **fresh clone**, switch the hooks on onc
 git config core.hooksPath .githooks
 ```
 
+## Search engines (automatic — nothing to do)
+
+The site draws every film from `films.json` in the browser, so a crawler that
+doesn't run JavaScript would otherwise see an empty "Loading…" page. The same
+`pre-commit` hook regenerates the crawlable layer on **every** commit:
+
+- `robots.txt` and `sitemap.xml`
+- the film wall pre-rendered into `index.html` (app.js replaces it on load, so
+  the crawler and the visitor get the same thing)
+- one real page per film at `work/<slug>.html`, each with its own title,
+  description, social preview and `VideoObject` structured data
+- `_redirects`, so the old `work.html?v=<slug>` links 301 to the new pages
+
+It runs in well under a second and makes no network calls. To run it by hand:
+
+```bash
+./tools/build-seo.py
+```
+
+Anything under `work/` is generated. Don't hand-edit those files; change
+`films.json` (or the template in `tools/build-seo.py`) and let the hook rebuild.
+
 ## Custom thumbnail (replace an ugly auto thumbnail)
 
 Drop an image (jpg/png, ideally 1280×720 / 16:9) into **`assets/thumbs/`**, then set the
@@ -85,7 +107,8 @@ Rules:
   Overrides the auto YouTube thumbnail. Omit to use the YouTube one.
 - **`credits`** = optional. Leave it `[]` (or remove it) and the credits section
   just won't show. Add as many `{ role, name }` rows as you have.
-- **`slug`** = a unique id used in the URL (`work.html?v=slug`). Keep it simple.
+- **`slug`** = a unique id, and the film's URL (`work/<slug>.html`). Keep it simple.
+  Changing a slug changes the URL, so any link already shared will break.
 
 The entries currently in `films.json` are a **DEMO selection** pulled from your
 YouTube playlists, with titles tidied up. Swap in your final picks.
