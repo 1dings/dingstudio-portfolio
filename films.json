@@ -901,6 +901,23 @@
     ]
   },
   {
+    "slug": "world-class-mius-patrick-destination-drink",
+    "title": "World Class — Mius Patrick: Destination Drink",
+    "category": "COMMERCIAL",
+    "youtube": "bSfrb5N4puI",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "wellcome-victoria-road-cutdown1",
     "title": "Wellcome Victoria Road -Cutdown",
     "category": "SOCIAL REELS",
@@ -943,6 +960,35 @@
       {
         "role": "Editor",
         "name": "Christina Tsang @dings424 @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "ysl-marf-hand-cream",
+    "title": "YSL × Marf — 「偏心」護手霜",
+    "category": "SOCIAL REELS",
+    "youtube": "h4QcJfkA6QQ",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "In Frame",
+        "name": "@_marifemarife_"
+      },
+      {
+        "role": "Videographer",
+        "name": "@cathyc._.c"
+      },
+      {
+        "role": "Cam B / Assist",
+        "name": "@lavonnli"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dings424 @visoak.hk"
+      },
+      {
+        "role": "PR",
+        "name": "@collaboration_consultancy @ttsoitt"
       }
     ]
   },
@@ -1010,6 +1056,23 @@
     ]
   },
   {
+    "slug": "upper-house-shaun-birley",
+    "title": "Upper House — Shaun Birley",
+    "category": "SOCIAL REELS",
+    "youtube": "5CXWMzDpLso",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "cx-business-class-so-sleek",
     "title": "CX Business class so sleek",
     "category": "SOCIAL REELS",
@@ -1065,6 +1128,23 @@
     "title": "CX ICYMI",
     "category": "SOCIAL REELS",
     "youtube": "OGqLaQbeaP4",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "cx-lounge-day-night",
+    "title": "CX Lounge Day & Night",
+    "category": "SOCIAL REELS",
+    "youtube": "8-J2IBxK8NA",
     "role": "Editor",
     "credits": [
       {
@@ -1299,6 +1379,27 @@
     ]
   },
   {
+    "slug": "maje-event-highlight",
+    "title": "Maje — Event Highlight",
+    "category": "EVENT",
+    "youtube": "jGc5CNEppD0",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Producer",
+        "name": "Kiu"
+      },
+      {
+        "role": "DP",
+        "name": "Chester"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
     "slug": "ap-fam-day-event",
     "title": "AP fam day event",
     "category": "EVENT",
@@ -1325,6 +1426,23 @@
       {
         "role": "Director",
         "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "hsbc-ges-day-2-highlight",
+    "title": "HSBC GES — Day 2 Highlight",
+    "category": "EVENT",
+    "youtube": "0pqwuXI6Er8",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
       },
       {
         "role": "Editor",
@@ -1363,7 +1481,28 @@
     "category": "EVENT",
     "youtube": "2mM-IkFma-s",
     "role": "Editor",
-    "credits": [],
+    "credits": [
+      {
+        "role": "Director",
+        "name": "@laukit.find"
+      },
+      {
+        "role": "Videographer",
+        "name": "@laukit.find @carloslam"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "@raychung._"
+      },
+      {
+        "role": "Lighting",
+        "name": "@llllllllll_c @victorhong_"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina @dings424 @dingsfafa"
+      }
+    ],
     "vertical": true
   },
   {
@@ -1479,6 +1618,42 @@
       {
         "role": "Director",
         "name": "Lau Kit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "hsbc-ges-day-1-highlight",
+    "title": "HSBC GES — Day 1 Highlight",
+    "category": "EVENT",
+    "youtube": "ExpkmZoEh4M",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina"
+      }
+    ]
+  },
+  {
+    "slug": "mtr-broadcast-station",
+    "title": "MTR 港鐵 — 有禮廣播站",
+    "category": "EVENT",
+    "youtube": "MIIG0Ne7t8g",
+    "role": "Editor",
+    "vertical": true,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Lau Kit"
       },
       {
         "role": "Editor",
