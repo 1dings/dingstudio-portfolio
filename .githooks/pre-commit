@@ -1,0 +1,31 @@
+#!/bin/bash
+# Auto-build hover-preview clips whenever films.json is part of a commit.
+# Enabled with:  git config core.hooksPath .githooks
+# Nothing to build = instant no-op (make-previews.sh skips slugs that already
+# have a clip before it touches the network).
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)" || exit 0
+
+git diff --cached --name-only | grep -qx 'films.json' || exit 0
+
+command -v jq      >/dev/null || { echo "pre-commit: jq not found, skipping previews"     >&2; exit 0; }
+command -v yt-dlp  >/dev/null || { echo "pre-commit: yt-dlp not found, skipping previews" >&2; exit 0; }
+command -v ffmpeg  >/dev/null || { echo "pre-commit: ffmpeg not found, skipping previews" >&2; exit 0; }
+
+echo "pre-commit: films.json changed, checking hover previews..."
+./tools/make-previews.sh || true
+
+# Stage whatever got built so it lands in this same commit.
+git add assets/previews 2>/dev/null || true
+
+# Report (never block) any film still without a clip: its tile will just stay
+# static. Re-run ./tools/make-previews.sh later, after `brew upgrade yt-dlp`.
+missing=$(jq -r '.[] | select(.youtube) | .slug' films.json | while read -r s; do
+  [ -s "assets/previews/$s.mp4" ] || echo "  - $s"
+done)
+if [ -n "$missing" ]; then
+  echo "pre-commit: WARNING, no hover preview for:" >&2
+  echo "$missing" >&2
+  echo "pre-commit: committing anyway; those tiles stay static." >&2
+fi
+exit 0

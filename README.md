@@ -21,6 +21,34 @@ YouTube ID, thumbnail, credits (add/remove rows), reorder, delete — then click
 (If you opened it without the server and it didn't auto-load, click **Load films.json**
 and pick the file.)
 
+## Hover previews (automatic — nothing to do)
+
+Resting the cursor on a tile plays a silent 4-second clip of the film. Those
+clips are self-hosted at `assets/previews/<slug>.mp4`; a film without one just
+keeps its static thumbnail.
+
+**You don't have to build them.** A `pre-commit` hook in `.githooks/` notices
+whenever `films.json` is part of a commit, builds any clip that's missing, and
+adds it to that same commit. Films that already have a clip are skipped before
+anything touches the network, so a commit with no new films costs nothing.
+
+If a clip can't be built the commit still goes through, and the hook prints
+which slugs came up short. That usually means YouTube changed something: run
+`brew upgrade yt-dlp`, then `./tools/make-previews.sh` to fill the gaps.
+
+To build clips by hand at any point (safe to re-run, it only adds what's
+missing):
+
+```bash
+./tools/make-previews.sh
+```
+
+Needs `jq`, `yt-dlp` and `ffmpeg`. On a **fresh clone**, switch the hooks on once:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Custom thumbnail (replace an ugly auto thumbnail)
 
 Drop an image (jpg/png, ideally 1280×720 / 16:9) into **`assets/thumbs/`**, then set the
