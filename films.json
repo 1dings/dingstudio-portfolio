@@ -36,7 +36,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -49,11 +49,96 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor / Assistant Director",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "kohler",
+    "title": "Kohler",
+    "category": "COMMERCIAL",
+    "youtube": "yJlxrzm0ZxE",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Production",
+        "name": "@visoak.hk"
+      },
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find"
+      },
+      {
+        "role": "Producer",
+        "name": "Rachael Leung @racho.archive"
+      },
+      {
+        "role": "Production Team",
+        "name": "Gomeh @gomehmeh, Sparrow @sparrow_xxbi"
+      },
+      {
+        "role": "DP",
+        "name": "Samuel Chan @samuelchxn"
+      },
+      {
+        "role": "1st AC",
+        "name": "Kelvin Lam @kelvinlam_m"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "Deshawn Leung @dl.518, Jimmy sheung @akitor1_"
+      },
+      {
+        "role": "Gaffer",
+        "name": "Fung Ho Ning @finnian.fhn"
+      },
+      {
+        "role": "Electrician",
+        "name": "Li Man Kit @mkmkli, Ip tsz hin @samuelip36"
+      },
+      {
+        "role": "Art director",
+        "name": "mossmoshi @mossmoshiii"
+      },
+      {
+        "role": "Art team",
+        "name": "taooo, Chan Tin Pak @pakpakpak1018"
+      },
+      {
+        "role": "Styling",
+        "name": "mossmoshi @mossmoshiii"
+      },
+      {
+        "role": "Styling assistant",
+        "name": "Chan Wing Shuen"
+      },
+      {
+        "role": "Set builder",
+        "name": "Endy Tse @endytse @kar_lee_work"
+      },
+      {
+        "role": "Photographer",
+        "name": "Nolan Lee @nolanlee.ch"
+      },
+      {
+        "role": "Assistant photographer",
+        "name": "Harry Lai @harrylaiiiii, Herbert Wong @hwbhp_"
+      },
+      {
+        "role": "Offline Editor",
+        "name": "Christina Tsang @dingsfafa @visoak.hk"
+      },
+      {
+        "role": "Online Editor",
+        "name": "@roydominiccheung @visoak.hk"
+      },
+      {
+        "role": "Color",
+        "name": "Chung @chungchow1945"
       }
     ]
   },
@@ -94,7 +179,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "DP",
@@ -183,7 +268,7 @@
       },
       {
         "role": "Assistant Director",
-        "name": "Christina Tsang"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "Producer",
@@ -227,7 +312,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Christina Tsang"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "Online Editor",
@@ -340,7 +425,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Joanne, Christina"
+        "name": "Joanne, Christina Tsang @dingsfafa"
       },
       {
         "role": "Colourist",
@@ -365,59 +450,19 @@
     ]
   },
   {
-    "slug": "at-tysonyoshi-curio",
-    "title": "American Tourister × Tyson Yoshi — CURIO",
+    "slug": "kary-x-illuma",
+    "title": "Kary X Illuma",
     "category": "COMMERCIAL",
-    "youtube": "hJ7mXbexSz0",
-    "role": "Assistant Director",
+    "youtube": "x03yteC7O5s",
+    "role": "Editor",
     "credits": [
       {
-        "role": "Starring",
-        "name": "@tysonyoshi"
-      },
-      {
         "role": "Director",
-        "name": "Chris Leung @lsn_1012 @actacreation"
+        "name": "LauKit @laukit.find"
       },
       {
-        "role": "Stylist",
-        "name": "@charles_wghou"
-      },
-      {
-        "role": "DP",
-        "name": "Samson Huang @samsonhuang"
-      },
-      {
-        "role": "Focus Puller",
-        "name": "Chan Enoch @sky._.walkk"
-      },
-      {
-        "role": "AC",
-        "name": "Yau Chi Wa, Sam @samsam.zero"
-      },
-      {
-        "role": "Gaffer",
-        "name": "Dicky Ho @dickyh0"
-      },
-      {
-        "role": "Electrician",
-        "name": "Edwin Sing @edwin_sing"
-      },
-      {
-        "role": "AD",
-        "name": "Christina Tsang @dings424"
-      },
-      {
-        "role": "PM",
-        "name": "Monkey Lee @monkelee"
-      },
-      {
-        "role": "Art Director",
-        "name": "@lulala_hilary"
-      },
-      {
-        "role": "Editor & Colourist",
-        "name": "Chris Leung @lsn_1012 @actacreation"
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -430,7 +475,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Laukit @find.laukit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Producer",
@@ -438,7 +483,7 @@
       },
       {
         "role": "AD & Edit",
-        "name": "Christina @dings424 @dingsfafa"
+        "name": "Christina Tsang @dings424 @dingsfafa"
       },
       {
         "role": "DP",
@@ -531,7 +576,64 @@
       },
       {
         "role": "Editor",
-        "name": "Christina @dingsfafa"
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "at-tysonyoshi-curio",
+    "title": "American Tourister × Tyson Yoshi — CURIO",
+    "category": "COMMERCIAL",
+    "youtube": "hJ7mXbexSz0",
+    "role": "Assistant Director",
+    "credits": [
+      {
+        "role": "Starring",
+        "name": "@tysonyoshi"
+      },
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012 @actacreation"
+      },
+      {
+        "role": "Stylist",
+        "name": "@charles_wghou"
+      },
+      {
+        "role": "DP",
+        "name": "Samson Huang @samsonhuang"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Chan Enoch @sky._.walkk"
+      },
+      {
+        "role": "AC",
+        "name": "Yau Chi Wa, Sam @samsam.zero"
+      },
+      {
+        "role": "Gaffer",
+        "name": "Dicky Ho @dickyh0"
+      },
+      {
+        "role": "Electrician",
+        "name": "Edwin Sing @edwin_sing"
+      },
+      {
+        "role": "AD",
+        "name": "Christina Tsang @dingsfafa @dings424"
+      },
+      {
+        "role": "PM",
+        "name": "Monkey Lee @monkelee"
+      },
+      {
+        "role": "Art Director",
+        "name": "@lulala_hilary"
+      },
+      {
+        "role": "Editor & Colourist",
+        "name": "Chris Leung @lsn_1012 @actacreation"
       }
     ]
   },
@@ -646,7 +748,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Yu Kwan, Christina Tsang"
+        "name": "Yu Kwan, Christina Tsang @dingsfafa"
       },
       {
         "role": "Starring",
@@ -662,7 +764,7 @@
       },
       {
         "role": "Director of Photography",
-        "name": "Chris Leung"
+        "name": "Chris Leung @lsn_1012"
       },
       {
         "role": "Focus Puller ",
@@ -698,7 +800,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina Tsang"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "Colourist",
@@ -739,7 +841,7 @@
       },
       {
         "role": "Assistant Director",
-        "name": "Christina Tsang"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -796,7 +898,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina @dingsfafa"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "VFX",
@@ -854,7 +956,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -871,7 +973,7 @@
       },
       {
         "role": "Offline Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -884,7 +986,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Producer",
@@ -892,11 +994,28 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "Online/CG ",
         "name": "Nicolas, 海川"
+      }
+    ]
+  },
+  {
+    "slug": "christies-wine-henry-tang",
+    "title": "Christie's Wine X Henry Tang",
+    "category": "COMMERCIAL",
+    "youtube": "ITJLNGvJexs",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -909,11 +1028,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -926,11 +1045,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor / Assistant Director",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -984,7 +1103,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina @dings424 @visoak.hk"
+        "name": "Christina Tsang @dingsfafa @dings424 @visoak.hk"
       },
       {
         "role": "PR",
@@ -1001,11 +1120,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1018,7 +1137,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "DP",
@@ -1026,7 +1145,7 @@
       },
       {
         "role": "Editor",
-        "name": "Lau Kit, Christina"
+        "name": "LauKit @laukit.find, Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1047,11 +1166,45 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "nba-the-londoner-x-jahmani",
+    "title": "NBA The Londoner X Jahmani",
+    "category": "SOCIAL REELS",
+    "youtube": "dU8AO4JAhow",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ]
+  },
+  {
+    "slug": "nba-gbear-cafe",
+    "title": "NBA Gbear Cafe TCEN",
+    "category": "SOCIAL REELS",
+    "youtube": "KSmKRkMnbro",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Chris Leung @lsn_1012"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1064,11 +1217,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1081,11 +1234,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1098,11 +1251,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1115,11 +1268,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1132,11 +1285,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1149,11 +1302,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1179,7 +1332,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1196,7 +1349,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1213,7 +1366,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1242,11 +1395,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1259,11 +1412,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1276,11 +1429,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1293,11 +1446,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1310,11 +1463,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1336,11 +1489,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1353,11 +1506,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1370,11 +1523,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1395,7 +1548,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1408,11 +1561,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1425,11 +1578,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1442,11 +1595,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1459,11 +1612,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1484,11 +1637,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "@laukit.find"
+        "name": "@LauKit @laukit.find.find"
       },
       {
         "role": "Videographer",
-        "name": "@laukit.find @carloslam"
+        "name": "@LauKit @laukit.find.find @carloslam"
       },
       {
         "role": "Camera Assistant",
@@ -1500,7 +1653,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina @dings424 @dingsfafa"
+        "name": "Christina Tsang @dings424 @dingsfafa"
       }
     ],
     "vertical": true
@@ -1526,7 +1679,7 @@
       },
       {
         "role": "Video Editor",
-        "name": "Christina @dings424 @dingsfafa"
+        "name": "Christina Tsang @dings424 @dingsfafa"
       }
     ],
     "vertical": true
@@ -1540,11 +1693,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ],
     "vertical": true
@@ -1558,11 +1711,11 @@
     "credits": [
       {
         "role": "Dir",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina @dingsfafa"
+        "name": "Christina Tsang @dingsfafa"
       },
       {
         "role": "online editor",
@@ -1580,11 +1733,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ],
     "vertical": true
@@ -1599,11 +1752,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1617,11 +1770,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1635,11 +1788,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1653,11 +1806,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1670,7 +1823,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "DP",
@@ -1682,7 +1835,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ],
     "vertical": true
@@ -1696,7 +1849,7 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "DP",
@@ -1708,7 +1861,7 @@
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ],
     "vertical": true
@@ -1722,11 +1875,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ],
     "vertical": true
@@ -1741,11 +1894,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },
@@ -1759,11 +1912,11 @@
     "credits": [
       {
         "role": "Director",
-        "name": "Lau Kit @laukit.find"
+        "name": "LauKit @laukit.find"
       },
       {
         "role": "Editor",
-        "name": "Christina"
+        "name": "Christina Tsang @dingsfafa"
       }
     ]
   },

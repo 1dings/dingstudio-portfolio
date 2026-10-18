@@ -42,6 +42,15 @@ def e(s):
     return html.escape(str(s or ""), quote=True)
 
 
+def linkify_handles(value):
+    # Match the browser renderer, escaping credit text before adding safe links.
+    return re.sub(
+        r"@([A-Za-z0-9_](?:[A-Za-z0-9_.]*[A-Za-z0-9_])?)",
+        lambda m: f'<a class="ig-h" href="https://instagram.com/{m[1]}" target="_blank" rel="noopener">@{m[1]}</a>',
+        e(value),
+    )
+
+
 def _thumb_path(f):
     """A real path for the film's thumbnail, or None.
 
@@ -385,7 +394,7 @@ def build_film_pages(films):
                     f'<span class="t">{e(g["title"])}</span></span></a>')
 
         rows = "".join(
-            f'<div class="row"><dt>{e(c.get("role"))}</dt><dd>{e(c.get("name"))}</dd></div>'
+            f'<div class="row"><dt>{e(c.get("role"))}</dt><dd>{linkify_handles(c.get("name"))}</dd></div>'
             for c in (f.get("credits") or []) if c.get("name") and c.get("name") != "—"
         )
         back, backlabel = BACK[sid]
