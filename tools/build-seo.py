@@ -307,7 +307,7 @@ FILM_PAGE = """<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Schibsted+Grotesk:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=16">
+  <link rel="stylesheet" href="/styles.css?v=17">
   <script type="application/ld+json">{jsonld}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCXZXL6ZTE"></script>
   <script>
@@ -342,12 +342,12 @@ FILM_PAGE = """<!DOCTYPE html>
       <a class="back" href="{back}">&larr; {backlabel}</a>
       <p class="mono tag">{tag}</p>
       <h1>{title}</h1>
-      <div class="player{vertical}">
+{series_before}      <div class="player{vertical}"{player_style}>
         <iframe src="{embed}" title="{title}" loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
       </div>
-      {credits}
+{series_after}      {credits}
       <nav class="pager">{prev}{next}</nav>
     </div>
   </main>
@@ -356,6 +356,7 @@ FILM_PAGE = """<!DOCTYPE html>
     <span class="mono">&copy; DINGSTUDIO</span>
     <span class="mono">Hong Kong</span>
   </footer>
+{series_script}
 </body>
 </html>
 """
@@ -402,6 +403,19 @@ def build_film_pages(films):
         embed = (f"https://www.youtube-nocookie.com/embed/{e(f['youtube'])}?rel=0&amp;modestbranding=1&amp;color=white"
                  if f.get("youtube") else "")
 
+        episodes = f.get("series") or []
+        series_html = ""
+        if episodes:
+            buttons = "".join(
+                f'<button type="button" class="series-choice" data-youtube="{e(v["youtube"])}" '
+                f'data-title="{e(v["title"])}" aria-pressed="{str(n == 0).lower()}">'
+                f'<img src="https://img.youtube.com/vi/{e(v["youtube"])}/hqdefault.jpg" alt="" loading="lazy">'
+                f'<span class="series-label"><span class="mono">{n + 1:02d}</span> {e(v["title"])}</span></button>'
+                for n, v in enumerate(episodes)
+            )
+            series_class = "series-picker series-picker-vertical" if vertical else "series-picker"
+            series_html = f'<div class="{series_class}" role="group" aria-label="Choose a film">{buttons}</div>'
+
         page = FILM_PAGE.format(
             title=e(f.get("title", "")),
             desc=e(film_desc(f)),
@@ -411,6 +425,10 @@ def build_film_pages(films):
             back=back, backlabel=backlabel,
             tag=e(" · ".join(x for x in [f.get("category"), f.get("role")] if x)),
             vertical=vertical, embed=embed,
+            player_style=f' style="aspect-ratio:{float(f["aspectRatio"])}"' if f.get("aspectRatio") else "",
+            series_before=('      ' + series_html + '\n') if series_html and vertical else '',
+            series_after=('      ' + series_html + '\n') if series_html and not vertical else '',
+            series_script='<script src="/series.js?v=1"></script>' if episodes else "",
             credits=f'<dl class="credits">{rows}</dl>' if rows else "",
             prev=pager(sibs[i - 1] if i > 0 else None, "prev", "Prev"),
             next=pager(sibs[i + 1] if i + 1 < len(sibs) else None, "next", "Next"),

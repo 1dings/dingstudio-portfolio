@@ -366,6 +366,8 @@ function normalize(data) {
     youtube: f.youtube || "",
     vimeo: f.vimeo || "",
     thumb: f.thumb || "",
+    ...(Array.isArray(f.series) ? { series: f.series } : {}),
+    ...(Number(f.aspectRatio) > 0 ? { aspectRatio: Number(f.aspectRatio) } : {}),
     vertical: !!f.vertical,   // keep the 9:16 flag so editing doesn't strip it
     credits: Array.isArray(f.credits) ? f.credits.map((c) => ({ role: c.role || "", name: c.name || "" })) : [],
   }));
@@ -409,6 +411,8 @@ function buildJson() {
     if (f.vimeo && f.vimeo.trim()) o.vimeo = f.vimeo.trim();
     if (f.thumb && f.thumb.trim()) o.thumb = f.thumb.trim();
     if (f.vertical) o.vertical = true;
+    if (Number(f.aspectRatio) > 0) o.aspectRatio = Number(f.aspectRatio);
+    if (Array.isArray(f.series)) o.series = f.series;
     o.credits = (f.credits || []).filter((c) => (c.role || "").trim() || (c.name || "").trim());
     return o;
   });

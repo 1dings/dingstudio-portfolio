@@ -122,9 +122,11 @@ function thumbImg(f) {
 // A 9:16 tile that opens the lightbox (used by Social Reels AND the 9:16 group
 // on the Event page).
 function reelCardHtml(f, i) {
-  return `<button class="reel reveal" style="animation-delay:${i * 45}ms"
+  const series = Array.isArray(f.series) && f.series.length > 0;
+  const tag = series ? "a" : "button";
+  return `<${tag}${series ? ` href="/work/${encodeURIComponent(f.slug)}.html" data-series="true"` : ""} class="reel reveal" style="animation-delay:${i * 45}ms"
                 data-yt="${esc(f.youtube || "")}" data-vimeo="${esc(f.vimeo || "")}"
-                data-slug="${esc(f.slug)}" data-title="${esc(f.title)}"
+                data-slug="${esc(f.slug)}" data-title="${esc(f.title)}" data-ratio="${Number(f.aspectRatio) || 9 / 16}"
                 aria-label="Play ${esc(f.title)}">
       <span class="thumb">
         ${thumbImg(f)}
@@ -134,13 +136,13 @@ function reelCardHtml(f, i) {
         <span class="title">${esc(f.title)}</span>
         <span class="cat">${esc(f.role || "")}</span>
       </span>
-    </button>`;
+    </${tag}>`;
 }
 // Wire per reelgrid so prev/next in the lightbox stays inside its own group
 // (Social Reels wall vs the 9:16 group on Event).
 function wireReels(root) {
   root.querySelectorAll(".reelgrid").forEach((grid) => {
-    const btns = [...grid.querySelectorAll(".reel")];
+    const btns = [...grid.querySelectorAll("button.reel")];
     btns.forEach((btn, i) =>
       btn.addEventListener("click", () => openReel(btn.dataset, btns.map((b) => b.dataset), i))
     );
@@ -365,6 +367,8 @@ function updateLbNav(lb) {
 function openReel(d, list, idx) {
   if (list) { reelList = list; reelIndex = idx; }
   const lb = ensureLightbox();
+  const ratio = Number(d.ratio);
+  lb.style.setProperty("--reel-ratio", ratio > 0 && ratio <= 2 ? ratio : 9 / 16);
   updateLbNav(lb);
   // Deep link: reflect the open reel in the URL so copying the address bar
   // always points at this exact video.
@@ -400,8 +404,10 @@ function openReelFromHash(root) {
             location.search.match(/[?&]play=([^&]+)/);
   if (!m) return;
   const slug = decodeURIComponent(m[1]);
+  const seriesLink = [...root.querySelectorAll("a.reel[data-series]")].find((a) => a.dataset.slug === slug);
+  if (seriesLink) { location.replace(seriesLink.href); return; }
   for (const grid of root.querySelectorAll(".reelgrid")) {
-    const btns = [...grid.querySelectorAll(".reel")];
+    const btns = [...grid.querySelectorAll("button.reel")];
     const i = btns.findIndex((b) => b.dataset.slug === slug);
     if (i >= 0) {
       btns[i].scrollIntoView({ block: "center" });
@@ -459,16 +465,19 @@ async function renderWork(root) {
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}?rel=0&modestbranding=1&color=white`;
 
   const vertical = !!film.vertical || (film.category || "").toUpperCase() === "SOCIAL REELS";
+  const seriesHtml = Array.isArray(film.series) && film.series.length ? `<div class="series-picker${vertical ? " series-picker-vertical" : ""}" role="group" aria-label="Choose a film">${film.series.map((v, i) => `<button type="button" class="series-choice" data-youtube="${esc(v.youtube)}" data-title="${esc(v.title)}" aria-pressed="${i === 0}"><img src="${hqUrl(v.youtube)}" alt="" loading="lazy"><span class="series-label"><span class="mono">${pad(i + 1)}</span> ${esc(v.title)}</span></button>`).join("")}</div>` : "";
 
   root.innerHTML = `<div class="wrap work reveal">
     <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
     <p class="mono tag">${esc([film.category, film.role].filter(Boolean).join(" · "))}</p>
     <h1>${esc(film.title)}</h1>
-    <div class="player${vertical ? " vertical" : ""}">
+    ${vertical ? seriesHtml : ""}
+    <div class="player${vertical ? " vertical" : ""}"${Number(film.aspectRatio) > 0 ? ` style="aspect-ratio:${Number(film.aspectRatio)}"` : ""}>
       <iframe src="${embed}" title="${esc(film.title)}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
+    ${vertical ? "" : seriesHtml}
     ${creditsHtml}
     <nav class="pager">
       ${link(prev, "prev", "Prev")}

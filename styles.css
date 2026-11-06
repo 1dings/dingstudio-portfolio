@@ -388,8 +388,8 @@ html { scroll-behavior: smooth; }
 }
 .lb-frame {
   position: relative;
-  width: min(92vw, calc(82vh * 9 / 16));   /* height-bound on desktop, width-bound on mobile */
-  aspect-ratio: 9 / 16;
+  width: min(92vw, calc(82vh * var(--reel-ratio, .5625)));   /* height-bound on desktop, width-bound on mobile */
+  aspect-ratio: var(--reel-ratio, .5625);
   background: #000; border-radius: 5px; overflow: hidden;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 }
@@ -418,8 +418,8 @@ html { scroll-behavior: smooth; }
 .lb-nav:hover { background: rgba(255, 255, 255, 0.15); }
 /* sit just outside the 9:16 frame edge (frame half-width = min(46vw, 41vh*9/16)),
    14px gap + 46px button, clamped so they never leave the screen */
-.lb-prev { left: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
-.lb-next { right: max(10px, calc(50% - min(46vw, 41vh * 9 / 16) - 60px)); }
+.lb-prev { left: max(10px, calc(50% - min(46vw, 41vh * var(--reel-ratio, .5625)) - 60px)); }
+.lb-next { right: max(10px, calc(50% - min(46vw, 41vh * var(--reel-ratio, .5625)) - 60px)); }
 .lb-nav[disabled] { opacity: 0.25; cursor: default; pointer-events: none; }
 /* phones: the frame spans ~92vw and the iframe eats touches, so swipe can't
    register on the video itself — keep compact arrows overlaid at the edges */
@@ -562,3 +562,17 @@ html { scroll-behavior: smooth; }
 }
 
 .note { color: var(--ink-faint); padding: 40px 0; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+/* Series film selector: one player and three compact, keyboard-accessible choices. */
+.series-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 24px); margin-top: 20px; }
+.series-choice { padding: 0 0 12px; border: 0; border-bottom: 2px solid transparent; color: var(--ink-faint); background: transparent; text-align: left; font: inherit; cursor: pointer; min-width: 0; }
+.series-choice img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; opacity: .65; transition: opacity .2s; }
+.series-label { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; font-size: clamp(.8rem, 1.4vw, 1rem); }
+.series-label .mono { font-size: .7rem; }
+.series-choice[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.series-choice[aria-pressed="true"] img, .series-choice:hover img { opacity: 1; }
+.series-choice:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+@media (max-width: 560px) { .series-label { display: block; } .series-label .mono { display: block; margin-bottom: 4px; } }
+
+.series-picker-vertical { max-width: 420px; margin: 0 auto 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.series-picker-vertical .series-choice img { aspect-ratio: 9 / 16; width: 90px; max-width: 100%; margin-inline: auto; }

@@ -1,5 +1,97 @@
 [
   {
+    "slug": "honor-magic9-pro-max",
+    "title": "HONOR × 馮德倫 — Magic9 Pro Max",
+    "category": "COMMERCIAL",
+    "role": "Assistant Director / Editor",
+    "youtube": "5Bl8-NQcIfc",
+    "thumb": "assets/thumbs/honor-magic9-pro-max.jpg",
+    "series": [
+      {
+        "title": "ARRI 色彩",
+        "youtube": "5Bl8-NQcIfc"
+      },
+      {
+        "title": "槍咪級收音",
+        "youtube": "9-7eajEPIaM"
+      },
+      {
+        "title": "大電量",
+        "youtube": "B34-NfTrFyc"
+      }
+    ],
+    "credits": [
+      {
+        "role": "Production",
+        "name": "@visoak.hk"
+      },
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find @visoak.hk"
+      },
+      {
+        "role": "Assistant Director",
+        "name": "Christina Tsang @dingsfafa"
+      },
+      {
+        "role": "Producer",
+        "name": "Rachael Leung @racho.archive"
+      },
+      {
+        "role": "Production Team",
+        "name": "Bao Law @bao.law327, Jojo Tse @jojo.tht"
+      },
+      {
+        "role": "Gaffer",
+        "name": "Hero Poon @herophm"
+      },
+      {
+        "role": "Electrician",
+        "name": "Timothy Tam @timothy_tamcheuksing, Wong Kai Yeung @yeungnaldo"
+      },
+      {
+        "role": "DP",
+        "name": "Sam Tam @sam.t_fotoncine"
+      },
+      {
+        "role": "B Camera Operator",
+        "name": "Timothy Chan @timothychann"
+      },
+      {
+        "role": "Focus Puller",
+        "name": "Roy Wong @roywong95"
+      },
+      {
+        "role": "Camera Assistant",
+        "name": "Jason Ho @jasonhch"
+      },
+      {
+        "role": "Producer Sound Mixer",
+        "name": "Fung Yiu Tong"
+      },
+      {
+        "role": "Art Director",
+        "name": "mosmoshi @mossmoshiii"
+      },
+      {
+        "role": "Art Assistant",
+        "name": "Yuffie @zisska_"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dings424 @dingsfafa @visoak.hk"
+      },
+      {
+        "role": "Colorist",
+        "name": "Chung @chungchow1945"
+      },
+      {
+        "role": "Online",
+        "name": "@roydominiccheung @visoak.hk"
+      }
+    ]
+  },
+  {
     "slug": "mcdonalds",
     "title": "McDonald's — 人氣著數套餐",
     "category": "COMMERCIAL",
@@ -1210,7 +1302,7 @@
   },
   {
     "slug": "upper-house-shaun-birley",
-    "title": "Upper House — Shaun Birley",
+    "title": "Upper House Local",
     "category": "SOCIAL REELS",
     "youtube": "5CXWMzDpLso",
     "role": "Editor",
@@ -1223,7 +1315,18 @@
         "role": "Editor",
         "name": "Christina Tsang @dingsfafa"
       }
-    ]
+    ],
+    "series": [
+      {
+        "title": "Shaun Birley",
+        "youtube": "5CXWMzDpLso"
+      },
+      {
+        "title": "Davis and Tri",
+        "youtube": "zczBb4ZTUtQ"
+      }
+    ],
+    "thumb": "assets/thumbs/upper-house-local.jpg"
   },
   {
     "slug": "cx-business-class-so-sleek",
@@ -1701,6 +1804,43 @@
       }
     ],
     "vertical": true
+  },
+  {
+    "slug": "hsbc-mplus-myths-and-monsters",
+    "title": "HSBC M+ — Myths and Monsters Exhibition",
+    "category": "EVENT",
+    "youtube": "BpGZtgNrQrY",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ],
+    "vertical": true
+  },
+  {
+    "slug": "hsbc-x-silk",
+    "title": "HSBC × Silk — Same Day Edit",
+    "category": "EVENT",
+    "youtube": "ACE4tYqnV0g",
+    "role": "Editor",
+    "credits": [
+      {
+        "role": "Director",
+        "name": "LauKit @laukit.find"
+      },
+      {
+        "role": "Editor",
+        "name": "Christina Tsang @dingsfafa"
+      }
+    ],
+    "vertical": true,
+    "aspectRatio": 0.8
   },
   {
     "slug": "hsbc-x-kingsman-bar-event-reels",
