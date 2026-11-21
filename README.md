@@ -116,11 +116,13 @@ YouTube playlists, with titles tidied up. Swap in your final picks.
 ## Brand and role collections
 
 `tools/build-seo.py` generates `/brands/hsbc/`, `/brands/christies/`,
-`/roles/director/` and `/roles/editor/`. `app.js` uses the same selection rules
+`/brands/cathay-pacific/`, `/roles/director/` and `/roles/editor/`. `app.js` uses the same selection rules
 when rendering in the browser. Keep both implementations in sync when adding a
 collection. Rebuild with `python3 tools/build-seo.py` after data/template edits.
 
 - Brand membership currently uses the film title prefix (`HSBC` or `Christie`).
+  Cathay Pacific uses an explicit `CATHAY_SLUGS` allowlist in both renderers
+  for the existing CX/Cathay works; update both lists when adding a Cathay film.
   Christie’s series episodes appear as individual brand tiles; the homepage
   keeps one series card. Episode credits links preserve the selected video.
 - `role` describes **Christina’s own contribution**, not everyone in `credits`.

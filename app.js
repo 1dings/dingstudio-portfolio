@@ -177,35 +177,53 @@ function filmCardHtml(f, i) {
    self-hosted (assets/previews/<slug>.mp4, built by tools/make-previews.sh)
    so there's no player chrome — just the picture. Tiles without a clip
    simply keep their static thumb. */
-const HOVER_PLAY_DELAY = 600;   // ms the cursor must rest before playing
+const HOVER_PLAY_DELAY = 1000;   // preload on entry; play after one second
 
 function wireHoverVideo(root) {
-  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   root.querySelectorAll(".card[data-slug], .reel[data-slug]").forEach((el) => {
     const slug = el.dataset.slug;
     const box = el.querySelector(".thumb");
     if (!slug || !box) return;
     let timer = null, vid = null;
-    el.addEventListener("mouseenter", () => {
-      timer = setTimeout(() => {
-        vid = document.createElement("video");
-        vid.className = "hoverplay";
-        vid.src = `/assets/previews/${encodeURIComponent(slug)}.mp4`;
-        vid.muted = true;
-        vid.loop = true;
-        vid.playsInline = true;
-        vid.setAttribute("aria-hidden", "true");
-        vid.addEventListener("canplay", () => { if (vid) vid.classList.add("on"); });
-        vid.addEventListener("error", () => { if (vid) { vid.remove(); vid = null; } });
-        box.appendChild(vid);
-        vid.play().catch(() => {});
-      }, HOVER_PLAY_DELAY);
-    });
-    el.addEventListener("mouseleave", () => {
+    const stopPreview = () => {
       clearTimeout(timer);
       timer = null;
-      if (vid) { vid.remove(); vid = null; }
+      const previous = vid;
+      vid = null;
+      if (previous) {
+        previous.pause();
+        previous.removeAttribute("src");
+        previous.load();
+        previous.remove();
+      }
+    };
+    el.addEventListener("mouseenter", () => {
+      stopPreview();
+      const preview = document.createElement("video");
+      vid = preview;
+      preview.className = "hoverplay";
+      preview.preload = "auto";
+      preview.muted = true;
+      preview.defaultMuted = true;
+      preview.loop = true;
+      preview.playsInline = true;
+      preview.setAttribute("aria-hidden", "true");
+      preview.addEventListener("playing", () => {
+        if (vid === preview) preview.classList.add("on");
+      });
+      preview.addEventListener("error", () => {
+        if (vid === preview) stopPreview();
+      });
+      preview.src = `/assets/previews/${encodeURIComponent(slug)}.mp4`;
+      box.appendChild(preview);
+      preview.load();
+      timer = setTimeout(() => {
+        timer = null;
+        if (vid === preview) preview.play().catch(() => {});
+      }, HOVER_PLAY_DELAY);
     });
+    el.addEventListener("mouseleave", stopPreview);
   });
 }
 
@@ -268,9 +286,11 @@ function hasRole(f, role) {
   return (f.role || "").toLowerCase().split(/[/&]/).some((part) => (accepted[role] || []).includes(part.trim()));
 }
 
+const CATHAY_SLUGS = new Set(['cx-full-journey', 'cx-business-class-so-sleek', 'cx-vintage-snapshot', 'cathay-pacific-why-business-class', 'cx-icymi', 'cx-lounge-day-night', 'cx-aria-suite', 'cathay-pacific-m']);
+
 function renderBrand(root, films) {
   const christies = root.dataset.brand === "christies";
-  let matched = root.dataset.role ? films.filter((f) => hasRole(f, root.dataset.role)) : films.filter((f) => (f.title || "").toUpperCase().startsWith(christies ? "CHRISTIE" : "HSBC"));
+  let matched = root.dataset.role ? films.filter((f) => hasRole(f, root.dataset.role)) : films.filter((f) => root.dataset.brand === "cathay-pacific" ? CATHAY_SLUGS.has(f.slug) : (f.title || "").toUpperCase().startsWith(christies ? "CHRISTIE" : "HSBC"));
   if (root.dataset.role === "director") {
     const visible = matched.filter((f) => f.showOnHome !== false);
     visible.slice().forEach((f) => {
@@ -287,7 +307,11 @@ function renderBrand(root, films) {
     ? f.series.map((v) => ({ ...f, ...v, slug: v.slug || `${f.slug}-${v.youtube}`, title: `${f.title} — ${v.title}`, thumb: v.thumb || "", series: undefined, workSlug: f.slug, workEpisode: v.youtube }))
     : [f]);
   const portrait = (f) => !!f.vertical || (f.category || "").toUpperCase() === "SOCIAL REELS";
-  const groups = [
+  const primaryDirector = (f) => (f.role || "").toLowerCase().split(/[/&]/).some((part) => ["director", "co-director", "executive director"].includes(part.trim()));
+  const groups = root.dataset.role === "director" ? [
+    { id: "director", label: "Director", items: selected.filter(primaryDirector), grid: "grid", card: filmCardHtml },
+    { id: "assistant-director", label: "Assistant Director (AD)", items: selected.filter((f) => !primaryDirector(f)), grid: "grid", card: filmCardHtml },
+  ] : [
     { id: "landscape", label: "Landscape", items: selected.filter((f) => !portrait(f)), grid: "grid", card: filmCardHtml },
     { id: "portrait", label: "Portrait", items: selected.filter(portrait), grid: "reelgrid", card: reelCardHtml },
   ];

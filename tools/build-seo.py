@@ -29,8 +29,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://dingstudiohk.com"
 STUDIO = "DINGSTUDIO"
 TODAY = date.today().isoformat()
-BRAND_NAV = '<details class="brand-menu"><summary>By Brand <span aria-hidden="true">⌄</span></summary><div class="brand-options"><a href="/">All Work</a><a href="/brands/hsbc/">HSBC</a><a href="/brands/christies/">Christie’s 佳士得</a></div></details>'
+BRAND_NAV = '<details class="brand-menu"><summary>By Brand <span aria-hidden="true">⌄</span></summary><div class="brand-options"><a href="/">All Work</a><a href="/brands/hsbc/">HSBC</a><a href="/brands/cathay-pacific/">Cathay Pacific</a><a href="/brands/christies/">Christie’s 佳士得</a></div></details>'
 ROLE_NAV = '<details class="brand-menu role-menu"><summary>By Role <span aria-hidden="true">⌄</span></summary><div class="brand-options"><a href="/roles/director/">Director</a><a href="/roles/editor/">Editor</a></div></details>'
+CATHAY_SLUGS = {'cx-business-class-so-sleek', 'cx-lounge-day-night', 'cx-vintage-snapshot', 'cx-full-journey', 'cx-aria-suite', 'cx-icymi', 'cathay-pacific-why-business-class', 'cathay-pacific-m'}
 ROLE_LABELS = {"director": "Director", "editor": "Editor"}
 def has_role(f, role):
     parts = [x.strip().lower() for x in re.split(r"[/&]", f.get("role", ""))]
@@ -121,7 +122,7 @@ def write_robots():
 # --------------------------------------------------------------- sitemap.xml
 
 def write_sitemap(films):
-    urls = [(f"{SITE}/", "1.0"), (f"{SITE}/contact.html", "0.5"), (f"{SITE}/brands/hsbc/", "0.8"), (f"{SITE}/brands/christies/", "0.8")]
+    urls = [(f"{SITE}/", "1.0"), (f"{SITE}/contact.html", "0.5"), (f"{SITE}/brands/hsbc/", "0.8"), (f"{SITE}/brands/christies/", "0.8"), (f"{SITE}/brands/cathay-pacific/", "0.8")]
     urls += [(f"{SITE}/roles/{slug}/", "0.8") for slug in ROLE_LABELS]
     urls += [(f"{SITE}/work/{f['slug']}.html", "0.8") for f in films]
     rows = "\n".join(
@@ -475,14 +476,20 @@ def build_navigation():
                           lambda m: BRAND_NAV + "\n      " + m[1], text, count=1)
         text = re.sub(r'<details class="brand-menu role-menu">.*?</details>', '', text, flags=re.S)
         text = text.replace(BRAND_NAV, BRAND_NAV + ROLE_NAV)
-        text = text.replace('app.js?v=20', 'app.js?v=21')
-        text = text.replace('app.js?v=19', 'app.js?v=21')
+        text = text.replace('app.js?v=23', 'app.js?v=24')
+        text = text.replace('app.js?v=21', 'app.js?v=24').replace('app.js?v=22', 'app.js?v=24')
+        text = text.replace('app.js?v=20', 'app.js?v=24')
+        text = text.replace('app.js?v=19', 'app.js?v=24')
         text = text.replace('navigation.js?v=1', 'navigation.js?v=2')
         if 'navigation.js' not in text:
             text = text.replace('</body>', '<script src="/navigation.js?v=2"></script>\n</body>')
-        text = text.replace('styles.css?v=18', 'styles.css?v=19').replace('app.js?v=18', 'app.js?v=21')
-        text = text.replace('styles.css?v=17', 'styles.css?v=19').replace('app.js?v=17', 'app.js?v=21')
+        text = text.replace('styles.css?v=18', 'styles.css?v=19').replace('app.js?v=18', 'app.js?v=24')
+        text = text.replace('styles.css?v=17', 'styles.css?v=19').replace('app.js?v=17', 'app.js?v=24')
         open(path, 'w').write(text)
+
+
+def primary_director(f):
+    return any(part.strip().lower() in {"director", "co-director", "executive director"} for part in re.split(r"[/&]", f.get("role", "")))
 
 
 def director_order(films):
@@ -498,7 +505,7 @@ def director_order(films):
 
 def build_brand(films, slug, label, description, role_page=False):
     prefix = "CHRISTIE" if slug == "christies" else "HSBC"
-    matched = [f for f in films if has_role(f, slug)] if role_page else [f for f in films if f.get("title", "").upper().startswith(prefix)]
+    matched = [f for f in films if has_role(f, slug)] if role_page else [f for f in films if (f["slug"] in CATHAY_SLUGS if slug == "cathay-pacific" else f.get("title", "").upper().startswith(prefix))]
     if role_page and slug == "director":
         matched = director_order(matched)
     selected = []
@@ -511,6 +518,8 @@ def build_brand(films, slug, label, description, role_page=False):
                 selected.append(item)
         else:
             selected.append(f)
+    if role_page and slug == "director":
+        selected = [f for f in selected if primary_director(f)] + [f for f in selected if not primary_director(f)]
     text = open(os.path.join(ROOT, "index.html")).read()
     collection = "roles" if role_page else "brands"
     collection_label = "By Role" if role_page else "By Brand"
@@ -527,6 +536,9 @@ def build_brand(films, slug, label, description, role_page=False):
     portrait = lambda f: bool(f.get("vertical")) or f.get("category", "").upper() == "SOCIAL REELS"
     groups = [("landscape", "Landscape", [f for f in selected if not portrait(f)], "grid"),
               ("portrait", "Portrait", [f for f in selected if portrait(f)], "reelgrid")]
+    if role_page and slug == "director":
+        groups = [("director", "Director", [f for f in selected if primary_director(f)], "grid"),
+                  ("assistant-director", "Assistant Director (AD)", [f for f in selected if not primary_director(f)], "grid")]
     for sid, group_label, items, grid in groups:
         if not items:
             continue
@@ -558,9 +570,10 @@ def main():
     n = build_film_pages(films)
     brand_count = build_brand(films, "hsbc", "HSBC", "Commercial films, social reels & events.")
     christies_count = build_brand(films, "christies", "Christie’s 佳士得", "Films and stories.")
+    cathay_count = build_brand(films, "cathay-pacific", "Cathay Pacific", "Social films and events.")
     for slug, label in ROLE_LABELS.items():
         build_brand(films, slug, label, "Selected work by Christina Tsang.", role_page=True)
-    print(f"seo: {len(films)} films · {n} film pages · sitemap {len(films) + 6} urls · HSBC {brand_count} works · Christie’s {christies_count} films")
+    print(f"seo: {len(films)} films · {n} film pages · sitemap {len(films) + 7} urls · HSBC {brand_count} works · Christie’s {christies_count} films · Cathay Pacific {cathay_count} works")
 
 
 if __name__ == "__main__":
