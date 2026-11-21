@@ -14,7 +14,7 @@ cd "$(git rev-parse --show-toplevel)" || exit 0
 # --- 1. crawlable layer -----------------------------------------------------
 if command -v python3 >/dev/null; then
   if python3 tools/build-seo.py; then
-    git add robots.txt sitemap.xml _redirects index.html contact.html work 2>/dev/null || true
+    git add robots.txt sitemap.xml _redirects index.html contact.html work brands roles 2>/dev/null || true
   else
     echo "pre-commit: build-seo.py failed, committing without regenerating it" >&2
   fi

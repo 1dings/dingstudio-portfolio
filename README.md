@@ -113,6 +113,43 @@ Rules:
 The entries currently in `films.json` are a **DEMO selection** pulled from your
 YouTube playlists, with titles tidied up. Swap in your final picks.
 
+## Brand and role collections
+
+`tools/build-seo.py` generates `/brands/hsbc/`, `/brands/christies/`,
+`/roles/director/` and `/roles/editor/`. `app.js` uses the same selection rules
+when rendering in the browser. Keep both implementations in sync when adding a
+collection. Rebuild with `python3 tools/build-seo.py` after data/template edits.
+
+- Brand membership currently uses the film title prefix (`HSBC` or `Christie`).
+  Christie’s series episodes appear as individual brand tiles; the homepage
+  keeps one series card. Episode credits links preserve the selected video.
+- `role` describes **Christina’s own contribution**, not everyone in `credits`.
+  Director includes Director, Co-Director, Executive Director and Assistant
+  Director; Editor includes Editor and Offline Editor. Crew credits never add a
+  project to a role page. Write multiple roles director-first, e.g.
+  `Assistant Director / Editor`; keep the actual role distinction.
+- `showOnHome: false` omits a project from the homepage, homepage structured data,
+  legacy category walls and normal project navigation. It still has a public
+  work page and can appear in matching collections and the sitemap. **This is
+  a presentation setting, not privacy or access control.** Omit it for the usual
+  homepage behavior.
+- Director first follows the order of homepage-visible records in `films.json`.
+  `directorAfter: "another-slug"` is a Director-page-only placement exception
+  (currently Attraction follows the HKRC MV). Homepage order is unchanged.
+  Hidden-home projects follow afterward, sorted by `projectDate` descending;
+  equal dates retain their record order. Editor retains record order.
+- `projectDate` preserves known precision (`"2023"` or `"2024-07-09"`).
+  `projectDateSource` is `"title"` or `"user"`. Do not substitute YouTube upload
+  dates for project dates. These fields do not display dates on the cards.
+- `series` holds ordered `{title, youtube, slug?}` episodes with shared project
+  credits. `aspectRatio` preserves nonstandard portrait playback (e.g. `0.8`
+  for 4:5). IG handles in credit names become profile links.
+
+The admin import/export preserves these metadata fields; the form does not
+expose every field, so edit the JSON for collection-only settings. New custom
+thumbnails and generated hover clips must be included with the corresponding
+JSON and generated pages when publishing.
+
 ## Edit contact details
 
 Open `contact.html` and edit the block marked `<!-- EDIT THESE -->`

@@ -70,7 +70,7 @@ function vimeoEmbed(v) {
 }
 
 async function loadFilms() {
-  const res = await fetch("films.json", { cache: "no-store" });
+  const res = await fetch("/films.json", { cache: "no-store" });
   if (!res.ok) throw new Error("films.json not found");
   return res.json();
 }
@@ -89,7 +89,7 @@ async function renderWall(root, tabKey) {
   }
 
   const tab = TABS[tabKey];
-  const items = films.filter((f) => tab.match((f.category || "").toUpperCase()));
+  const items = films.filter((f) => f.showOnHome !== false && tab.match((f.category || "").toUpperCase()));
 
   // Events mix 16:9 + 9:16: put all the 16:9 together on top, then the 9:16
   // grouped below at Social-Reels size.
@@ -112,7 +112,7 @@ async function renderWall(root, tabKey) {
 /* ----------------------- Social Reels (9:16 wall + lightbox) ----------------------- */
 function thumbImg(f) {
   const custom = f.thumb && String(f.thumb).trim();
-  if (custom) return `<img src="${esc(f.thumb)}" alt="${esc(f.title)}" loading="lazy">`;
+  if (custom) return `<img src="${esc(new URL(f.thumb, location.origin + "/").href)}" alt="${esc(f.title)}" loading="lazy">`;
   if (f.vimeo) return `<img src="${esc(vimeoThumb(f.vimeo))}" alt="${esc(f.title)}" loading="lazy">`;
   return `<img src="${thumb(f.youtube)}" alt="${esc(f.title)}" loading="lazy"
             onload="thumbCheck(this,'${esc(f.youtube)}')"
@@ -126,7 +126,7 @@ function reelCardHtml(f, i) {
   const tag = series ? "a" : "button";
   return `<${tag}${series ? ` href="/work/${encodeURIComponent(f.slug)}.html" data-series="true"` : ""} class="reel reveal" style="animation-delay:${i * 45}ms"
                 data-yt="${esc(f.youtube || "")}" data-vimeo="${esc(f.vimeo || "")}"
-                data-slug="${esc(f.slug)}" data-title="${esc(f.title)}" data-ratio="${Number(f.aspectRatio) || 9 / 16}"
+                data-slug="${esc(f.slug)}" data-title="${esc(f.title)}" data-work-url="${esc(workUrl(f))}" data-ratio="${Number(f.aspectRatio) || 9 / 16}"
                 aria-label="Play ${esc(f.title)}">
       <span class="thumb">
         ${thumbImg(f)}
@@ -150,9 +150,14 @@ function wireReels(root) {
 }
 
 // A 16:9 (or 9:16 when .tall) card that links to the project page.
+function workUrl(f) {
+  const path = `/work/${encodeURIComponent(f.workSlug || f.slug)}.html`;
+  return f.workEpisode ? `${path}?episode=${encodeURIComponent(f.workEpisode)}` : path;
+}
+
 function filmCardHtml(f, i) {
   return `<a class="card reveal${f.vertical ? " tall" : ""}" style="animation-delay:${i * 45}ms"
-                 href="/work/${encodeURIComponent(f.slug)}.html"
+                 href="${workUrl(f)}"
                  data-slug="${esc(f.slug)}"
                  aria-label="${esc(f.title)}">
       <span class="thumb">
@@ -185,7 +190,7 @@ function wireHoverVideo(root) {
       timer = setTimeout(() => {
         vid = document.createElement("video");
         vid.className = "hoverplay";
-        vid.src = `assets/previews/${encodeURIComponent(slug)}.mp4`;
+        vid.src = `/assets/previews/${encodeURIComponent(slug)}.mp4`;
         vid.muted = true;
         vid.loop = true;
         vid.playsInline = true;
@@ -220,9 +225,12 @@ async function renderHome(root) {
     return;
   }
 
+  if (root.dataset.brand || root.dataset.role) { renderBrand(root, films); return; }
+  films = films.filter((f) => f.showOnHome !== false);
   let sections = "";
   HOME_SECTIONS.forEach((sec, si) => {
     const items = films.filter((f) => sec.match((f.category || "").toUpperCase()));
+    if (!items.length) return;
     let body;
     if (sec.id === "events" && items.some((f) => f.vertical)) {
       const horiz = items.filter((f) => !f.vertical);
@@ -234,10 +242,11 @@ async function renderHome(root) {
     } else {
       body = `<div class="grid">${items.map(filmCardHtml).join("")}</div>`;
     }
+    const sectionSub = sec.sub;
     sections += `<section id="${sec.id}" class="sec">
       <header class="sec-head">
         <div class="sec-row"><h2 class="sec-title">${esc(sec.label)}</h2><span class="sec-line"></span></div>
-        <span class="sec-sub mono">${pad(si + 1)} · ${esc(sec.sub)}</span>
+        <span class="sec-sub mono">${pad(si + 1)} · ${esc(sectionSub)}</span>
       </header>
       ${body}
     </section>`;
@@ -251,6 +260,42 @@ async function renderHome(root) {
   // Sections render after the browser's own fragment scroll has already given
   // up (films.json is async), so honour #reels / #events arrivals ourselves.
   const anchor = document.getElementById((location.hash || "").slice(1));
+  if (anchor && anchor.classList.contains("sec")) anchor.scrollIntoView();
+}
+
+function hasRole(f, role) {
+  const accepted = {director: ["director", "co-director", "executive director", "assistant director", "ad"], editor: ["editor", "offline editor", "edit"], "assistant-director": ["assistant director", "ad"]};
+  return (f.role || "").toLowerCase().split(/[/&]/).some((part) => (accepted[role] || []).includes(part.trim()));
+}
+
+function renderBrand(root, films) {
+  const christies = root.dataset.brand === "christies";
+  let matched = root.dataset.role ? films.filter((f) => hasRole(f, root.dataset.role)) : films.filter((f) => (f.title || "").toUpperCase().startsWith(christies ? "CHRISTIE" : "HSBC"));
+  if (root.dataset.role === "director") {
+    const visible = matched.filter((f) => f.showOnHome !== false);
+    visible.slice().forEach((f) => {
+      const anchor = visible.find((x) => x.slug === f.directorAfter);
+      if (anchor && anchor !== f) {
+        visible.splice(visible.indexOf(f), 1);
+        visible.splice(visible.indexOf(anchor) + 1, 0, f);
+      }
+    });
+    const hidden = matched.filter((f) => f.showOnHome === false).sort((a, b) => (b.projectDate || "").localeCompare(a.projectDate || ""));
+    matched = visible.concat(hidden);
+  }
+  const selected = matched.flatMap((f) => christies && Array.isArray(f.series) && f.series.length
+    ? f.series.map((v) => ({ ...f, ...v, slug: v.slug || `${f.slug}-${v.youtube}`, title: `${f.title} — ${v.title}`, thumb: v.thumb || "", series: undefined, workSlug: f.slug, workEpisode: v.youtube }))
+    : [f]);
+  const portrait = (f) => !!f.vertical || (f.category || "").toUpperCase() === "SOCIAL REELS";
+  const groups = [
+    { id: "landscape", label: "Landscape", items: selected.filter((f) => !portrait(f)), grid: "grid", card: filmCardHtml },
+    { id: "portrait", label: "Portrait", items: selected.filter(portrait), grid: "reelgrid", card: reelCardHtml },
+  ];
+  root.innerHTML = `<div class="wrap wall">${groups.filter((g) => g.items.length).map((g) => `<section id="${g.id}" class="sec"><header class="sec-head"><div class="sec-row"><h2 class="sec-title">${g.label}</h2><span class="sec-line"></span></div></header><div class="${g.grid}">${g.items.map(g.card).join("")}</div></section>`).join("")}</div>`;
+  wireReels(root);
+  wireHoverVideo(root);
+  openReelFromHash(root);
+  const anchor = document.getElementById(location.hash.slice(1));
   if (anchor && anchor.classList.contains("sec")) anchor.scrollIntoView();
 }
 
@@ -292,7 +337,7 @@ async function renderReels(root) {
     return;
   }
 
-  const items = films.filter((f) => (f.category || "").toUpperCase() === "SOCIAL REELS");
+  const items = films.filter((f) => f.showOnHome !== false && (f.category || "").toUpperCase() === "SOCIAL REELS");
 
   root.innerHTML = `<div class="wrap wall">
     <div class="reelgrid">${items.map(reelCardHtml).join("") || `<p class="note">Nothing here yet.</p>`}</div>
@@ -304,6 +349,8 @@ async function renderReels(root) {
 // Current lightbox playlist: the reelgrid group the opened tile belongs to.
 let reelList = [];
 let reelIndex = -1;
+let lightboxTrigger = null;
+let lightboxBackground = [];
 let preLightboxHash = "";   // hash to restore when the lightbox closes
 
 // URL path without a trailing "index.html" — keeps the address bar clean.
@@ -318,6 +365,9 @@ function ensureLightbox() {
   lb = document.createElement("div");
   lb.id = "lightbox";
   lb.className = "lightbox";
+  lb.setAttribute("role", "dialog");
+  lb.setAttribute("aria-modal", "true");
+  lb.setAttribute("aria-labelledby", "lightbox-title");
   lb.innerHTML = `
     <div class="lb-backdrop" data-close></div>
     <div class="lb-inner">
@@ -326,7 +376,7 @@ function ensureLightbox() {
       <button class="lb-nav lb-next" aria-label="Next">&rarr;</button>
       <div class="lb-frame"><div class="lb-player"></div></div>
       <div class="lb-cap">
-        <span class="lb-title"></span>
+        <span class="lb-title" id="lightbox-title"></span>
         <a class="lb-credits mono" href="#">View credits &rarr;</a>
       </div>
     </div>`;
@@ -335,8 +385,14 @@ function ensureLightbox() {
   lb.querySelector(".lb-prev").addEventListener("click", () => stepReel(-1));
   lb.querySelector(".lb-next").addEventListener("click", () => stepReel(1));
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeReel();
     if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") { e.preventDefault(); closeReel(); return; }
+    if (e.key === "Tab") {
+      const focusable = [...lb.querySelectorAll("button:not([disabled]), a[href], iframe")];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
     if (e.key === "ArrowLeft") stepReel(-1);
     if (e.key === "ArrowRight") stepReel(1);
   });
@@ -367,6 +423,7 @@ function updateLbNav(lb) {
 function openReel(d, list, idx) {
   if (list) { reelList = list; reelIndex = idx; }
   const lb = ensureLightbox();
+  const opening = !lb.classList.contains("open");
   const ratio = Number(d.ratio);
   lb.style.setProperty("--reel-ratio", ratio > 0 && ratio <= 2 ? ratio : 9 / 16);
   updateLbNav(lb);
@@ -384,17 +441,27 @@ function openReel(d, list, idx) {
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
        allowfullscreen></iframe>`;
   lb.querySelector(".lb-title").textContent = d.title;
-  lb.querySelector(".lb-credits").href = `/work/${encodeURIComponent(d.slug)}.html`;
+  lb.querySelector(".lb-credits").href = d.workUrl || `/work/${encodeURIComponent(d.slug)}.html`;
   lb.classList.add("open");
   document.body.style.overflow = "hidden";
+  if (opening) {
+    lightboxTrigger = document.activeElement;
+    lightboxBackground = [...document.body.children].filter((el) => el !== lb && !el.inert);
+    lightboxBackground.forEach((el) => { el.inert = true; });
+    lb.querySelector(".lb-close").focus({ preventScroll: true });
+  }
 }
 
 function closeReel() {
   const lb = document.getElementById("lightbox");
-  if (!lb) return;
+  if (!lb || !lb.classList.contains("open")) return;
   lb.classList.remove("open");
   lb.querySelector(".lb-player").innerHTML = "";   // unload iframe -> stops playback
   document.body.style.overflow = "";
+  lightboxBackground.forEach((el) => { el.inert = false; });
+  lightboxBackground = [];
+  if (lightboxTrigger?.isConnected) lightboxTrigger.focus({ preventScroll: true });
+  lightboxTrigger = null;
   history.replaceState(null, "", cleanPath() + location.search + preLightboxHash);
 }
 
@@ -441,7 +508,7 @@ async function renderWork(root) {
   // siblings within the same tab, for back-link + prev/next
   const tabKey = tabKeyOf(film.category);
   const tab = TABS[tabKey];
-  const sibs = films.filter((f) => tab.match((f.category || "").toUpperCase()));
+  const sibs = films.filter((f) => (f.showOnHome === false) === (film.showOnHome === false) && tab.match((f.category || "").toUpperCase()));
   const idx = sibs.findIndex((f) => f.slug === film.slug);
   const prev = sibs[idx - 1];
   const next = sibs[idx + 1];
@@ -465,10 +532,10 @@ async function renderWork(root) {
     : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(film.youtube)}?rel=0&modestbranding=1&color=white`;
 
   const vertical = !!film.vertical || (film.category || "").toUpperCase() === "SOCIAL REELS";
-  const seriesHtml = Array.isArray(film.series) && film.series.length ? `<div class="series-picker${vertical ? " series-picker-vertical" : ""}" role="group" aria-label="Choose a film">${film.series.map((v, i) => `<button type="button" class="series-choice" data-youtube="${esc(v.youtube)}" data-title="${esc(v.title)}" aria-pressed="${i === 0}"><img src="${hqUrl(v.youtube)}" alt="" loading="lazy"><span class="series-label"><span class="mono">${pad(i + 1)}</span> ${esc(v.title)}</span></button>`).join("")}</div>` : "";
+  const seriesHtml = Array.isArray(film.series) && film.series.length ? `<div class="series-picker${vertical ? " series-picker-vertical" : ""}" style="--series-count:${film.series.length}" role="group" aria-label="Choose a film">${film.series.map((v, i) => `<button type="button" class="series-choice" data-youtube="${esc(v.youtube)}" data-title="${esc(v.title)}" aria-pressed="${i === 0}"><img src="${hqUrl(v.youtube)}" alt="" loading="lazy"><span class="series-label"><span class="mono">${pad(i + 1)}</span> ${esc(v.title)}</span></button>`).join("")}</div>` : "";
 
   root.innerHTML = `<div class="wrap work reveal">
-    <a class="back" href="${tab.page}">&larr; ${esc(tab.label)}</a>
+    <a class="back" href="${film.showOnHome === false ? "/roles/director/" : tab.page}">&larr; ${esc(film.showOnHome === false ? "Director" : tab.label)}</a>
     <p class="mono tag">${esc([film.category, film.role].filter(Boolean).join(" · "))}</p>
     <h1>${esc(film.title)}</h1>
     ${vertical ? seriesHtml : ""}
@@ -484,6 +551,7 @@ async function renderWork(root) {
       ${link(next, "next", "Next")}
     </nav>
   </div>`;
+  window.selectSeriesEpisode?.();
 }
 
 /* ----------------------- boot ----------------------- */

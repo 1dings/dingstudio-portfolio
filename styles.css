@@ -115,7 +115,7 @@ img { display: block; max-width: 100%; }
 .ig:hover { color: var(--ink); transform: scale(1.08); }
 
 .nav { display: flex; gap: clamp(14px, 2.4vw, 32px); }
-.nav-left { grid-column: 1; justify-self: start; flex-wrap: wrap; }
+.nav-left { grid-column: 1; justify-self: start; flex-wrap: wrap; column-gap: clamp(12px, 1.2vw, 18px); row-gap: 12px; }
 
 @media (max-width: 640px) {
   /* independent fixed shield over the notch/status-bar zone — content can
@@ -574,5 +574,46 @@ html { scroll-behavior: smooth; }
 .series-choice:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 @media (max-width: 560px) { .series-label { display: block; } .series-label .mono { display: block; margin-bottom: 4px; } }
 
-.series-picker-vertical { max-width: 420px; margin: 0 auto 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.series-picker-vertical { max-width: 420px; margin: 0 auto 24px; grid-template-columns: repeat(var(--series-count, 2), minmax(0, 1fr)); }
 .series-picker-vertical .series-choice img { aspect-ratio: 9 / 16; width: 90px; max-width: 100%; margin-inline: auto; }
+
+/* By-brand navigation and the first brand collection. */
+.brand-menu { position: relative; align-self: start; }
+.brand-menu summary { list-style: none; cursor: pointer; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-dim); white-space: nowrap; padding-bottom: 3px; }
+.brand-menu summary::-webkit-details-marker { display: none; }
+.brand-menu summary span { display: inline-block; margin-left: 3px; transition: transform .2s; }
+.brand-menu[open] summary { color: var(--ink); }
+.brand-menu[open] summary span { transform: rotate(180deg); }
+.brand-menu summary:focus-visible, .brand-options a:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+.brand-options { position: absolute; top: calc(100% + 12px); left: 0; z-index: 110; display: grid; gap: 4px; min-width: 170px; padding: 10px; border: 1px solid var(--line); background: var(--bg); box-shadow: 0 12px 30px #00000012; }
+.nav .brand-options a { display: block; padding: 10px 12px; border: 0; border-radius: 0; }
+.nav .brand-options a::after { display: none; }
+.nav .brand-options a:hover, .nav .brand-options a[aria-current="page"] { color: var(--bg); background: var(--ink); }
+.brand-intro { padding-top: 24px; padding-bottom: 12px; }
+.brand-back { display: inline-block; color: var(--ink-dim); margin-bottom: 12px; }
+.brand-intro > .mono { color: var(--ink-faint); }
+.brand-intro h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -.06em; margin: 6px 0 8px; }
+.brand-intro h1 span { color: var(--ink-faint); }
+.brand-description { color: var(--ink-dim); font-size: .9rem; }
+@media (max-width: 640px) {
+  .brand-menu summary { padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; }
+  .site-head.scrolled .brand-menu { pointer-events: auto; }
+  .site-head.scrolled .brand-menu summary { background: color-mix(in srgb, var(--bg) 62%, transparent); backdrop-filter: blur(10px); }
+  .brand-options { min-width: 150px; }
+  .site-head.scrolled .brand-options a:not([aria-current="page"]) { background: var(--bg); backdrop-filter: none; }
+}
+
+/* Compact brand browsing; other portfolio pages keep their existing spacing. */
+.brand-page .wall { padding-top: 16px; padding-bottom: 48px; }
+.brand-page .sec + .sec { margin-top: 32px; }
+.brand-page .sec-head { margin-bottom: 16px; }
+.brand-page .sec-title { font-size: 1.1rem; letter-spacing: -.02em; }
+.brand-page .grid, .brand-page .reelgrid { column-gap: 16px; row-gap: 24px; }
+.brand-page .card .meta, .brand-page .reel .meta { padding-top: 8px; }
+@media (max-width: 640px) {
+  .brand-intro { padding-top: 18px; }
+  .brand-page .grid, .brand-page .reelgrid { column-gap: 12px; row-gap: 20px; }
+}
+
+.brand-options { width: max-content; }
+.brand-options a { white-space: nowrap; }

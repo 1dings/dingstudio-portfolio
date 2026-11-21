@@ -13,3 +13,12 @@ document.addEventListener("click", (event) => {
     item.setAttribute("aria-pressed", String(item === button));
   });
 });
+
+// Episode links let each brand-page tile open its own film and shared credits.
+window.selectSeriesEpisode = () => {
+  const id = new URLSearchParams(location.search).get("episode");
+  if (!id) return;
+  const button = [...document.querySelectorAll(".series-choice")].find((b) => b.dataset.youtube === id);
+  if (button) button.click();
+};
+window.selectSeriesEpisode();

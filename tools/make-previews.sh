@@ -9,7 +9,7 @@ mkdir -p assets/previews
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-jq -r '.[] | select(.youtube) | [.slug, .youtube] | @tsv' films.json |
+jq -r '.[] | (., .series[]?) | select(.youtube and .slug) | [.slug, .youtube] | @tsv' films.json |
 while IFS=$'\t' read -r slug yt; do
   out="assets/previews/$slug.mp4"
   [ -s "$out" ] && continue

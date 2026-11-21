@@ -368,6 +368,9 @@ function normalize(data) {
     thumb: f.thumb || "",
     ...(Array.isArray(f.series) ? { series: f.series } : {}),
     ...(Number(f.aspectRatio) > 0 ? { aspectRatio: Number(f.aspectRatio) } : {}),
+    ...(f.directorAfter ? { directorAfter: f.directorAfter } : {}),
+    ...(f.projectDate ? { projectDate: f.projectDate, projectDateSource: f.projectDateSource || "" } : {}),
+    ...(f.showOnHome === false ? { showOnHome: false } : {}),
     vertical: !!f.vertical,   // keep the 9:16 flag so editing doesn't strip it
     credits: Array.isArray(f.credits) ? f.credits.map((c) => ({ role: c.role || "", name: c.name || "" })) : [],
   }));
@@ -410,6 +413,9 @@ function buildJson() {
     if (f.role && f.role.trim()) o.role = f.role.trim();
     if (f.vimeo && f.vimeo.trim()) o.vimeo = f.vimeo.trim();
     if (f.thumb && f.thumb.trim()) o.thumb = f.thumb.trim();
+    if (f.directorAfter) o.directorAfter = f.directorAfter;
+    if (f.projectDate) { o.projectDate = f.projectDate; o.projectDateSource = f.projectDateSource || ""; }
+    if (f.showOnHome === false) o.showOnHome = false;
     if (f.vertical) o.vertical = true;
     if (Number(f.aspectRatio) > 0) o.aspectRatio = Number(f.aspectRatio);
     if (Array.isArray(f.series)) o.series = f.series;

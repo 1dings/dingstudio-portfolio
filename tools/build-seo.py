@@ -29,6 +29,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://dingstudiohk.com"
 STUDIO = "DINGSTUDIO"
 TODAY = date.today().isoformat()
+BRAND_NAV = '<details class="brand-menu"><summary>By Brand <span aria-hidden="true">⌄</span></summary><div class="brand-options"><a href="/">All Work</a><a href="/brands/hsbc/">HSBC</a><a href="/brands/christies/">Christie’s 佳士得</a></div></details>'
+ROLE_NAV = '<details class="brand-menu role-menu"><summary>By Role <span aria-hidden="true">⌄</span></summary><div class="brand-options"><a href="/roles/director/">Director</a><a href="/roles/editor/">Editor</a></div></details>'
+ROLE_LABELS = {"director": "Director", "editor": "Editor"}
+def has_role(f, role):
+    parts = [x.strip().lower() for x in re.split(r"[/&]", f.get("role", ""))]
+    accepted = {"director": {"director", "co-director", "executive director", "assistant director", "ad"}, "editor": {"editor", "offline editor", "edit"}, "assistant-director": {"assistant director", "ad"}}
+    return any(p in accepted.get(role, set()) for p in parts)
+
 
 FILMO = {"MUSIC VIDEO", "COMMERCIAL"}
 SECTIONS = [
@@ -113,7 +121,8 @@ def write_robots():
 # --------------------------------------------------------------- sitemap.xml
 
 def write_sitemap(films):
-    urls = [(f"{SITE}/", "1.0"), (f"{SITE}/contact.html", "0.5")]
+    urls = [(f"{SITE}/", "1.0"), (f"{SITE}/contact.html", "0.5"), (f"{SITE}/brands/hsbc/", "0.8"), (f"{SITE}/brands/christies/", "0.8")]
+    urls += [(f"{SITE}/roles/{slug}/", "0.8") for slug in ROLE_LABELS]
     urls += [(f"{SITE}/work/{f['slug']}.html", "0.8") for f in films]
     rows = "\n".join(
         f"  <url><loc>{e(u)}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>"
@@ -141,11 +150,16 @@ def write_redirects():
 
 # ------------------------------------------------------- pre-rendered markup
 
+def work_url(f):
+    path = "/work/" + f.get("workSlug", f["slug"]) + ".html"
+    return path + "?episode=" + f["workEpisode"] if f.get("workEpisode") else path
+
+
 def card_html(f):
     tall = " tall" if f.get("vertical") else ""
     sub = " · ".join(x for x in [f.get("role"), f.get("category")] if x)
     return (
-        f'<a class="card{tall}" href="work/{e(f["slug"])}.html">'
+        f'<a class="card{tall}" href="{e(work_url(f))}">'
         f'<span class="thumb"><img src="{e(img_src(f))}" alt="{e(f["title"])}" loading="lazy"></span>'
         f'<span class="meta"><span class="title">{e(f["title"])}</span>'
         f'<span class="cat">{e(sub)}</span></span></a>'
@@ -247,6 +261,7 @@ DESC = ("DINGSTUDIO is a Hong Kong video editor and director led by Christina Ts
 
 
 def build_index(films):
+    films = [f for f in films if f.get("showOnHome") is not False]
     path = os.path.join(ROOT, "index.html")
     text = open(path).read()
     text = set_head(text, TITLE, DESC, SITE + "/")
@@ -307,7 +322,7 @@ FILM_PAGE = """<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Schibsted+Grotesk:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=17">
+  <link rel="stylesheet" href="/styles.css?v=19">
   <script type="application/ld+json">{jsonld}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCXZXL6ZTE"></script>
   <script>
@@ -323,6 +338,7 @@ FILM_PAGE = """<!DOCTYPE html>
       <a href="/#filmography">Filmography</a>
       <a href="/#reels">Social Reels</a>
       <a href="/#events">Event</a>
+      {brand_nav}
       <a href="/contact.html">Contact</a>
     </nav>
     <a class="wordmark" href="/">DINGSTUDIO<span>.</span></a>
@@ -357,6 +373,7 @@ FILM_PAGE = """<!DOCTYPE html>
     <span class="mono">Hong Kong</span>
   </footer>
 {series_script}
+<script src="/navigation.js?v=2"></script>
 </body>
 </html>
 """
@@ -383,7 +400,7 @@ def build_film_pages(films):
     wanted = set()
     for f in films:
         sid = section_of(f.get("category"))
-        sibs = [x for x in films if section_of(x.get("category")) == sid]
+        sibs = [x for x in films if section_of(x.get("category")) == sid and (x.get("showOnHome") is False) == (f.get("showOnHome") is False)]
         i = next(n for n, x in enumerate(sibs) if x["slug"] == f["slug"])
 
         def pager(g, cls, lab):
@@ -398,7 +415,7 @@ def build_film_pages(films):
             f'<div class="row"><dt>{e(c.get("role"))}</dt><dd>{linkify_handles(c.get("name"))}</dd></div>'
             for c in (f.get("credits") or []) if c.get("name") and c.get("name") != "—"
         )
-        back, backlabel = BACK[sid]
+        back, backlabel = ("/roles/director/", "Director") if f.get("showOnHome") is False else BACK[sid]
         vertical = " vertical" if (f.get("vertical") or (f.get("category") or "").upper() == "SOCIAL REELS") else ""
         embed = (f"https://www.youtube-nocookie.com/embed/{e(f['youtube'])}?rel=0&amp;modestbranding=1&amp;color=white"
                  if f.get("youtube") else "")
@@ -414,9 +431,10 @@ def build_film_pages(films):
                 for n, v in enumerate(episodes)
             )
             series_class = "series-picker series-picker-vertical" if vertical else "series-picker"
-            series_html = f'<div class="{series_class}" role="group" aria-label="Choose a film">{buttons}</div>'
+            series_html = f'<div class="{series_class}" style="--series-count:{len(episodes)}" role="group" aria-label="Choose a film">{buttons}</div>'
 
         page = FILM_PAGE.format(
+            brand_nav=BRAND_NAV + ROLE_NAV,
             title=e(f.get("title", "")),
             desc=e(film_desc(f)),
             url=f"{SITE}/work/{e(f['slug'])}.html",
@@ -428,7 +446,7 @@ def build_film_pages(films):
             player_style=f' style="aspect-ratio:{float(f["aspectRatio"])}"' if f.get("aspectRatio") else "",
             series_before=('      ' + series_html + '\n') if series_html and vertical else '',
             series_after=('      ' + series_html + '\n') if series_html and not vertical else '',
-            series_script='<script src="/series.js?v=1"></script>' if episodes else "",
+            series_script='<script src="/series.js?v=2"></script>' if episodes else "",
             credits=f'<dl class="credits">{rows}</dl>' if rows else "",
             prev=pager(sibs[i - 1] if i > 0 else None, "prev", "Prev"),
             next=pager(sibs[i + 1] if i + 1 < len(sibs) else None, "next", "Next"),
@@ -445,16 +463,104 @@ def build_film_pages(films):
     return len(wanted)
 
 
+
+def build_navigation():
+    for name in ("index.html", "contact.html", "work.html"):
+        path = os.path.join(ROOT, name)
+        text = open(path).read()
+        if 'class="brand-menu"' in text:
+            text = re.sub(r'<details class="brand-menu">.*?</details>', lambda _: BRAND_NAV, text, flags=re.S)
+        else:
+            text = re.sub(r'(<a href="(?:/|\./)?contact\.html"[^>]*>Contact</a>)',
+                          lambda m: BRAND_NAV + "\n      " + m[1], text, count=1)
+        text = re.sub(r'<details class="brand-menu role-menu">.*?</details>', '', text, flags=re.S)
+        text = text.replace(BRAND_NAV, BRAND_NAV + ROLE_NAV)
+        text = text.replace('app.js?v=20', 'app.js?v=21')
+        text = text.replace('app.js?v=19', 'app.js?v=21')
+        text = text.replace('navigation.js?v=1', 'navigation.js?v=2')
+        if 'navigation.js' not in text:
+            text = text.replace('</body>', '<script src="/navigation.js?v=2"></script>\n</body>')
+        text = text.replace('styles.css?v=18', 'styles.css?v=19').replace('app.js?v=18', 'app.js?v=21')
+        text = text.replace('styles.css?v=17', 'styles.css?v=19').replace('app.js?v=17', 'app.js?v=21')
+        open(path, 'w').write(text)
+
+
+def director_order(films):
+    visible = [f for f in films if f.get("showOnHome") is not False]
+    for f in list(visible):
+        after = f.get("directorAfter")
+        anchor = next((x for x in visible if x["slug"] == after), None)
+        if anchor and anchor is not f:
+            visible.remove(f)
+            visible.insert(visible.index(anchor) + 1, f)
+    hidden = sorted([f for f in films if f.get("showOnHome") is False], key=lambda f: f.get("projectDate", ""), reverse=True)
+    return visible + hidden
+
+def build_brand(films, slug, label, description, role_page=False):
+    prefix = "CHRISTIE" if slug == "christies" else "HSBC"
+    matched = [f for f in films if has_role(f, slug)] if role_page else [f for f in films if f.get("title", "").upper().startswith(prefix)]
+    if role_page and slug == "director":
+        matched = director_order(matched)
+    selected = []
+    for f in matched:
+        if slug == "christies" and f.get("series"):
+            for v in f["series"]:
+                item = dict(f, **v)
+                item.update(slug=v.get("slug", f["slug"] + "-" + v["youtube"]), title=f["title"] + " — " + v["title"], thumb=v.get("thumb", ""), workSlug=f["slug"], workEpisode=v["youtube"])
+                item.pop("series", None)
+                selected.append(item)
+        else:
+            selected.append(f)
+    text = open(os.path.join(ROOT, "index.html")).read()
+    collection = "roles" if role_page else "brands"
+    collection_label = "By Role" if role_page else "By Brand"
+    data_attr = "role" if role_page else "brand"
+    url = SITE + "/" + collection + "/" + slug + "/"
+    text = set_head(text, label + " Film Portfolio — DINGSTUDIO", description + " Portfolio work and credits by DINGSTUDIO.", url)
+    text = re.sub(r'(<meta property="og:url" content=")[^"]*(">)', lambda m: m[1] + url + m[2], text)
+    schema = {"@context": "https://schema.org", "@type": "CollectionPage", "name": label + " — DINGSTUDIO", "url": url,
+              "mainEntity": {"@type": "ItemList", "numberOfItems": len(selected), "itemListElement": [
+                  {"@type": "ListItem", "position": i + 1, "url": SITE + work_url(f), "name": f["title"]}
+                  for i, f in enumerate(selected)]}}
+    text = swap(text, "SEO:JSONLD", '<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
+    sections = []
+    portrait = lambda f: bool(f.get("vertical")) or f.get("category", "").upper() == "SOCIAL REELS"
+    groups = [("landscape", "Landscape", [f for f in selected if not portrait(f)], "grid"),
+              ("portrait", "Portrait", [f for f in selected if portrait(f)], "reelgrid")]
+    for sid, group_label, items, grid in groups:
+        if not items:
+            continue
+        cards = f'<div class="{grid}">' + ''.join(card_html(dict(f, vertical=True) if sid == "portrait" else f) for f in items) + '</div>'
+        sections.append(f'<section id="{sid}" class="sec"><header class="sec-head"><div class="sec-row"><h2 class="sec-title">{group_label}</h2><span class="sec-line"></span></div></header>{cards}</section>')
+    intro = f'<header class="brand-intro wrap"><a class="mono brand-back" href="/">← All Work</a><p class="mono">{collection_label}</p><h1>{e(label)}<span>.</span></h1><p class="brand-description">{e(description)}</p></header>'
+    main = '<main class="brand-page">' + intro + f'<div id="home" data-{data_attr}="{slug}"><div class="wrap wall">' + ''.join(sections) + '</div></div></main>'
+    text = re.sub(r'<main id="home">.*?</main>', lambda _: main, text, count=1, flags=re.S)
+    # Nested pages must resolve all local resources from the site root.
+    text = re.sub(r'(href|src)="(?![a-z]+:|/|#)([^"\s]+)"', lambda m: m[1] + '="/' + m[2].removeprefix('./') + '"', text)
+    for section in ("filmography", "reels", "events"):
+        text = text.replace(f'href="#{section}"', f'href="/#{section}"')
+    text = text.replace(f'href="/{collection}/{slug}/">', f'href="/{collection}/{slug}/" aria-current="page">')
+    out = os.path.join(ROOT, collection, slug)
+    os.makedirs(out, exist_ok=True)
+    open(os.path.join(out, "index.html"), "w").write(text)
+    return len(selected)
+
+
 def main():
     films = json.load(open(os.path.join(ROOT, "films.json")))
     films = [f for f in films if f.get("slug")]
     write_robots()
     write_sitemap(films)
     write_redirects()
+    build_navigation()
     build_index(films)
     build_contact()
     n = build_film_pages(films)
-    print(f"seo: {len(films)} films · {n} film pages · sitemap {len(films) + 2} urls")
+    brand_count = build_brand(films, "hsbc", "HSBC", "Commercial films, social reels & events.")
+    christies_count = build_brand(films, "christies", "Christie’s 佳士得", "Films and stories.")
+    for slug, label in ROLE_LABELS.items():
+        build_brand(films, slug, label, "Selected work by Christina Tsang.", role_page=True)
+    print(f"seo: {len(films)} films · {n} film pages · sitemap {len(films) + 6} urls · HSBC {brand_count} works · Christie’s {christies_count} films")
 
 
 if __name__ == "__main__":
